@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Active Delivery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary": "#a04100",
+                      "on-secondary-fixed-variant": "#454748",
+                      "tertiary-fixed": "#d0e4ff",
+                      "surface-tint": "#a04100",
+                      "on-primary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed-dim": "#ffb693",
+                      "on-primary-fixed-variant": "#7a3000",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container": "#f0edec",
+                      "surface": "#fcf9f8",
+                      "on-error-container": "#93000a",
+                      "secondary": "#5c5f60",
+                      "on-primary-container": "#572000",
+                      "on-tertiary-fixed-variant": "#00497b",
+                      "on-secondary": "#ffffff",
+                      "surface-container-highest": "#e5e2e1",
+                      "inverse-on-surface": "#f3f0ef",
+                      "inverse-primary": "#ffb693",
+                      "on-secondary-fixed": "#191c1d",
+                      "surface-variant": "#e5e2e1",
+                      "background": "#fcf9f8",
+                      "surface-bright": "#fcf9f8",
+                      "on-tertiary-container": "#003357",
+                      "secondary-fixed": "#e1e3e4",
+                      "on-secondary-container": "#626566",
+                      "on-background": "#1c1b1b",
+                      "tertiary": "#0062a1",
+                      "on-primary-fixed": "#351000",
+                      "surface-container-low": "#f6f3f2",
+                      "error": "#ba1a1a",
+                      "primary-fixed": "#ffdbcc",
+                      "on-error": "#ffffff",
+                      "surface-container-high": "#ebe7e7",
+                      "secondary-fixed-dim": "#c5c7c8",
+                      "on-surface": "#1c1b1b",
+                      "error-container": "#ffdad6",
+                      "secondary-container": "#e1e3e4",
+                      "primary-container": "#ff6b00",
+                      "on-tertiary-fixed": "#001d35",
+                      "surface-dim": "#dcd9d9",
+                      "tertiary-fixed-dim": "#9ccaff",
+                      "outline-variant": "#e2bfb0",
+                      "outline": "#8e7164",
+                      "tertiary-container": "#059eff",
+                      "on-surface-variant": "#5a4136",
+                      "inverse-surface": "#313030"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "md": "16px",
+                      "gutter": "16px",
+                      "xl": "32px",
+                      "sm": "8px",
+                      "lg": "24px",
+                      "container-margin": "20px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "display-lg-mobile": ["Inter"],
+                      "label-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "16px", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        @keyframes border-pulse-anim {
+            0%, 100% { border-left-color: rgba(239, 68, 68, 0.6); }
+            50% { border-left-color: rgba(239, 68, 68, 1); }
+        }
+        .border-pulse-custom {
+            animation: border-pulse-anim 2s ease-in-out infinite;
+        }
+        @keyframes subtle-scale-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        .button-pulse {
+            animation: subtle-scale-pulse 2s ease-in-out infinite;
+        }
+        @keyframes slide-up-anim {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .slide-up {
+            animation: slide-up-anim 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface min-h-screen pb-[120px]">
+<!-- TopAppBar (Generated from JSON guidance, adapted for context) -->
+<header class="w-full top-0 sticky flex items-center justify-between px-gutter h-14 border-b border-surface-variant bg-surface z-40 shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+<button class="text-primary p-sm flex items-center justify-center hover:bg-surface-container-high transition-colors rounded-full active:opacity-80 active:scale-95 transition-all">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary font-bold">Order #7284</h1>
+<button class="text-primary p-sm flex items-center justify-center hover:bg-surface-container-high transition-colors rounded-full active:opacity-80 active:scale-95 transition-all">
+<span class="material-symbols-outlined">support_agent</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="px-container-margin py-lg flex flex-col gap-lg">
+<!-- Phase Indicator -->
+<div class="flex items-center gap-sm w-full bg-surface-container p-sm rounded-full border border-surface-variant">
+<div class="flex-1 flex items-center justify-center gap-xs bg-emerald-100 text-emerald-800 rounded-full py-sm px-md">
+<span class="material-symbols-outlined text-[18px]">check</span>
+<span class="font-label-sm text-label-sm">Pick Up</span>
+</div>
+<div class="flex-1 flex items-center justify-center gap-xs bg-primary text-on-primary rounded-full py-sm px-md shadow-[0_2px_8px_rgba(0,0,0,0.1)]">
+<div class="w-2 h-2 rounded-full bg-on-primary animate-pulse"></div>
+<span class="font-label-sm text-label-sm">Deliver</span>
+</div>
+</div>
+<!-- Customer Info Block -->
+<section class="flex flex-col gap-sm pt-sm">
+<div class="flex items-center gap-xs text-primary font-label-sm text-label-sm uppercase tracking-wider">
+<span class="material-symbols-outlined text-[16px]">home</span>
+<span>Deliver to Customer</span>
+</div>
+<h2 class="font-display-lg-mobile text-display-lg-mobile text-on-surface">Rahul Sharma</h2>
+<p class="font-body-lg text-body-lg text-secondary">Koramangala 5th Block</p>
+</section>
+<!-- Navigate Action -->
+<button class="w-full border-2 border-primary text-primary bg-surface-container-lowest rounded-full py-[12px] px-md flex items-center justify-center gap-sm hover:bg-surface-container-low transition-colors active:scale-95 duration-150 button-pulse">
+<span class="material-symbols-outlined">navigation</span>
+<span class="font-label-md text-label-md">Navigate to Customer</span>
+</button>
+<!-- COD Alert Card (High Urgency) -->
+<div class="bg-[#FEF2F2] border-l-[4px] border-[#EF4444] p-md rounded-lg relative overflow-hidden border-pulse-custom mt-sm shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
+<div class="flex flex-col gap-xs">
+<span class="text-on-error-container font-label-sm text-label-sm uppercase font-bold tracking-wide">Collect from Customer</span>
+<div class="flex items-end gap-sm">
+<span class="font-display-lg-mobile text-display-lg-mobile text-error font-bold tracking-tight">₹280</span>
+<span class="font-body-lg text-body-lg text-error mb-1">Cash</span>
+</div>
+</div>
+<div class="absolute right-0 bottom-0 opacity-10 translate-x-1/4 translate-y-1/4">
+<span class="material-symbols-outlined text-[80px] text-error" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+</div>
+<!-- Communication Link -->
+<div class="flex justify-center pt-md pb-xl border-b border-surface-variant">
+<a class="flex items-center gap-xs text-primary font-label-md text-label-md hover:underline active:opacity-70" href="#">
+<span class="material-symbols-outlined text-[18px]">call</span>
+                Call Rahul
+            </a>
+</div>
+</main>
+<!-- Fixed Bottom Action Area (Transactional, suppresses BottomNavBar) -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-lowest px-container-margin py-md border-t border-surface-variant shadow-[0_-4px_16px_rgba(0,0,0,0.05)] z-50 pb-8 slide-up">
+<button class="w-full bg-primary text-on-primary rounded-full py-[14px] px-md flex items-center justify-center gap-sm shadow-[0_2px_8px_rgba(160,65,0,0.3)] hover:bg-on-primary-container transition-colors active:scale-95 duration-150">
+<span class="font-label-md text-label-md text-[16px]">Mark as Delivered</span>
+<span class="material-symbols-outlined text-[20px]">check</span>
+</button>
+<div class="text-center mt-md">
+<button class="text-secondary font-body-sm text-body-sm hover:text-on-surface transition-colors underline decoration-secondary-fixed-dim underline-offset-4">Report Issue</button>
+</div>
+</div>
+</body></html>

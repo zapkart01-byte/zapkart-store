@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=390, initial-scale=1.0" name="viewport"/>
+<title>ZapKart - Mobile Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#7cf994",
+                        "on-secondary-fixed": "#002109",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1c1b1b",
+                        "primary-fixed-dim": "#ffb693",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#410004",
+                        "inverse-surface": "#313030",
+                        "tertiary-fixed-dim": "#ffb3ad",
+                        "on-tertiary-container": "#6a000b",
+                        "inverse-primary": "#ffb693",
+                        "inverse-on-surface": "#f3f0ef",
+                        "outline": "#8e7164",
+                        "on-surface-variant": "#5a4136",
+                        "on-primary-container": "#572000",
+                        "tertiary": "#b91a24",
+                        "surface-dim": "#dcd9d9",
+                        "outline-variant": "#e2bfb0",
+                        "on-secondary-container": "#007230",
+                        "on-tertiary-fixed-variant": "#930013",
+                        "on-primary-fixed": "#351000",
+                        "surface-bright": "#fcf9f8",
+                        "surface-container-low": "#f6f3f2",
+                        "surface-container": "#f0edec",
+                        "secondary": "#006e2d",
+                        "primary-container": "#ff6b00",
+                        "primary-fixed": "#ffdbcc",
+                        "tertiary-container": "#ff6762",
+                        "background": "#fcf9f8",
+                        "tertiary-fixed": "#ffdad7",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e5e2e1",
+                        "secondary-fixed-dim": "#62df7d",
+                        "secondary-fixed": "#7ffc97",
+                        "primary": "#a04100",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "surface-tint": "#a04100",
+                        "on-background": "#1c1b1b",
+                        "on-secondary-fixed-variant": "#005320",
+                        "surface-container-high": "#ebe7e7",
+                        "surface": "#fcf9f8",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e5e2e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "margin-mobile": "16px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "xs": "4px",
+                        "margin-desktop": "48px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "price-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "price-lg": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #ffffff; /* Strict pure white requirement */
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .shake {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        .input-wrapper:focus-within {
+            border-color: #FF6B00;
+            box-shadow: 0 0 0 1px #FF6B00, 0 0 8px rgba(255, 107, 0, 0.1);
+        }
+
+        .btn-spring {
+            transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s;
+        }
+        
+        .btn-spring:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+        
+        /* Overriding tailwind container for strict mobile preview size */
+        .mobile-container {
+            width: 390px;
+            height: 844px;
+            margin: 0 auto;
+            position: relative;
+            background-color: #ffffff;
+            overflow: hidden;
+            border: 1px solid #e5e5e5;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        @media (max-width: 390px) {
+            .mobile-container {
+                width: 100vw;
+                height: 100vh;
+                border: none;
+                box-shadow: none;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low min-h-screen flex items-center justify-center text-on-surface">
+<div class="mobile-container flex flex-col">
+<!-- TopAppBar Shared Component Execution -->
+<header class="bg-surface dark:bg-surface w-full top-0 flex items-center px-margin-mobile h-16 w-full text-primary dark:text-primary-fixed-dim font-headline-sm text-headline-sm relative z-10 flat no shadows">
+<button aria-label="Go back" class="flex items-center justify-center w-10 h-10 -ml-2 rounded-full hover:bg-surface-container-low transition-colors active:scale-95 duration-100 text-on-surface">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="flex-1"></div>
+<!-- Empty headline per JSON -->
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-margin-mobile flex flex-col pt-12 relative z-0">
+<!-- Header Group -->
+<div class="mb-8">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-[#0D0D0D] mb-2">What's your number?</h1>
+<p class="font-body-sm text-body-sm text-[#6B7280]">We'll send a one-time password to verify</p>
+</div>
+<!-- Input Group -->
+<div class="mb-8">
+<div class="input-wrapper flex items-center h-[56px] rounded-[14px] border-2 border-[#E9ECEF] bg-white transition-all duration-200 overflow-hidden" id="phone-container">
+<div class="flex items-center px-4 h-full bg-white text-[#6B7280] font-body-md text-body-md select-none shrink-0">
+<span class="mr-2 text-lg">🇮🇳</span>
+<span>+91</span>
+</div>
+<div class="h-6 w-px bg-[#E9ECEF] shrink-0"></div>
+<input autocomplete="tel-national" class="flex-1 h-full border-none focus:ring-0 px-4 font-body-md text-body-md text-on-surface bg-white placeholder-[#9CA3AF]" id="phone-input" maxlength="11" placeholder="98765 43210" type="tel"/>
+</div>
+<p class="text-error font-label-md text-label-md mt-2 hidden opacity-0 transition-opacity" id="error-message">Please enter a valid 10-digit number</p>
+</div>
+<!-- Action Button -->
+<button class="btn-spring w-full h-[52px] rounded-[14px] flex items-center justify-center font-label-lg text-label-lg transition-all duration-200 bg-[#F8F9FA] text-[#C4C4C4] cursor-not-allowed" disabled="" id="send-otp-btn">
+                Send OTP
+            </button>
+<!-- Spacer to push footer down -->
+<div class="flex-1"></div>
+</main>
+<!-- Footer Shared Component Execution -->
+<footer class="bg-transparent w-full bottom-0 pb-xl fixed bottom-0 left-0 w-full px-margin-mobile text-center z-10 flat no shadows text-on-surface-variant dark:text-on-surface-variant font-body-sm text-body-sm">
+<p class="text-[11px] text-[#9CA3AF] leading-snug">
+                By continuing, you agree to ZapKart's 
+                <a class="text-primary-container underline hover:text-primary transition-colors cursor-pointer active:scale-95 duration-100 inline-block" href="#">Terms of Service</a> 
+                and 
+                <a class="text-primary-container underline hover:text-primary transition-colors cursor-pointer active:scale-95 duration-100 inline-block" href="#">Privacy Policy</a>.
+            </p>
+</footer>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const phoneInput = document.getElementById('phone-input');
+            const phoneContainer = document.getElementById('phone-container');
+            const sendBtn = document.getElementById('send-otp-btn');
+            const errorMessage = document.getElementById('error-message');
+
+            // Format input as user types: add space after 5 digits
+            phoneInput.addEventListener('input', function(e) {
+                // Remove all non-digits
+                let val = this.value.replace(/\D/g, '');
+                
+                // Add space formatting for Indian mobile numbers (XXXXX XXXXX)
+                if (val.length > 5) {
+                    val = val.substring(0, 5) + ' ' + val.substring(5, 10);
+                }
+                
+                this.value = val;
+                
+                // Check if exactly 10 digits are entered
+                const digitsOnly = val.replace(/\D/g, '');
+                
+                if (digitsOnly.length === 10) {
+                    // Enable button
+                    sendBtn.disabled = false;
+                    sendBtn.classList.remove('bg-[#F8F9FA]', 'text-[#C4C4C4]', 'cursor-not-allowed');
+                    sendBtn.classList.add('bg-primary-container', 'text-white', 'cursor-pointer');
+                    
+                    // Clear errors if any
+                    phoneContainer.classList.remove('border-error', 'shake');
+                    errorMessage.classList.add('hidden', 'opacity-0');
+                } else {
+                    // Disable button
+                    sendBtn.disabled = true;
+                    sendBtn.classList.add('bg-[#F8F9FA]', 'text-[#C4C4C4]', 'cursor-not-allowed');
+                    sendBtn.classList.remove('bg-primary-container', 'text-white', 'cursor-pointer');
+                }
+            });
+
+            // Simulate form submission error if invalid number starts with 0 or 1
+            sendBtn.addEventListener('click', function() {
+                if (this.disabled) return;
+                
+                const digits = phoneInput.value.replace(/\D/g, '');
+                
+                // Simple validation for Indian numbers (should not start with 0-5 ideally, but let's just check 0-1 for demo)
+                if (['0', '1', '2', '3', '4', '5'].includes(digits[0])) {
+                    // Trigger error state
+                    phoneContainer.classList.remove('shake');
+                    void phoneContainer.offsetWidth; // Trigger reflow
+                    
+                    phoneContainer.classList.add('shake', 'border-error');
+                    
+                    // Override focus ring color during error
+                    phoneContainer.style.boxShadow = '0 0 0 1px #ba1a1a, 0 0 8px rgba(186, 26, 26, 0.1)';
+                    
+                    errorMessage.classList.remove('hidden');
+                    // Small timeout to allow display:block to apply before opacity transition
+                    setTimeout(() => {
+                        errorMessage.classList.remove('opacity-0');
+                    }, 10);
+                    
+                    setTimeout(() => {
+                        phoneContainer.classList.remove('shake');
+                    }, 400);
+                } else {
+                    // Success state - would normally navigate to OTP screen
+                    this.innerHTML = '<span class="material-symbols-outlined animate-spin text-white">progress_activity</span>';
+                    this.classList.add('opacity-90');
+                }
+            });
+
+            // Clear error styling on input focus
+            phoneInput.addEventListener('focus', () => {
+                phoneContainer.classList.remove('border-error');
+                phoneContainer.style.boxShadow = ''; // Restore CSS hover state
+                errorMessage.classList.add('opacity-0');
+                setTimeout(() => {
+                    errorMessage.classList.add('hidden');
+                }, 200);
+            });
+            
+            // Auto focus input on load
+            setTimeout(() => {
+                phoneInput.focus();
+            }, 300);
+        });
+    </script>
+</body></html>

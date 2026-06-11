@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Orders Management - ZapKart Store</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#e1e3e4",
+                      "on-primary-fixed-variant": "#7a3000",
+                      "inverse-on-surface": "#f0f1f2",
+                      "surface": "#f8f9fa",
+                      "error": "#ba1a1a",
+                      "on-tertiary": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "background": "#f8f9fa",
+                      "on-primary-fixed": "#351000",
+                      "tertiary-container": "#7692ff",
+                      "on-secondary-container": "#5e6572",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#ffdbcc",
+                      "tertiary-fixed-dim": "#b7c4ff",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-container": "#002682",
+                      "inverse-surface": "#2e3132",
+                      "outline": "#8e7164",
+                      "secondary": "#585f6c",
+                      "primary-container": "#ff6b00",
+                      "primary": "#a04100",
+                      "secondary-fixed-dim": "#c0c7d6",
+                      "on-background": "#191c1d",
+                      "surface-tint": "#a04100",
+                      "surface-dim": "#d9dadb",
+                      "surface-container-low": "#f3f4f5",
+                      "on-primary-container": "#572000",
+                      "surface-bright": "#f8f9fa",
+                      "tertiary": "#2151da",
+                      "secondary-container": "#dce2f3",
+                      "tertiary-fixed": "#dce1ff",
+                      "secondary-fixed": "#dce2f3",
+                      "primary-fixed-dim": "#ffb693",
+                      "on-tertiary-fixed-variant": "#0039b5",
+                      "surface-container-high": "#e7e8e9",
+                      "on-tertiary-fixed": "#001551",
+                      "on-surface": "#191c1d",
+                      "error-container": "#ffdad6",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-secondary-fixed-variant": "#404754",
+                      "inverse-primary": "#ffb693",
+                      "on-error": "#ffffff",
+                      "surface-container": "#edeeef",
+                      "surface-container-lowest": "#ffffff",
+                      "outline-variant": "#e2bfb0",
+                      "on-surface-variant": "#5a4136",
+                      "on-secondary-fixed": "#151c27"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "32px",
+                      "margin": "20px",
+                      "lg": "24px",
+                      "md": "16px",
+                      "xs": "4px",
+                      "base": "4px",
+                      "sm": "8px",
+                      "gutter": "16px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-lg": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "22px",
+                              {
+                                      "lineHeight": "28px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "28px",
+                              {
+                                      "lineHeight": "34px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-lg": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .pulse-border-red {
+            animation: pulseRedBorder 1.5s infinite;
+        }
+        @keyframes pulseRedBorder {
+            0% { border-color: rgba(239, 68, 68, 1); }
+            50% { border-color: rgba(239, 68, 68, 0.4); }
+            100% { border-color: rgba(239, 68, 68, 1); }
+        }
+        
+        .stagger-fade-in {
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        .stagger-fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .stagger-fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .stagger-fade-in:nth-child(3) { animation-delay: 0.3s; }
+        .stagger-fade-in:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scale-in {
+            animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .expandable-card {
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            max-height: 200px;
+            overflow: hidden;
+        }
+        .expandable-card.expanded {
+            max-height: 500px;
+        }
+        
+        /* Hide scrollbar for clean look */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+      </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md antialiased pb-24">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-dim w-full top-0 sticky border-b border-surface-variant dark:border-outline-variant shadow-sm z-40">
+<div class="flex justify-between items-center px-margin h-14 w-full">
+<button aria-label="Menu" class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-variant/50 dark:hover:bg-surface-container-high active:scale-95 transition-transform duration-150 rounded-full p-2">
+<span class="material-symbols-outlined" data-icon="menu" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Orders Management</h1>
+<button aria-label="Search" class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-variant/50 dark:hover:bg-surface-container-high active:scale-95 transition-transform duration-150 rounded-full p-2">
+<span class="material-symbols-outlined" data-icon="search" style="font-variation-settings: 'FILL' 0;">search</span>
+</button>
+</div>
+</header>
+<main class="px-margin pt-md flex flex-col gap-xl">
+<!-- SECTION 1: PENDING -->
+<section class="flex flex-col gap-sm">
+<div class="flex items-center gap-2 mb-sm">
+<span class="text-[12px] font-bold text-red-500 uppercase tracking-wider">🔴 Needs Action</span>
+<span class="bg-red-500 text-white text-[11px] font-bold px-2 py-0.5 rounded-full scale-in">3</span>
+</div>
+<div class="bg-red-50 border-l-[3px] border-red-500 rounded-[10px] p-md shadow-[0_2px_8px_rgba(0,0,0,0.07)] pulse-border-red flex flex-col gap-sm relative overflow-hidden expandable-card cursor-pointer" onclick="this.classList.toggle('expanded')">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="text-[#FF6B00] font-bold text-[13px]">#ZK-8291</span>
+<span class="font-bold text-[14px] mt-xs">3 items · ₹280</span>
+<span class="text-secondary text-[12px] mt-xs">Koramangala</span>
+</div>
+<span class="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-1 rounded-sm">JUST NOW</span>
+</div>
+<div class="flex justify-between items-center mt-sm pt-sm border-t border-red-100">
+<span class="text-red-500 font-bold text-[13px] flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">timer</span> 45s remaining
+                    </span>
+<button class="bg-primary-container text-on-primary text-[12px] font-bold px-3 py-1.5 rounded-full hover:opacity-90 active:scale-95 transition-all">Confirm →</button>
+</div>
+<!-- Expanded Content (Hidden initially) -->
+<div class="mt-md border-t border-red-100 pt-md text-sm opacity-80 transition-opacity duration-300">
+<div class="flex justify-between py-1"><span>1x Milk 1L</span><span>₹65</span></div>
+<div class="flex justify-between py-1"><span>2x Bread Loaf</span><span>₹90</span></div>
+<div class="flex justify-between py-1"><span>1x Eggs (12 pack)</span><span>₹125</span></div>
+</div>
+</div>
+<div class="bg-red-50 border-l-[3px] border-red-500 rounded-[10px] p-md shadow-[0_2px_8px_rgba(0,0,0,0.07)] flex flex-col gap-sm relative overflow-hidden expandable-card cursor-pointer" onclick="this.classList.toggle('expanded')">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="text-[#FF6B00] font-bold text-[13px]">#ZK-8292</span>
+<span class="font-bold text-[14px] mt-xs">1 item · ₹45</span>
+<span class="text-secondary text-[12px] mt-xs">HSR Layout</span>
+</div>
+<span class="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-1 rounded-sm">1 MIN AGO</span>
+</div>
+<div class="flex justify-between items-center mt-sm pt-sm border-t border-red-100">
+<span class="text-red-500 font-bold text-[13px] flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">timer</span> 14s remaining
+                    </span>
+<button class="bg-primary-container text-on-primary text-[12px] font-bold px-3 py-1.5 rounded-full hover:opacity-90 active:scale-95 transition-all">Confirm →</button>
+</div>
+</div>
+</section>
+<!-- SECTION 2: ACTIVE -->
+<section class="flex flex-col gap-sm">
+<div class="flex items-center gap-2 mb-sm">
+<span class="text-[12px] font-bold text-amber-500 uppercase tracking-wider">🟠 In Progress</span>
+<span class="bg-amber-500 text-white text-[11px] font-bold px-2 py-0.5 rounded-full scale-in">2</span>
+</div>
+<div class="bg-orange-50 border-l-[3px] border-orange-400 rounded-[10px] p-md shadow-[0_2px_8px_rgba(0,0,0,0.07)] flex flex-col gap-sm expandable-card cursor-pointer" onclick="this.classList.toggle('expanded')">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="text-secondary font-bold text-[13px]">#ZK-8289</span>
+<span class="font-bold text-[14px] mt-xs">5 items · ₹620</span>
+</div>
+<span class="bg-amber-100 text-amber-700 text-[11px] font-bold px-2 py-1 rounded-full scale-in">Packing</span>
+</div>
+<div class="flex justify-between items-center mt-sm">
+<span class="text-orange-500 font-bold text-[13px]">6:32</span>
+<a class="text-primary-container font-bold text-[12px] hover:underline" href="#">View Details →</a>
+</div>
+</div>
+<div class="bg-orange-50 border-l-[3px] border-orange-400 rounded-[10px] p-md shadow-[0_2px_8px_rgba(0,0,0,0.07)] flex flex-col gap-sm expandable-card cursor-pointer" onclick="this.classList.toggle('expanded')">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="text-secondary font-bold text-[13px]">#ZK-8285</span>
+<span class="font-bold text-[14px] mt-xs">2 items · ₹150</span>
+</div>
+<span class="bg-blue-100 text-blue-700 text-[11px] font-bold px-2 py-1 rounded-full scale-in animate-pulse">Rider Arriving</span>
+</div>
+<div class="flex justify-between items-center mt-sm">
+<span class="text-secondary text-[12px]">Rider: Suresh K.</span>
+<a class="text-primary-container font-bold text-[12px] hover:underline" href="#">View Details →</a>
+</div>
+</div>
+</section>
+<!-- SECTION 3: TODAY COMPLETED -->
+<section class="flex flex-col gap-sm">
+<div class="flex justify-between items-center mb-sm">
+<div class="flex items-center gap-2">
+<span class="text-[12px] font-bold text-green-600 uppercase tracking-wider">✅ Completed Today</span>
+<span class="bg-green-100 text-green-700 text-[11px] font-bold px-2 py-0.5 rounded-full scale-in">24</span>
+</div>
+<span class="text-green-600 font-bold text-[13px]">₹4,820 total</span>
+</div>
+<div class="flex flex-col gap-sm">
+<div class="bg-white rounded-[10px] p-md shadow-[0_2px_8px_rgba(0,0,0,0.07)] flex justify-between items-center stagger-fade-in">
+<div class="flex flex-col">
+<span class="text-secondary text-[13px] font-medium">#ZK-8270 · Indiranagar</span>
+<span class="text-green-600 text-[12px] mt-xs">Delivered 2:30 PM</span>
+</div>
+<span class="text-green-600 font-bold text-[14px]">₹229.20 earned</span>
+</div>
+<div class="bg-white rounded-[10px] p-md shadow-[0_2px_8px_rgba(0,0,0,0.07)] flex justify-between items-center stagger-fade-in">
+<div class="flex flex-col">
+<span class="text-secondary text-[13px] font-medium">#ZK-8269 · Koramangala</span>
+<span class="text-green-600 text-[12px] mt-xs">Delivered 2:15 PM</span>
+</div>
+<span class="text-green-600 font-bold text-[14px]">₹540.00 earned</span>
+</div>
+<div class="bg-white rounded-[10px] p-md shadow-[0_2px_8px_rgba(0,0,0,0.07)] flex justify-between items-center stagger-fade-in">
+<div class="flex flex-col">
+<span class="text-secondary text-[13px] font-medium">#ZK-8268 · HSR Layout</span>
+<span class="text-green-600 text-[12px] mt-xs">Delivered 1:50 PM</span>
+</div>
+<span class="text-green-600 font-bold text-[14px]">₹112.50 earned</span>
+</div>
+</div>
+</section>
+<!-- SECTION 4: HISTORY -->
+<section class="flex flex-col gap-sm mt-md border-t border-surface-variant pt-lg">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Order History</h2>
+<div class="flex gap-2 mb-md">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]" data-icon="search">search</span>
+<input class="w-full h-12 pl-10 pr-4 bg-surface rounded-lg border border-surface-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none text-body-md transition-all" placeholder="Search order ID or customer" type="text"/>
+</div>
+<button class="h-12 w-12 flex items-center justify-center bg-surface border border-surface-variant rounded-lg text-secondary hover:bg-surface-variant/50 transition-colors">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+</button>
+</div>
+<div class="flex flex-col gap-sm opacity-80">
+<div class="bg-white rounded-[10px] p-md shadow-[0_2px_8px_rgba(0,0,0,0.07)] flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-secondary text-[13px] font-medium">#ZK-8102 · BTM Layout</span>
+<span class="text-secondary text-[12px] mt-xs">Yesterday, 8:45 PM</span>
+</div>
+<span class="text-secondary font-bold text-[14px]">₹850.00</span>
+</div>
+<div class="bg-white rounded-[10px] p-md shadow-[0_2px_8px_rgba(0,0,0,0.07)] flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-secondary text-[13px] font-medium">#ZK-8099 · Jayanagar</span>
+<span class="text-secondary text-[12px] mt-xs">Yesterday, 7:20 PM</span>
+</div>
+<span class="text-secondary font-bold text-[14px]">₹320.50</span>
+</div>
+</div>
+<button class="mt-md w-full h-12 bg-surface text-secondary border border-surface-variant rounded-lg font-label-lg hover:bg-surface-variant/50 active:scale-95 transition-all">Load More</button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center py-2 px-gutter bg-surface-container-lowest dark:bg-surface-dim border-t border-surface-variant dark:border-outline-variant shadow-lg z-50">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-secondary-fixed-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined mb-1" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-secondary-fixed-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined mb-1" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-sm text-label-sm">Products</span>
+</button>
+<!-- Active Tab -->
+<button class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-xl px-4 py-1 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined mb-1" data-icon="receipt_long" data-weight="fill" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-secondary-fixed-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined mb-1" data-icon="settings">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</button>
+</nav>
+</body></html>

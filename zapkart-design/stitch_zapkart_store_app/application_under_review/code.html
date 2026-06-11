@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Application Under Review - ZapKart</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#572000",
+                        "on-tertiary-fixed-variant": "#0039b5",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#edeeef",
+                        "surface": "#f8f9fa",
+                        "secondary": "#585f6c",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#ffb693",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "primary": "#a04100",
+                        "tertiary-fixed": "#dce1ff",
+                        "on-secondary-fixed-variant": "#404754",
+                        "surface-tint": "#a04100",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#d9dadb",
+                        "on-tertiary-fixed": "#001551",
+                        "outline": "#8e7164",
+                        "tertiary-fixed-dim": "#b7c4ff",
+                        "outline-variant": "#e2bfb0",
+                        "inverse-surface": "#2e3132",
+                        "tertiary-container": "#7692ff",
+                        "on-surface-variant": "#5a4136",
+                        "tertiary": "#2151da",
+                        "on-primary-fixed": "#351000",
+                        "primary-fixed": "#ffdbcc",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f3f4f5",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#dce2f3",
+                        "primary-container": "#ff6b00",
+                        "surface-container-high": "#e7e8e9",
+                        "secondary-fixed-dim": "#c0c7d6",
+                        "on-surface": "#191c1d",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#dce2f3",
+                        "surface-bright": "#f8f9fa",
+                        "on-tertiary-container": "#002682",
+                        "on-secondary-container": "#5e6572",
+                        "on-background": "#191c1d",
+                        "inverse-on-surface": "#f0f1f2",
+                        "inverse-primary": "#ffb693",
+                        "on-secondary-fixed": "#151c27",
+                        "background": "#f8f9fa",
+                        "surface-variant": "#e1e3e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "lg": "24px",
+                        "base": "4px",
+                        "xl": "32px",
+                        "margin": "20px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom Keyframes for specified animations */
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .animate-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .animate-shimmer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shimmer 3s infinite linear;
+        }
+        
+        @keyframes fade-in-up {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up {
+            opacity: 0;
+            animation: fade-in-up 0.5s ease-out forwards;
+        }
+        
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .animate-pulse-dot {
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-btn-scale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .animate-pulse-btn-scale {
+            animation: pulse-btn-scale 2s ease-in-out infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md h-screen flex flex-col antialiased">
+<!-- Top App Bar Component -->
+<header class="flex justify-between items-center w-full px-margin h-12 bg-surface dark:bg-surface-dim border-b border-surface-container-highest dark:border-outline-variant docked full-width top-0 flat no shadows transition-colors duration-200 ease-in-out">
+<button class="w-11 h-11 flex items-center justify-center text-primary dark:text-primary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-highest rounded-full transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm text-on-surface">Registration</h1>
+<div class="w-11 h-11"></div> <!-- Spacer for centering -->
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col justify-center items-center px-margin py-lg overflow-y-auto w-full max-w-md mx-auto">
+<!-- Storefront Illustration (Minimal, shape-based, orange) -->
+<div class="mb-lg animate-shimmer rounded-lg" style="width: 120px; height: 120px; background-color: #f8f9fa;">
+<svg class="w-full h-full text-primary-container" fill="none" viewbox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<path d="M10 50 L60 10 L110 50" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"></path>
+<rect fill="currentColor" fill-opacity="0.1" height="60" stroke="currentColor" stroke-linejoin="round" stroke-width="8" width="80" x="20" y="50"></rect>
+<rect fill="currentColor" height="40" width="30" x="45" y="70"></rect>
+<circle cx="60" cy="35" fill="currentColor" r="8"></circle>
+<!-- Minimal abstract elements for the storefront -->
+<rect fill="currentColor" fill-opacity="0.5" height="15" width="15" x="25" y="55"></rect>
+<rect fill="currentColor" fill-opacity="0.5" height="15" width="15" x="80" y="55"></rect>
+</svg>
+</div>
+<!-- Headings -->
+<h2 class="font-headline-lg text-headline-lg text-on-surface text-center mb-sm">Application Submitted!</h2>
+<p class="font-body-md text-body-md text-secondary text-center mb-xl">Your store is being reviewed by our team.</p>
+<!-- Review Steps Card -->
+<div class="w-full bg-surface rounded-[12px] p-md shadow-[0_2px_8px_rgba(0,0,0,0.07)] border border-surface-container mb-lg">
+<h3 class="font-label-lg text-label-lg text-on-surface mb-md">What happens next:</h3>
+<div class="relative pl-sm">
+<!-- Vertical Line -->
+<div class="absolute left-[15px] top-[14px] bottom-[20px] w-0.5 bg-surface-container-highest z-0"></div>
+<!-- Step 1 -->
+<div class="flex items-start mb-md relative z-10 review-step">
+<div class="w-[22px] h-[22px] rounded-full bg-[#16A34A] flex items-center justify-center mr-sm shrink-0 border-2 border-surface">
+<span class="material-symbols-outlined text-white text-[14px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="pt-[2px]">
+<p class="font-body-md text-body-md text-[#16A34A]">Application received</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex items-start mb-md relative z-10 review-step">
+<div class="w-[22px] h-[22px] rounded-full bg-surface flex items-center justify-center mr-sm shrink-0 border-2 border-surface">
+<div class="w-[10px] h-[10px] rounded-full bg-primary-container animate-pulse-dot"></div>
+</div>
+<div class="pt-[2px]">
+<p class="font-label-lg text-label-lg text-primary-container">Documents under review</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex items-start relative z-10 review-step">
+<div class="w-[22px] h-[22px] rounded-full bg-surface flex items-center justify-center mr-sm shrink-0 border-2 border-secondary-fixed-dim">
+<div class="w-[10px] h-[10px] rounded-full bg-secondary-fixed-dim"></div>
+</div>
+<div class="pt-[2px]">
+<p class="font-body-md text-body-md text-secondary">Store activated</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Time Badge -->
+<div class="flex flex-col items-center mb-xl w-full">
+<div class="bg-surface rounded-full px-md py-sm flex items-center gap-2 border border-surface-container shadow-[0_2px_8px_rgba(0,0,0,0.03)] mb-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]">timer</span>
+<span class="font-label-md text-label-md text-secondary">Estimated: 24-48 hours</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary-fixed-dim">We'll notify you on +91 98765 43210</p>
+</div>
+<!-- Bottom Actions -->
+<div class="w-full mt-auto pt-lg">
+<button class="w-full h-12 rounded-[12px] border-2 border-primary-container text-primary-container font-label-lg text-label-lg flex items-center justify-center mb-md hover:bg-primary-container hover:text-white transition-colors duration-300 animate-pulse-btn-scale bg-surface-container-lowest">
+                Contact Support
+            </button>
+<button class="w-full h-12 flex items-center justify-center font-label-lg text-label-lg text-secondary hover:text-on-surface transition-colors duration-200">
+                Check Status
+            </button>
+</div>
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const reviewSteps = document.querySelectorAll('.review-step');
+        reviewSteps.forEach((step, index) => {
+            step.style.animationDelay = `${index * 80}ms`;
+            step.classList.add('fade-in-up');
+        });
+    });
+</script>
+</body></html>

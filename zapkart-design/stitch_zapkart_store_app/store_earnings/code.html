@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Earnings - ZapKart</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#2e3132",
+                      "inverse-primary": "#ffb693",
+                      "background": "#f8f9fa",
+                      "on-surface": "#191c1d",
+                      "surface-container": "#edeeef",
+                      "on-tertiary-fixed-variant": "#0039b5",
+                      "primary-fixed-dim": "#ffb693",
+                      "on-tertiary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#dce1ff",
+                      "surface-container-low": "#f3f4f5",
+                      "on-surface-variant": "#5a4136",
+                      "on-background": "#191c1d",
+                      "outline-variant": "#e2bfb0",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "surface-tint": "#a04100",
+                      "tertiary-container": "#7692ff",
+                      "outline": "#8e7164",
+                      "surface-variant": "#e1e3e4",
+                      "surface": "#f8f9fa",
+                      "primary-fixed": "#ffdbcc",
+                      "tertiary-fixed-dim": "#b7c4ff",
+                      "secondary": "#585f6c",
+                      "on-secondary-fixed": "#151c27",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-fixed": "#001551",
+                      "secondary-fixed": "#dce2f3",
+                      "on-primary-fixed": "#351000",
+                      "on-primary-container": "#572000",
+                      "surface-bright": "#f8f9fa",
+                      "on-tertiary-container": "#002682",
+                      "on-secondary-container": "#5e6572",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-dim": "#d9dadb",
+                      "on-error": "#ffffff",
+                      "primary-container": "#ff6b00",
+                      "on-secondary-fixed-variant": "#404754",
+                      "on-primary-fixed-variant": "#7a3000",
+                      "surface-container-high": "#e7e8e9",
+                      "inverse-on-surface": "#f0f1f2",
+                      "surface-container-highest": "#e1e3e4",
+                      "secondary-container": "#dce2f3",
+                      "secondary-fixed-dim": "#c0c7d6",
+                      "on-primary": "#ffffff",
+                      "tertiary": "#2151da",
+                      "primary": "#a04100",
+                      "success": "#16a34a",
+                      "success-soft": "#dcfce7"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "4px",
+                      "margin": "20px",
+                      "lg": "24px",
+                      "md": "16px",
+                      "sm": "8px",
+                      "xs": "4px",
+                      "gutter": "16px",
+                      "xl": "32px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Inter"],
+                      "label-lg": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                      "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                      "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .count-up { display: inline-block; }
+        
+        @keyframes barGrow {
+            from { height: 0; opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .chart-bar {
+            animation: barGrow 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            transform-origin: bottom;
+            height: 0;
+            opacity: 0;
+        }
+        
+        /* Staggered animation delays for bars */
+        .chart-bar:nth-child(1) { animation-delay: 0ms; height: 30%; }
+        .chart-bar:nth-child(2) { animation-delay: 60ms; height: 45%; }
+        .chart-bar:nth-child(3) { animation-delay: 120ms; height: 25%; }
+        .chart-bar:nth-child(4) { animation-delay: 180ms; height: 60%; }
+        .chart-bar:nth-child(5) { animation-delay: 240ms; height: 80%; }
+        .chart-bar:nth-child(6) { animation-delay: 300ms; height: 50%; }
+        .chart-bar:nth-child(7) { animation-delay: 360ms; height: 100%; }
+        
+        .fade-in { animation: fadeIn 200ms ease-in forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-[80px]">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface shadow-sm border-b border-surface-variant flex justify-between items-center px-margin h-14">
+<h1 class="font-headline-md text-headline-md text-on-surface">Earnings</h1>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer transition-transform duration-200 active:scale-95" data-icon="notifications">notifications</span>
+<div class="w-8 h-8 rounded-full bg-surface-container overflow-hidden border border-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]" data-icon="storefront">storefront</span>
+</div>
+</div>
+</header>
+<main class="pt-14 px-margin pb-xl space-y-lg mt-md">
+<!-- Top Earnings Card -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.07)] p-5 relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary-container"></div>
+<p class="font-label-md text-label-md text-secondary uppercase tracking-wider mb-xs">This Week</p>
+<div class="flex items-end gap-sm mb-xs">
+<span class="font-headline-lg text-headline-lg text-on-surface tracking-tight" id="mainRevenue">₹0</span>
+</div>
+<div class="flex justify-between items-center mt-md">
+<p class="font-body-sm text-body-sm text-secondary">186 orders completed</p>
+<div class="bg-success-soft px-2 py-1 rounded flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px] text-success" data-icon="arrow_upward">arrow_upward</span>
+<span class="font-label-sm text-label-sm text-success">8% vs last week</span>
+</div>
+</div>
+</section>
+<!-- Period Tabs -->
+<nav class="flex border-b border-surface-variant">
+<button class="tab-btn flex-1 pb-sm font-label-lg text-label-lg text-secondary text-center transition-colors">Today</button>
+<button class="tab-btn flex-1 pb-sm font-label-lg text-label-lg text-primary-container text-center border-b-2 border-primary-container transition-colors">This Week</button>
+<button class="tab-btn flex-1 pb-sm font-label-lg text-label-lg text-secondary text-center transition-colors">This Month</button>
+</nav>
+<!-- Breakdown Row -->
+<div class="grid grid-cols-3 gap-sm">
+<div class="bg-surface rounded-lg p-sm flex flex-col justify-center shadow-sm border border-surface-variant">
+<p class="font-label-sm text-label-sm text-secondary mb-1 truncate">Gross Revenue</p>
+<p class="font-label-lg text-label-lg text-on-surface truncate">₹30,268</p>
+</div>
+<div class="bg-surface rounded-lg p-sm flex flex-col justify-center shadow-sm border border-surface-variant">
+<p class="font-label-sm text-label-sm text-secondary mb-1 truncate">Commission</p>
+<p class="font-label-lg text-label-lg text-error truncate">-₹5,448</p>
+</div>
+<div class="bg-surface rounded-lg p-sm flex flex-col justify-center shadow-sm border border-primary-fixed">
+<p class="font-label-sm text-label-sm text-secondary mb-1 truncate">You Receive</p>
+<p class="font-label-lg text-label-lg text-success truncate">₹24,820</p>
+</div>
+</div>
+<!-- Bar Chart -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.07)] p-md border border-surface-variant">
+<div class="flex justify-between items-center mb-md">
+<h2 class="font-label-lg text-label-lg text-on-surface">Revenue Trend</h2>
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="more_vert">more_vert</span>
+</div>
+<div class="relative h-40 w-full flex items-end justify-between px-xs gap-xs pt-md border-b border-surface-variant pb-1" id="chart-content">
+<!-- Y-axis rough grid lines -->
+<div class="absolute inset-0 flex flex-col justify-between pb-6 z-0 pointer-events-none">
+<div class="w-full border-t border-surface-variant opacity-50 h-0"></div>
+<div class="w-full border-t border-surface-variant opacity-50 h-0"></div>
+<div class="w-full border-t border-surface-variant opacity-50 h-0"></div>
+<div class="w-full h-0"></div>
+</div>
+<!-- Bars -->
+<div class="w-full flex justify-between items-end h-full pb-6 z-10 relative">
+<div class="w-8 bg-primary-fixed-dim rounded-t-sm chart-bar relative group cursor-pointer hover:bg-primary-fixed transition-colors">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-surface shadow-md rounded p-1 text-[10px] font-bold opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none border border-surface-variant text-on-surface">Mon: ₹7,440</div>
+</div>
+<div class="w-8 bg-primary-fixed-dim rounded-t-sm chart-bar relative group cursor-pointer hover:bg-primary-fixed transition-colors">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-surface shadow-md rounded p-1 text-[10px] font-bold opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none border border-surface-variant text-on-surface">Tue: ₹11,160</div>
+</div>
+<div class="w-8 bg-primary-fixed-dim rounded-t-sm chart-bar relative group cursor-pointer hover:bg-primary-fixed transition-colors">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-surface shadow-md rounded p-1 text-[10px] font-bold opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none border border-surface-variant text-on-surface">Wed: ₹6,200</div>
+</div>
+<div class="w-8 bg-primary-fixed-dim rounded-t-sm chart-bar relative group cursor-pointer hover:bg-primary-fixed transition-colors">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-surface shadow-md rounded p-1 text-[10px] font-bold opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none border border-surface-variant text-on-surface">Thu: ₹14,880</div>
+</div>
+<div class="w-8 bg-primary-fixed-dim rounded-t-sm chart-bar relative group cursor-pointer hover:bg-primary-fixed transition-colors">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-surface shadow-md rounded p-1 text-[10px] font-bold opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none border border-surface-variant text-on-surface">Fri: ₹19,840</div>
+</div>
+<div class="w-8 bg-primary-fixed-dim rounded-t-sm chart-bar relative group cursor-pointer hover:bg-primary-fixed transition-colors">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-surface shadow-md rounded p-1 text-[10px] font-bold opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none border border-surface-variant text-on-surface">Sat: ₹12,400</div>
+</div>
+<!-- Today bar is brighter -->
+<div class="w-8 bg-primary-container rounded-t-sm chart-bar relative group cursor-pointer hover:bg-primary transition-colors">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-surface shadow-md rounded p-1 text-[10px] font-bold opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none border border-surface-variant text-on-surface">Sun: ₹24,820</div>
+</div>
+</div>
+<!-- X-axis Labels -->
+<div class="absolute bottom-0 left-0 w-full flex justify-between px-xs text-[10px] text-secondary font-medium pb-1 z-10">
+<div class="w-8 text-center">Mon</div>
+<div class="w-8 text-center">Tue</div>
+<div class="w-8 text-center">Wed</div>
+<div class="w-8 text-center">Thu</div>
+<div class="w-8 text-center">Fri</div>
+<div class="w-8 text-center">Sat</div>
+<div class="w-8 text-center font-bold text-primary-container">Sun</div>
+</div>
+</div>
+</section>
+<!-- Settlement Card -->
+<section class="bg-surface rounded-xl shadow-sm border border-surface-variant p-md">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-secondary" data-icon="credit_card">credit_card</span>
+<h3 class="font-label-lg text-label-lg text-on-surface">Next Settlement</h3>
+</div>
+<div class="flex justify-between items-start mb-sm">
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface">Monday, May 27</p>
+<p class="font-body-sm text-body-sm text-secondary mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="account_balance">account_balance</span>
+                        HDFC •••• 4291
+                    </p>
+</div>
+<div class="text-right">
+<p class="font-label-lg text-label-lg text-primary-container">₹24,820</p>
+<p class="font-label-sm text-label-sm text-secondary">pending</p>
+</div>
+</div>
+<div class="h-[1px] bg-surface-variant w-full my-md"></div>
+<button class="w-full flex items-center justify-center gap-sm font-label-md text-label-md text-primary-container group active:opacity-70 transition-opacity">
+                View all settlements
+                <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface shadow-lg border-t border-surface-variant flex justify-around items-center h-16 px-2 md:hidden">
+<a class="flex flex-col items-center justify-center text-secondary hover:bg-surface-container-low transition-colors duration-150 ease-in-out p-2 rounded-lg w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary hover:bg-surface-container-low transition-colors duration-150 ease-in-out p-2 rounded-lg w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="shopping_bag">shopping_bag</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary hover:bg-surface-container-low transition-colors duration-150 ease-in-out p-2 rounded-lg w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-sm text-label-sm">Products</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary-container font-bold hover:bg-surface-container-low transition-colors duration-150 ease-in-out p-2 rounded-lg w-16" href="#">
+<span class="material-symbols-outlined mb-1 font-variation-settings:'FILL' 1" data-icon="payments">payments</span>
+<span class="font-label-sm text-label-sm">Earnings</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary hover:bg-surface-container-low transition-colors duration-150 ease-in-out p-2 rounded-lg w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple count-up animation for the main revenue number
+        document.addEventListener('DOMContentLoaded', () => {
+            const revenueElement = document.getElementById('mainRevenue');
+            const targetValue = 24820;
+            const duration = 800; // ms
+            const frameRate = 30; // frames per second
+            const totalFrames = Math.round((duration / 1000) * frameRate);
+            let currentFrame = 0;
+            
+            // Format currency in Indian format
+            const formatCurrency = (val) => {
+                return '₹' + Math.round(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            };
+
+            const easeOutQuart = (x) => {
+                return 1 - Math.pow(1 - x, 4);
+            };
+
+            const counter = setInterval(() => {
+                currentFrame++;
+                const progress = currentFrame / totalFrames;
+                const currentVal = targetValue * easeOutQuart(progress);
+                
+                revenueElement.innerText = formatCurrency(currentVal);
+                
+                if (currentFrame >= totalFrames) {
+                    clearInterval(counter);
+                    revenueElement.innerText = '₹24,820'; // Ensure exact final value
+                }
+            }, 1000 / frameRate);
+
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab-btn');
+            const chartContent = document.getElementById('chart-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Update active state
+                    tabs.forEach(t => {
+                        t.classList.remove('text-primary-container', 'border-b-2', 'border-primary-container');
+                        t.classList.add('text-secondary');
+                    });
+                    tab.classList.remove('text-secondary');
+                    tab.classList.add('text-primary-container', 'border-b-2', 'border-primary-container');
+                    
+                    // Trigger fade
+                    chartContent.classList.remove('fade-in');
+                    void chartContent.offsetWidth; // trigger reflow
+                    chartContent.classList.add('fade-in');
+                });
+            });
+        });
+    </script>
+</body></html>

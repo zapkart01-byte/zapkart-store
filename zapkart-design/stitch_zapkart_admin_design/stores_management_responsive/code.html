@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZapKart - Stores Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#e5e2e1",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2e3132",
+                        "on-tertiary-fixed": "#151c27",
+                        "background": "#f8f9fa",
+                        "on-primary": "#ffffff",
+                        "secondary": "#5f5e5e",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-surface": "#191c1d",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-bright": "#f8f9fa",
+                        "inverse-primary": "#ffb693",
+                        "primary-container": "#ff6b00",
+                        "outline-variant": "#e2bfb0",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#5a4136",
+                        "surface-dim": "#d9dadb",
+                        "secondary-container": "#e5e2e1",
+                        "primary": "#a04100",
+                        "on-tertiary-fixed-variant": "#404754",
+                        "surface-container": "#edeeef",
+                        "tertiary": "#585f6c",
+                        "on-secondary-fixed-variant": "#474646",
+                        "on-primary-fixed": "#351000",
+                        "surface": "#f8f9fa",
+                        "surface-variant": "#e1e3e4",
+                        "primary-fixed-dim": "#ffb693",
+                        "primary-fixed": "#ffdbcc",
+                        "on-secondary-container": "#656464",
+                        "tertiary-fixed-dim": "#c0c7d6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "tertiary-container": "#9299a8",
+                        "surface-tint": "#a04100",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#dce2f3",
+                        "secondary-fixed-dim": "#c9c6c5",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "on-background": "#191c1d",
+                        "outline": "#8e7164",
+                        "surface-container-low": "#f3f4f5",
+                        "on-primary-container": "#572000",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#2a313d",
+                        "inverse-on-surface": "#f0f1f2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "gutter-mobile": "12px",
+                        "margin-mobile": "16px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["10px", { "lineHeight": "14px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex">
+<!-- SideNavBar (Hidden on Mobile, flex on MD) -->
+<nav class="hidden md:flex flex-col fixed left-0 top-0 bottom-0 w-64 z-40 py-lg px-md bg-surface-container-low dark:bg-inverse-surface border-r border-outline-variant">
+<div class="flex items-center gap-3 mb-xl px-2">
+<img alt="ZapKart Logo" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1ybyO9eaKNCL4LuhvkK1JDfqITnbhXr2-JcNJ6lUhnHS1705bnYqi5AqLPRa0IOuxC4k3Cgo7dEBTSkF_5XAIdfJQ9vv4A5W6TrPge1HLH7SL6WrIcHjEiqLvBLaMFVaz3BIuewSFL_fshFVbYfBhhbQRC1Re6b9_mdmDoX6xHouRy8ulOtR7Qjm_Hp5DKPhxmEFoI2RgOc7Ko6jP4jud_41UUQwWkFIr12lu3ehQDlRjJPxs8K0MS4ie19-h10KI4jHGBW_lSE8"/>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed-dim">ZapKart Admin</h1>
+<p class="font-label-sm text-label-sm text-secondary">Super Admin Console</p>
+</div>
+</div>
+<div class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-lg text-label-lg dark:font-label-lg dark:text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-lg text-label-lg dark:font-label-lg dark:text-label-lg">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label-lg text-label-lg dark:font-label-lg dark:text-label-lg">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-label-lg text-label-lg dark:font-label-lg dark:text-label-lg">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-lg text-label-lg dark:font-label-lg dark:text-label-lg">Settings</span>
+</a>
+</div>
+<div class="mt-auto pt-lg border-t border-outline-variant space-y-2">
+<button class="w-full flex items-center justify-center gap-2 py-3 bg-surface text-primary border border-primary rounded-full hover:bg-surface-container-low transition-colors font-label-lg text-label-lg">
+                Quick Report
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-lg text-label-lg dark:font-label-lg dark:text-label-lg">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-lg text-label-lg dark:font-label-lg dark:text-label-lg">Logout</span>
+</a>
+</div>
+</nav>
+<!-- TopNavBar (Visible on Mobile, hidden on MD) -->
+<header class="fixed top-0 left-0 right-0 z-50 flex md:hidden justify-between items-center h-16 px-margin-mobile bg-surface dark:bg-surface-dim shadow-sm">
+<div class="flex items-center gap-3">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">ZapKart</span>
+</div>
+<div class="flex items-center gap-4 text-primary dark:text-primary-fixed-dim">
+<button class="hover:bg-surface-container-low p-2 rounded-full transition-colors active:opacity-80 active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-surface-container-low p-2 rounded-full transition-colors active:opacity-80 active:scale-95">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="Super Admin Profile" class="w-8 h-8 rounded-full border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqs25qN5D6LlAwDyiKUSZrUYleZWizyzFwBh7I4Qzf3fkDJXt1mKz5ErG_wcV5cVKWFDLyBlcE2WUuZMXXeDhp3zvSgcLp8YQbvMGwQXHRJyKvq2hag6Z1HICJ4O6TABR5XtCxiugU-XLjbRR4H4JxgK9pMc3WamklW4higdV0Jh_iz9t6D8nULs5DZDCDlpSsBoZxm4thWYZffOBtlHP7HZ-_rFIBuyxdaMdxVdP4NytGhrqgAfvFTrPB27xSn34yoJChCk1_ezk"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 pt-20 md:pt-lg px-margin-mobile md:px-xl pb-xl max-w-7xl mx-auto w-full">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-lg gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background">Store Inventory Management</h2>
+<p class="font-body-md text-body-md text-secondary mt-1">Manage active stores, performance, and inventory levels.</p>
+</div>
+<button class="bg-primary text-on-primary font-label-lg text-label-lg px-6 py-3 rounded-full flex items-center gap-2 hover:bg-on-primary-container transition-colors min-h-[44px]">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                Add New Store
+            </button>
+</div>
+<!-- Filters & Search Bar -->
+<div class="bg-surface border border-outline-variant rounded-xl p-md mb-lg shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col md:flex-row gap-4 items-center">
+<div class="relative w-full md:w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary">search</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-lg border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md outline-none transition-all" placeholder="Search stores by name, ID, or location..." type="text"/>
+</div>
+<div class="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 hide-scrollbar">
+<button class="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant bg-surface text-secondary hover:bg-surface-container-low font-label-md text-label-md min-h-[44px]">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> Filters
+                </button>
+<button class="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md min-h-[44px]">
+                    Status: Active <span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+<button class="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant bg-surface text-secondary hover:bg-surface-container-low font-label-md text-label-md min-h-[44px]">
+                    Region: All <span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Desktop Table View (Hidden on Mobile) -->
+<div class="hidden md:block bg-surface border border-outline-variant rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.03)] overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant text-secondary font-label-sm text-label-sm uppercase tracking-wider">
+<th class="p-4 font-medium">Store Info</th>
+<th class="p-4 font-medium">Location</th>
+<th class="p-4 font-medium">Status</th>
+<th class="p-4 font-medium">Daily Revenue</th>
+<th class="p-4 font-medium">Rating</th>
+<th class="p-4 font-medium text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container bg-cover bg-center" data-alt="A modern storefront of an electronics shop with a clean glass facade, bright interior lighting, and a minimalist orange 'ZapKart' logo above the entrance. The street is tidy and urban." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCHmwy7JDBZoWNoaKIRL8Mq_xKWCjnDRWuvfFGedFDhJq5y5U7CbE0FtCfbv2I5Som_kGjYjK6_UrHz8WMofeGGMH_6HT9OKHsf2mJMOeVWpFJ73qfdP6FiSyzqbbaWkN-NUhTeG0LqVlu1_i6j5XPshHqy6Br8jBulIfvtmXZox0TfiTtsP5a34nucEB-vJ9k86FV2oFk99juSaZVjHE7zas0PiXYYRmU1CSbwjsRlTMMSjordr-qDx5toZ771_bFfow3P5_mqTsc');"></div>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface">ZK Downtown Express</div>
+<div class="font-label-sm text-label-sm text-secondary">ID: STR-8492</div>
+</div>
+</div>
+</td>
+<td class="p-4 font-body-md text-body-md text-secondary">Sector 14, Metro Hub</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#e6f4ea] text-[#137333]">Active</span>
+</td>
+<td class="p-4 font-headline-sm text-headline-sm text-primary">₹45,200</td>
+<td class="p-4">
+<div class="flex items-center gap-1 text-[#fbbc04]">
+<span class="material-symbols-outlined fill text-[16px]">star</span>
+<span class="font-label-md text-label-md text-on-surface">4.8</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<button class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container bg-cover bg-center" data-alt="A small, busy grocery convenience store with neat shelves visible through a wide window. The lighting is warm and inviting, located in a suburban shopping plaza." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBgZhCfPKAVvTnlscJyTKhhv8tzwIE-ncOO2Bop0NP2MssFT83PeAbCMatKZncTqt4LTeW5TJ4z-z7cMVkgu5vp3rPYrZ-Y1i9kUpu3Or61xaLBoxiUNybOFcJZdIGR09fvEBPhQXG7rWGm_P2yRVB2m9z6hLP44cUWoa3VJC-OKyPas1dCQmh4U8NCoGxi0OzoCs4LT-S4RbAqR-tZfZdiw1YsCCQWl-KJVTmvuoHPzaMOhNXRsFI28nHzdsLJNOqGRRIz6wCppas');"></div>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface">ZK Suburban Mart</div>
+<div class="font-label-sm text-label-sm text-secondary">ID: STR-3310</div>
+</div>
+</div>
+</td>
+<td class="p-4 font-body-md text-body-md text-secondary">Greenfield Avenue</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#e6f4ea] text-[#137333]">Active</span>
+</td>
+<td class="p-4 font-headline-sm text-headline-sm text-primary">₹28,500</td>
+<td class="p-4">
+<div class="flex items-center gap-1 text-[#fbbc04]">
+<span class="material-symbols-outlined fill text-[16px]">star</span>
+<span class="font-label-md text-label-md text-on-surface">4.5</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<button class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Mobile List View (Hidden on Desktop) -->
+<div class="md:hidden space-y-4">
+<!-- Card 1 -->
+<div class="bg-surface border border-outline-variant rounded-xl p-3 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col gap-3">
+<div class="flex gap-3">
+<div class="w-16 h-16 rounded-lg bg-surface-container bg-cover bg-center shrink-0" data-alt="A modern storefront of an electronics shop with a clean glass facade, bright interior lighting, and a minimalist orange 'ZapKart' logo above the entrance. The street is tidy and urban." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCCAw85PjH7IsVSEdsBFlkfZKcLyDc_Nd-gLed0UKmeAG3U8vSahSAavBiS45ohDI7vQ19zToEXWMuO8kCaun2KHjaroN3jAYVJByYp2ZDZ94ydD644E2aPb55pDphhaxIfUpP3VgE1s6WDS4ksAeV1YnIEpOY5OZ5xQBlWEXg1UEIUsvMlNRDQ_pmDhdM5p8Ekr_n8zc4PB2Ev6Psa5g0e-iC4SwHDaT4Od1b3EIs57tWMQaz45zPUQyV41r5SxNEBLdEUjrHKBlk');"></div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div class="font-label-lg text-label-lg text-on-surface">ZK Downtown Express</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#e6f4ea] text-[#137333]">Active</span>
+</div>
+<div class="font-body-sm text-body-sm text-secondary mt-0.5">Sector 14, Metro Hub</div>
+<div class="flex justify-between items-end mt-2">
+<div class="font-headline-sm text-headline-sm text-primary">₹45,200</div>
+<div class="flex items-center gap-1 text-[#fbbc04] text-xs">
+<span class="material-symbols-outlined fill text-[14px]">star</span>
+<span class="font-label-md text-on-surface">4.8</span>
+</div>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant pt-2 flex justify-end gap-2">
+<button class="px-4 py-1.5 rounded-full border border-outline-variant text-secondary font-label-md hover:bg-surface-container-low min-h-[36px]">Manage</button>
+<button class="px-4 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-md min-h-[36px]">View Details</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface border border-outline-variant rounded-xl p-3 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col gap-3">
+<div class="flex gap-3">
+<div class="w-16 h-16 rounded-lg bg-surface-container bg-cover bg-center shrink-0" data-alt="A small, busy grocery convenience store with neat shelves visible through a wide window. The lighting is warm and inviting, located in a suburban shopping plaza." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCMUueMuueCB23zdYV0xzwWfqjNwHY-jzoDJgsmuAvv0z5QstlWFOyHprrTAScDOEBKLviRlQ4MJTWJkCJ28qENhBb8lUyROQdqAhxT0WFjiENZtACXwhyXH7lfWrWEgi1Wx9cKxR-8AWSvBLLTNza5ffE8j2qrx3TkClOGgR6n2LgEnr4_b19Lqn8KLYSkCqogVeUeSjPHOSDd6W-PuES3-Mz6J-xnNH13gOQSLq10UbVUtnVk8QycDjIMSYgzE2b4F-VzsJFY2F8');"></div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div class="font-label-lg text-label-lg text-on-surface">ZK Suburban Mart</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#e6f4ea] text-[#137333]">Active</span>
+</div>
+<div class="font-body-sm text-body-sm text-secondary mt-0.5">Greenfield Avenue</div>
+<div class="flex justify-between items-end mt-2">
+<div class="font-headline-sm text-headline-sm text-primary">₹28,500</div>
+<div class="flex items-center gap-1 text-[#fbbc04] text-xs">
+<span class="material-symbols-outlined fill text-[14px]">star</span>
+<span class="font-label-md text-on-surface">4.5</span>
+</div>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant pt-2 flex justify-end gap-2">
+<button class="px-4 py-1.5 rounded-full border border-outline-variant text-secondary font-label-md hover:bg-surface-container-low min-h-[36px]">Manage</button>
+<button class="px-4 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-md min-h-[36px]">View Details</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

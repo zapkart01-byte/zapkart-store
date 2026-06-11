@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>ZapKart Checkout</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#351000",
+                        "primary-fixed": "#ffdbcc",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#a04100",
+                        "inverse-on-surface": "#f3f0ef",
+                        "background": "#fcf9f8",
+                        "surface-dim": "#dcd9d9",
+                        "primary": "#a04100",
+                        "surface-container": "#f0edec",
+                        "surface-container-highest": "#e5e2e1",
+                        "primary-fixed-dim": "#ffb693",
+                        "on-secondary-fixed-variant": "#005320",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb3ad",
+                        "on-primary-container": "#572000",
+                        "tertiary": "#b91a24",
+                        "surface-container-high": "#ebe7e7",
+                        "tertiary-fixed": "#ffdad7",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#e2bfb0",
+                        "on-secondary-fixed": "#002109",
+                        "surface": "#fcf9f8",
+                        "secondary": "#006e2d",
+                        "on-tertiary-fixed-variant": "#930013",
+                        "surface-bright": "#fcf9f8",
+                        "inverse-primary": "#ffb693",
+                        "secondary-fixed": "#7ffc97",
+                        "surface-variant": "#e5e2e1",
+                        "primary-container": "#ff6b00",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1c1b1b",
+                        "on-secondary-container": "#007230",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#7cf994",
+                        "tertiary-container": "#ff6762",
+                        "outline": "#8e7164",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#6a000b",
+                        "on-surface-variant": "#5a4136",
+                        "inverse-surface": "#313030",
+                        "surface-container-low": "#f6f3f2",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "on-tertiary-fixed": "#410004",
+                        "secondary-fixed-dim": "#62df7d",
+                        "on-background": "#1c1b1b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "margin-desktop": "48px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "base": "4px",
+                        "sm": "8px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "price-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "price-lg": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #F8F9FA; -webkit-tap-highlight-color: transparent; }
+        .slide-in-left { animation: slideInLeft 0.5s ease-out forwards; opacity: 0; transform: translateX(-20px); }
+        .slide-in-right { animation: slideInRight 0.5s ease-out forwards; opacity: 0; transform: translateX(20px); }
+        @keyframes slideInLeft { to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideInRight { to { opacity: 1; transform: translateX(0); } }
+        .bounce-tap:active { transform: scale(0.98); transition: transform 0.1s; }
+        
+        /* JS Ripple Effect Styles */
+        .ripple-btn { position: relative; overflow: hidden; }
+        .ripple-span {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            border-radius: 50%;
+            animation: animateRipple 0.6s linear;
+        }
+        @keyframes animateRipple {
+            0% { width: 0px; height: 0px; opacity: 0.5; }
+            100% { width: 400px; height: 400px; opacity: 0; }
+        }
+
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="w-full max-w-[390px] mx-auto min-h-screen relative pb-[100px] bg-[#F8F9FA]">
+<!-- Header -->
+<header class="bg-surface sticky top-0 z-50 border-b border-outline-variant h-16 flex items-center px-margin-mobile">
+<button class="text-on-surface p-sm -ml-sm active:opacity-70 transition-opacity">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm text-on-surface flex-1 text-center -ml-[24px]">Checkout</h1>
+</header>
+<main class="p-margin-mobile flex flex-col gap-sm">
+<!-- Deliver To Section -->
+<section class="bg-surface rounded-xl p-md border border-outline-variant shadow-sm slide-in-left" style="animation-delay: 0.1s;">
+<h2 class="text-[13px] font-semibold text-on-surface-variant uppercase tracking-wide mb-sm">DELIVER TO</h2>
+<div class="border-l-[3px] border-primary-container bg-[#FFF0E6]/30 rounded-r-lg p-md bounce-tap cursor-pointer">
+<div class="flex justify-between items-start mb-xs">
+<div class="flex items-center gap-xs text-[13px] font-bold text-on-surface">
+<span>🏠</span> Home
+                    </div>
+<button class="text-[13px] text-primary-container font-medium">Change</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-xs">
+                    No. 42, 7th Cross, Koramangala 4th Block, Bengaluru - 560034
+                </p>
+<p class="font-label-md text-label-md text-on-surface-variant/80">
+                    John Doe · +91 98765 43210
+                </p>
+</div>
+</section>
+<!-- Payment Method Section -->
+<section class="bg-surface rounded-xl p-md border border-outline-variant shadow-sm slide-in-right" style="animation-delay: 0.2s;">
+<h2 class="text-[13px] font-semibold text-on-surface-variant uppercase tracking-wide mb-sm">PAYMENT METHOD</h2>
+<div class="border-l-[3px] border-primary-container bg-[#FFF0E6]/30 rounded-r-lg p-md flex items-center justify-between bounce-tap cursor-pointer">
+<div class="flex items-center gap-sm">
+<div class="w-5 h-5 rounded-full border-2 border-primary-container flex items-center justify-center">
+<div class="w-2.5 h-2.5 bg-primary-container rounded-full"></div>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">💵 Cash on Delivery</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant/80">Pay when delivered</span>
+</div>
+</section>
+<!-- Order Summary Card -->
+<section class="bg-surface rounded-xl p-md border border-outline-variant shadow-sm flex justify-between items-center bounce-tap cursor-pointer slide-in-left" id="order-summary-card" style="animation-delay: 0.3s;">
+<span class="font-label-lg text-label-lg text-on-surface">3 items · ₹237 total</span>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform duration-300" id="summary-chevron">expand_more</span>
+</section>
+</main>
+<!-- Fixed Bottom Bar -->
+<div class="fixed bottom-0 left-0 right-0 max-w-[390px] mx-auto bg-surface border-t border-outline-variant p-margin-mobile shadow-[0_-4px_12px_rgba(0,0,0,0.05)] z-50 flex items-center justify-between pb-[calc(16px+env(safe-area-inset-bottom))]">
+<div class="flex flex-col">
+<span class="font-price-lg text-price-lg text-on-surface">₹237</span>
+<span class="text-[11px] text-on-surface-variant">inclusive of all charges</span>
+</div>
+<button class="bg-primary-container text-on-primary h-[52px] px-lg rounded-[14px] font-label-lg text-label-lg ripple-btn flex items-center justify-center gap-xs w-[160px]">
+            Place Order
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Expandable Order Summary Chevron Rotation
+        const summaryCard = document.getElementById('order-summary-card');
+        const chevron = document.getElementById('summary-chevron');
+        if (summaryCard && chevron) {
+            summaryCard.addEventListener('click', () => {
+                chevron.classList.toggle('rotate-180');
+            });
+        }
+
+        // Ripple Effect for Place Order Button
+        const rippleButtons = document.querySelectorAll('.ripple-btn');
+        rippleButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                const rect = e.target.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const ripple = document.createElement('span');
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                ripple.classList.add('ripple-span');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+    });
+</script>
+</body></html>

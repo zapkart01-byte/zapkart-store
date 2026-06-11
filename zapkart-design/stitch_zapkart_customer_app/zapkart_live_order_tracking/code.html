@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Live Order Tracking</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "on-background": "#1c1b1b",
+                  "tertiary-fixed-dim": "#ffb3ad",
+                  "outline": "#8e7164",
+                  "on-tertiary": "#ffffff",
+                  "error": "#ba1a1a",
+                  "on-tertiary-container": "#6a000b",
+                  "on-secondary": "#ffffff",
+                  "on-primary-fixed": "#351000",
+                  "surface-container-low": "#f6f3f2",
+                  "on-tertiary-fixed": "#410004",
+                  "primary": "#a04100",
+                  "outline-variant": "#e2bfb0",
+                  "background": "#fcf9f8",
+                  "primary-fixed": "#ffdbcc",
+                  "surface-variant": "#e5e2e1",
+                  "on-surface": "#1c1b1b",
+                  "surface-bright": "#fcf9f8",
+                  "tertiary-container": "#ff6762",
+                  "secondary": "#006e2d",
+                  "tertiary-fixed": "#ffdad7",
+                  "inverse-surface": "#313030",
+                  "error-container": "#ffdad6",
+                  "inverse-primary": "#ffb693",
+                  "surface-dim": "#dcd9d9",
+                  "surface": "#fcf9f8",
+                  "on-error": "#ffffff",
+                  "surface-tint": "#a04100",
+                  "primary-container": "#ff6b00",
+                  "on-surface-variant": "#5a4136",
+                  "secondary-fixed-dim": "#62df7d",
+                  "secondary-fixed": "#7ffc97",
+                  "on-secondary-container": "#007230",
+                  "secondary-container": "#7cf994",
+                  "primary-fixed-dim": "#ffb693",
+                  "on-primary-fixed-variant": "#7a3000",
+                  "on-primary-container": "#572000",
+                  "tertiary": "#b91a24",
+                  "surface-container-highest": "#e5e2e1",
+                  "on-tertiary-fixed-variant": "#930013",
+                  "on-primary": "#ffffff",
+                  "surface-container": "#f0edec",
+                  "on-error-container": "#93000a",
+                  "inverse-on-surface": "#f3f0ef",
+                  "on-secondary-fixed": "#002109",
+                  "surface-container-lowest": "#ffffff",
+                  "surface-container-high": "#ebe7e7",
+                  "on-secondary-fixed-variant": "#005320"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "md": "16px",
+                  "xs": "4px",
+                  "base": "4px",
+                  "margin-desktop": "48px",
+                  "margin-mobile": "16px",
+                  "xl": "32px",
+                  "lg": "24px",
+                  "gutter": "16px",
+                  "sm": "8px"
+          },
+          "fontFamily": {
+                  "label-md": ["Inter"],
+                  "body-sm": ["Inter"],
+                  "body-lg": ["Inter"],
+                  "label-lg": ["Inter"],
+                  "price-lg": ["Inter"],
+                  "headline-md": ["Inter"],
+                  "display-lg": ["Inter"],
+                  "headline-lg-mobile": ["Inter"],
+                  "headline-sm": ["Inter"],
+                  "body-md": ["Inter"],
+                  "headline-lg": ["Inter"]
+          },
+          "fontSize": {
+                  "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                  "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                  "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                  "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                  "price-lg": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                  "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                  "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                  "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                  "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                  "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                  "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+          },
+          "keyframes": {
+            "map-zoom": {
+              "0%": { transform: "scale(1.2)" },
+              "100%": { transform: "scale(1)" }
+            },
+            "pulse-ring": {
+              "0%": { transform: "scale(1)", opacity: "1" },
+              "100%": { transform: "scale(1.6)", opacity: "0" }
+            },
+            "pulse-pin": {
+              "0%, 100%": { transform: "scale(1)" },
+              "50%": { transform: "scale(1.2)" }
+            },
+            "progress-fill": {
+              "0%": { width: "0%" },
+              "100%": { width: "100%" }
+            },
+            "badge-pulse": {
+              "0%, 100%": { opacity: "1" },
+              "50%": { opacity: "0.7" }
+            }
+          },
+          "animation": {
+            "map-zoom": "map-zoom 1s ease-out forwards",
+            "pulse-ring": "pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite",
+            "pulse-pin": "pulse-pin 1.5s ease-in-out infinite",
+            "progress-fill": "progress-fill 1s ease-out forwards",
+            "badge-pulse": "badge-pulse 2s ease-in-out infinite"
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .material-symbols-outlined[data-weight="fill"] {
+      font-variation-settings: 'FILL' 1;
+    }
+    .dashed-line {
+      stroke-dasharray: 6 6;
+      animation: dash 2s linear infinite;
+    }
+    @keyframes dash {
+      to {
+        stroke-dashoffset: -24;
+      }
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-sm h-screen w-full flex flex-col overflow-hidden max-w-[390px] mx-auto relative shadow-2xl">
+<!-- Top App Bar -->
+<header class="bg-surface dark:bg-surface text-primary dark:text-primary-fixed-dim font-headline-sm text-headline-sm flex items-center justify-between px-margin-mobile w-full h-16 docked full-width top-0 z-50 absolute">
+<button class="text-on-surface-variant flex items-center justify-center p-sm rounded-full hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-semibold text-on-surface absolute left-1/2 -translate-x-1/2">Track Order</h1>
+<button class="text-on-surface-variant flex items-center justify-center p-sm rounded-full hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined text-[#9CA3AF]" data-icon="help">help</span>
+</button>
+</header>
+<!-- Map Area -->
+<div class="h-[52%] w-full relative bg-[#E5E7EB] overflow-hidden">
+<!-- Map Background -->
+<div class="absolute inset-0 bg-[#F3F4F6] animate-map-zoom" style="background-image: radial-gradient(#FFFFFF 2px, transparent 2px); background-size: 30px 30px; background-position: 0 0, 15px 15px;">
+<!-- Simulated Roads -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none">
+<path d="M-50 200 Q 150 150 250 300 T 450 100" fill="none" stroke="#FFFFFF" stroke-width="12"></path>
+<path d="M100 -50 Q 150 200 50 350" fill="none" stroke="#FFFFFF" stroke-width="8"></path>
+<!-- Route Line -->
+<path class="dashed-line" d="M 80 120 Q 200 180 220 280 T 320 380" fill="none" stroke="#FF6B00" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</div>
+<!-- Store Marker -->
+<div class="absolute top-[120px] left-[80px] -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center">
+<div class="w-[44px] h-[44px] bg-white rounded-full shadow-md flex items-center justify-center border-2 border-[#E9ECEF]">
+<span class="material-symbols-outlined text-primary-container" data-icon="shopping_bag" data-weight="fill">shopping_bag</span>
+</div>
+</div>
+<!-- Home Marker -->
+<div class="absolute top-[380px] left-[320px] -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center">
+<div class="w-[44px] h-[44px] bg-white rounded-full shadow-md flex items-center justify-center border-2 border-[#E9ECEF]">
+<span class="material-symbols-outlined text-[#9CA3AF]" data-icon="home" data-weight="fill">home</span>
+</div>
+</div>
+<!-- Rider Marker -->
+<div class="absolute top-[280px] left-[220px] -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+<!-- Pulsing Ring -->
+<div class="absolute w-[52px] h-[52px] bg-primary-container rounded-full animate-pulse-ring"></div>
+<!-- Pin -->
+<div class="w-[52px] h-[52px] bg-primary-container rounded-full shadow-lg flex items-center justify-center animate-pulse-pin relative z-10 border-2 border-white">
+<span class="material-symbols-outlined text-white" data-icon="two_wheeler" data-weight="fill">two_wheeler</span>
+</div>
+</div>
+</div>
+<!-- Bottom Sheet -->
+<div class="h-[48%] bg-white rounded-t-[20px] shadow-[0_-4px_16px_rgba(0,0,0,0.1)] flex flex-col relative -mt-4 z-30 px-margin-mobile pt-sm pb-lg w-full">
+<!-- Drag Handle -->
+<div class="w-12 h-1.5 bg-[#E9ECEF] rounded-full mx-auto mb-lg"></div>
+<!-- Header Row -->
+<div class="flex items-center justify-between mb-lg">
+<div class="bg-primary-container text-white font-label-lg px-3 py-1.5 rounded-full animate-badge-pulse flex items-center gap-xs shadow-sm">
+<span>🛵</span>
+<span>Out for Delivery</span>
+</div>
+<span class="font-body-sm text-[#9CA3AF]">Order #ZK-9824</span>
+</div>
+<!-- Rider Card -->
+<div class="bg-[#F8F9FA] border border-[#E9ECEF] rounded-xl p-md flex items-center justify-between mb-xl">
+<div class="flex items-center gap-md">
+<div class="w-[44px] h-[44px] bg-primary-container rounded-full flex items-center justify-center text-white font-headline-sm">
+          RK
+        </div>
+<div>
+<p class="font-label-lg text-on-surface">Rahul Kumar</p>
+<p class="font-body-sm text-[#9CA3AF] flex items-center gap-xs"><span class="text-yellow-400">★</span> 4.8</p>
+</div>
+</div>
+<div class="flex gap-sm">
+<button class="w-[40px] h-[40px] rounded-full border border-primary-container text-primary-container flex items-center justify-center bg-white hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+</button>
+<button class="w-[40px] h-[40px] rounded-full border border-primary-container text-primary-container flex items-center justify-center bg-white hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="call">call</span>
+</button>
+</div>
+</div>
+<!-- Progress Steps -->
+<div class="flex items-center justify-between relative mb-xl px-sm">
+<!-- Background Track -->
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-[#E9ECEF] -z-10 rounded-full"></div>
+<!-- Active Track -->
+<div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-primary-container -z-10 rounded-full animate-progress-fill" style="width: 75%;"></div>
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-xs bg-white">
+<div class="w-5 h-5 rounded-full bg-primary-container flex items-center justify-center text-white text-[10px]">✓</div>
+<span class="font-label-md text-on-surface text-[10px]">Placed</span>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-xs bg-white">
+<div class="w-5 h-5 rounded-full bg-primary-container flex items-center justify-center text-white text-[10px]">✓</div>
+<span class="font-label-md text-on-surface text-[10px]">Confirmed</span>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-xs bg-white">
+<div class="w-5 h-5 rounded-full border-2 border-primary-container bg-white flex items-center justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-primary-container"></div>
+</div>
+<span class="font-label-md text-primary-container text-[10px] font-bold">Delivery</span>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-xs bg-white">
+<div class="w-5 h-5 rounded-full border-2 border-[#E9ECEF] bg-white"></div>
+<span class="font-label-md text-[#9CA3AF] text-[10px]">Delivered</span>
+</div>
+</div>
+<!-- ETA -->
+<div class="text-center mt-auto mb-md">
+<p class="font-headline-sm text-primary-container">Arriving in <span id="eta-countdown">~12</span> minutes</p>
+</div>
+</div>
+<script>
+    // Simple script to decrement ETA purely for visual effect if left open
+    document.addEventListener('DOMContentLoaded', () => {
+      let eta = 12;
+      const etaElement = document.getElementById('eta-countdown');
+      
+      setInterval(() => {
+        if(eta > 1) {
+            eta--;
+            etaElement.innerText = `~${eta}`;
+        } else {
+            etaElement.innerText = `Soon`;
+        }
+      }, 60000); // Update every minute
+    });
+  </script>
+</body></html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZapKart - My Cart</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "primary-container": "#ff6b00",
+                  "on-tertiary": "#ffffff",
+                  "on-surface": "#1c1b1b",
+                  "secondary-container": "#7cf994",
+                  "on-secondary-container": "#007230",
+                  "error-container": "#ffdad6",
+                  "on-primary": "#ffffff",
+                  "tertiary-container": "#ff6762",
+                  "outline": "#8e7164",
+                  "secondary-fixed-dim": "#62df7d",
+                  "on-tertiary-fixed": "#410004",
+                  "on-background": "#1c1b1b",
+                  "on-tertiary-container": "#6a000b",
+                  "on-surface-variant": "#5a4136",
+                  "inverse-surface": "#313030",
+                  "surface-container-low": "#f6f3f2",
+                  "on-primary-fixed-variant": "#7a3000",
+                  "surface-container-highest": "#e5e2e1",
+                  "primary-fixed-dim": "#ffb693",
+                  "on-secondary-fixed-variant": "#005320",
+                  "on-secondary": "#ffffff",
+                  "tertiary-fixed-dim": "#ffb3ad",
+                  "on-primary-container": "#572000",
+                  "tertiary": "#b91a24",
+                  "surface-container-high": "#ebe7e7",
+                  "primary-fixed": "#ffdbcc",
+                  "on-error-container": "#93000a",
+                  "on-error": "#ffffff",
+                  "on-primary-fixed": "#351000",
+                  "surface-dim": "#dcd9d9",
+                  "primary": "#a04100",
+                  "surface-tint": "#a04100",
+                  "inverse-on-surface": "#f3f0ef",
+                  "background": "#fcf9f8",
+                  "surface-container": "#f0edec",
+                  "surface-bright": "#fcf9f8",
+                  "inverse-primary": "#ffb693",
+                  "secondary-fixed": "#7ffc97",
+                  "surface-variant": "#e5e2e1",
+                  "error": "#ba1a1a",
+                  "tertiary-fixed": "#ffdad7",
+                  "surface-container-lowest": "#ffffff",
+                  "outline-variant": "#e2bfb0",
+                  "surface": "#fcf9f8",
+                  "secondary": "#006e2d",
+                  "on-secondary-fixed": "#002109",
+                  "on-tertiary-fixed-variant": "#930013"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "gutter": "16px",
+                  "base": "4px",
+                  "sm": "8px",
+                  "xl": "32px",
+                  "xs": "4px",
+                  "margin-desktop": "48px",
+                  "md": "16px",
+                  "lg": "24px",
+                  "margin-mobile": "16px"
+          },
+          "fontFamily": {
+                  "body-sm": [
+                          "Inter"
+                  ],
+                  "body-lg": [
+                          "Inter"
+                  ],
+                  "label-md": [
+                          "Inter"
+                  ],
+                  "headline-lg": [
+                          "Inter"
+                  ],
+                  "body-md": [
+                          "Inter"
+                  ],
+                  "label-lg": [
+                          "Inter"
+                  ],
+                  "headline-sm": [
+                          "Inter"
+                  ],
+                  "headline-md": [
+                          "Inter"
+                  ],
+                  "headline-lg-mobile": [
+                          "Inter"
+                  ],
+                  "display-lg": [
+                          "Inter"
+                  ],
+                  "price-lg": [
+                          "Inter"
+                  ]
+          },
+          "fontSize": {
+                  "body-sm": [
+                          "14px",
+                          {
+                                  "lineHeight": "20px",
+                                  "fontWeight": "400"
+                          }
+                  ],
+                  "body-lg": [
+                          "18px",
+                          {
+                                  "lineHeight": "28px",
+                                  "fontWeight": "400"
+                          }
+                  ],
+                  "label-md": [
+                          "12px",
+                          {
+                                  "lineHeight": "16px",
+                                  "fontWeight": "500"
+                          }
+                  ],
+                  "headline-lg": [
+                          "32px",
+                          {
+                                  "lineHeight": "40px",
+                                  "letterSpacing": "-0.02em",
+                                  "fontWeight": "700"
+                          }
+                  ],
+                  "body-md": [
+                          "16px",
+                          {
+                                  "lineHeight": "24px",
+                                  "fontWeight": "400"
+                          }
+                  ],
+                  "label-lg": [
+                          "14px",
+                          {
+                                  "lineHeight": "20px",
+                                  "fontWeight": "600"
+                          }
+                  ],
+                  "headline-sm": [
+                          "20px",
+                          {
+                                  "lineHeight": "28px",
+                                  "fontWeight": "600"
+                          }
+                  ],
+                  "headline-md": [
+                          "24px",
+                          {
+                                  "lineHeight": "32px",
+                                  "letterSpacing": "-0.01em",
+                                  "fontWeight": "600"
+                          }
+                  ],
+                  "headline-lg-mobile": [
+                          "28px",
+                          {
+                                  "lineHeight": "36px",
+                                  "fontWeight": "700"
+                          }
+                  ],
+                  "display-lg": [
+                          "40px",
+                          {
+                                  "lineHeight": "48px",
+                                  "letterSpacing": "-0.02em",
+                                  "fontWeight": "700"
+                          }
+                  ],
+                  "price-lg": [
+                          "22px",
+                          {
+                                  "lineHeight": "28px",
+                                  "fontWeight": "700"
+                          }
+                  ]
+          }
+        },
+      }
+    }
+  </script>
+<style>
+    body {
+      background-color: #f8f9fa;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    .slide-in-right {
+      animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+      transform: translateX(20px);
+    }
+
+    @keyframes slideInRight {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .item-delay-1 { animation-delay: 0.1s; }
+    .item-delay-2 { animation-delay: 0.2s; }
+    .item-delay-3 { animation-delay: 0.3s; }
+
+    .pulse-total {
+      animation: pulseScale 0.3s ease-out;
+    }
+
+    @keyframes pulseScale {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); color: #FF6B00; }
+      100% { transform: scale(1); }
+    }
+
+    .progress-fill {
+      width: 0;
+      animation: fillProgress 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+    }
+
+    @keyframes fillProgress {
+      to { width: 75%; }
+    }
+    
+    /* Hide scrollbar for clean mobile look */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-sans antialiased text-on-surface pb-[100px] max-w-[390px] mx-auto bg-[#F8F9FA] relative min-h-screen shadow-2xl">
+<!-- Shared Component: TopAppBar -->
+<header class="bg-surface dark:bg-on-surface docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center w-full px-margin-mobile h-16 sticky z-50">
+<button class="text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high transition-colors p-sm rounded-full active:opacity-80 active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-on-surface dark:text-surface">Cart</h1>
+<button class="text-on-surface-variant hover:bg-surface-container-high transition-colors p-sm rounded-full active:opacity-80 active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">delete_outline</span>
+</button>
+</header>
+<main class="px-margin-mobile py-md flex flex-col gap-md">
+<!-- Custom Header replacing the TopAppBar Headline visually as per requirements but keeping JSON top app bar intact above as mandated-->
+<div class="flex items-center gap-sm mt-sm">
+<h2 class="text-[26px] font-bold text-[#0D0D0D] leading-tight tracking-tight">My Cart</h2>
+<span class="bg-[#F3F4F6] text-[#9CA3AF] text-[13px] font-medium px-2 py-1 rounded-full">4 items</span>
+</div>
+<!-- Free Delivery Progress -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant/30 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+<p class="text-[13px] text-[#0D0D0D] font-medium mb-sm">Add <span class="font-bold">₹54</span> more for FREE delivery</p>
+<div class="h-1 w-full bg-[#F0F0F0] rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full progress-fill"></div>
+</div>
+</div>
+<!-- Savings Banner -->
+<div class="bg-[#DCFCE7] rounded-[10px] p-sm flex items-center gap-xs border border-[#86EFAC]/30">
+<span class="text-[14px]">🎉</span>
+<p class="text-[13px] text-[#16A34A] font-semibold tracking-tight">You're saving ₹38 on this order</p>
+</div>
+<!-- Cart Items -->
+<div class="bg-surface-container-lowest rounded-[12px] border border-outline-variant/30 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col overflow-hidden">
+<!-- Item 1 -->
+<div class="flex items-center p-md border-b border-[#F0F0F0] slide-in-right item-delay-1">
+<div class="w-[52px] h-[52px] bg-[#F8F9FA] rounded-lg border border-outline-variant/20 flex-shrink-0 overflow-hidden relative">
+<img class="w-full h-full object-cover mix-blend-multiply p-1" data-alt="A close up shot of a vibrant, ripe mango resting on a stark white minimalist background. The lighting is high-key and bright, evoking a fresh, energetic mood consistent with a modern light-mode grocery app. A subtle Electric Orange accent reflects off the fruit's skin, tying into the global brand palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeWdXQLVV89NFZ1Pz0rZIBsnIfs5RVTRItbcpJq8xnNN7h5itmnCG6wmMBoiBDCe7XhwkXvKR0JaY6YcHN_4EFTgXthS59eL6kFW6dDfUzrmUEvTxAgeop1crJEkZqiONzzwlWnf6gTP-vqhWcs43wSmOcetAL4zd6w3UO83GQiujNYGLkSmaF0qkHh8gKTfEFqU4-vZg9BReaUbbJs3DYfdiJJCYeOxNaEIfgkOAfXG-7VkF0fnkfUWXrhpbFECzqzs_xKupPxA"/>
+</div>
+<div class="ml-sm flex-1">
+<h3 class="text-[14px] font-bold text-[#0D0D0D] leading-tight">Alphonso Mango</h3>
+<p class="text-[12px] text-[#9CA3AF] mt-[2px]">500g</p>
+<p class="text-[14px] font-bold text-[#0D0D0D] mt-xs">₹120</p>
+</div>
+<div class="flex items-center bg-[#FFF5F0] border border-primary-container/20 rounded-full p-[2px]">
+<button class="w-[24px] h-[24px] flex items-center justify-center text-primary-container hover:bg-primary-container/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[16px] font-bold">remove</span>
+</button>
+<span class="text-[14px] font-bold text-primary-container w-[20px] text-center">1</span>
+<button class="w-[24px] h-[24px] flex items-center justify-center text-primary-container hover:bg-primary-container/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[16px] font-bold">add</span>
+</button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center p-md border-b border-[#F0F0F0] slide-in-right item-delay-2">
+<div class="w-[52px] h-[52px] bg-[#F8F9FA] rounded-lg border border-outline-variant/20 flex-shrink-0 overflow-hidden relative">
+<img class="w-full h-full object-cover mix-blend-multiply p-1" data-alt="A crisp, green avocado sliced in half revealing its pit, placed on a clean white surface. Soft, diffused lighting enhances the fresh organic textures, perfectly suited for a clean light-mode UI. The color palette emphasizes natural greens against pure white, feeling healthy and premium." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXfIORv9GN8m396y9JwgDQ8H5nyrHsFI3ITfj-_9rw-tNRdD7s_AzJTnrbjVfKW6APVzKOG8KSL7SXDhiEg1-1hBotbqnQYtyfQLYmcm8Eqqv3BncLthygUH-BaE7kEgQDG92fuDgg40vnLcReD1sKQMmcgsc0AHS8AtcR8qaqz6PHoeQ3iqE0pRRQ5Y3qL--nWynevtVBzG7qVTViugWtBAHJ3k80UsUhJSh4mJ3Vq_AVUzk5QFHVG5llaKBZC4vup5vhgEhWsQ"/>
+</div>
+<div class="ml-sm flex-1">
+<h3 class="text-[14px] font-bold text-[#0D0D0D] leading-tight">Hass Avocado</h3>
+<p class="text-[12px] text-[#9CA3AF] mt-[2px]">2 pcs</p>
+<p class="text-[14px] font-bold text-[#0D0D0D] mt-xs">₹85</p>
+</div>
+<div class="flex items-center bg-[#FFF5F0] border border-primary-container/20 rounded-full p-[2px]">
+<button class="w-[24px] h-[24px] flex items-center justify-center text-primary-container hover:bg-primary-container/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[16px] font-bold">remove</span>
+</button>
+<span class="text-[14px] font-bold text-primary-container w-[20px] text-center">1</span>
+<button class="w-[24px] h-[24px] flex items-center justify-center text-primary-container hover:bg-primary-container/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[16px] font-bold">add</span>
+</button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center p-md slide-in-right item-delay-3">
+<div class="w-[52px] h-[52px] bg-[#F8F9FA] rounded-lg border border-outline-variant/20 flex-shrink-0 overflow-hidden relative">
+<img class="w-full h-full object-cover mix-blend-multiply p-1" data-alt="A glass bottle of premium farm-fresh milk standing on a brilliant white studio background. The lighting is crisp and cool, casting a soft, minimal ambient shadow typical of modern SaaS design. The aesthetic is extremely clean, communicating reliability and freshness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKPOXtb1JlVta5ZaNpDI1rvM2swtBF6Um_WW5yDm83OyDFSehyJD9AdCrMqpDMVuG-95wa8uzSsyoXt5H3_tm2M2M-RCu5erPgjUFzZNugaWh7FCVuhj0_J9XkOi3HrdDMUpkrLguBxvqjl7XlH7mT0b8S1vUskZbiyi69UZwZ4OwfLedWlxiONSuLAIXiaSj_70sgZYT78I8Ud5EkIcWK4ur9hU1TA4eUpIV-AZovyHxKa5gNIYy8fMSgSIrZZ4ejmrari7M-uw"/>
+</div>
+<div class="ml-sm flex-1">
+<h3 class="text-[14px] font-bold text-[#0D0D0D] leading-tight">Farm Fresh Milk</h3>
+<p class="text-[12px] text-[#9CA3AF] mt-[2px]">1L</p>
+<p class="text-[14px] font-bold text-[#0D0D0D] mt-xs">₹40</p>
+</div>
+<div class="flex items-center bg-[#FFF5F0] border border-primary-container/20 rounded-full p-[2px]">
+<button class="w-[24px] h-[24px] flex items-center justify-center text-primary-container hover:bg-primary-container/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[16px] font-bold">remove</span>
+</button>
+<span class="text-[14px] font-bold text-primary-container w-[20px] text-center">2</span>
+<button class="w-[24px] h-[24px] flex items-center justify-center text-primary-container hover:bg-primary-container/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[16px] font-bold">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Promo Code -->
+<div class="bg-surface-container-lowest rounded-[12px] border border-outline-variant/30 shadow-[0_2px_8px_rgba(0,0,0,0.03)] p-md flex items-center justify-between cursor-pointer active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-[#FFF5F0] flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[18px]">local_offer</span>
+</div>
+<span class="text-[14px] text-[#4B5563] font-medium">Apply Promo Code</span>
+</div>
+<div class="flex items-center text-primary-container">
+<span class="text-[14px] font-semibold mr-xs">Apply</span>
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</div>
+</div>
+<!-- Bill Details -->
+<div class="bg-surface-container-lowest rounded-[10px] border border-outline-variant/30 shadow-[0_2px_8px_rgba(0,0,0,0.03)] p-md mb-xl">
+<h3 class="text-[14px] font-bold text-[#0D0D0D] mb-sm">Bill Details</h3>
+<div class="flex flex-col gap-sm text-[13px]">
+<div class="flex justify-between text-[#4B5563]">
+<span>Item Total</span>
+<span class="font-medium text-[#0D0D0D]">₹245</span>
+</div>
+<div class="flex justify-between text-[#4B5563]">
+<span>Delivery Fee</span>
+<span class="font-medium text-[#0D0D0D]">₹30</span>
+</div>
+<div class="flex justify-between text-[#16A34A]">
+<span>Discount</span>
+<span class="font-medium">-₹38</span>
+</div>
+<div class="h-[1px] w-full bg-[#F0F0F0] my-xs"></div>
+<div class="flex justify-between items-center mt-xs">
+<span class="text-[14px] font-bold text-[#0D0D0D]">Total Payable</span>
+<span class="text-[15px] font-bold text-primary-container" id="total-amount">₹237</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Fixed Bottom Bar -->
+<div class="fixed bottom-0 left-0 w-full max-w-[390px] left-[50%] translate-x-[-50%] bg-surface-container-lowest shadow-[0_-4px_16px_rgba(0,0,0,0.08)] border-t border-outline-variant/20 px-margin-mobile py-sm pb-lg flex justify-between items-center z-50">
+<div class="flex flex-col">
+<span class="text-[20px] font-bold text-[#0D0D0D] leading-none" id="bottom-total">₹237</span>
+<span class="text-[11px] text-[#9CA3AF] font-bold tracking-wider mt-1">TOTAL</span>
+</div>
+<button class="bg-primary-container text-on-primary h-[52px] px-lg rounded-[14px] font-semibold text-[15px] flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-[0_4px_12px_rgba(255,107,0,0.25)]">
+      Proceed to Checkout
+      <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<script>
+    // Simulate minor interactions
+    document.addEventListener('DOMContentLoaded', () => {
+      const addButtons = document.querySelectorAll('.material-symbols-outlined:contains("add")');
+      
+      // Simple pulse effect helper
+      const triggerPulse = () => {
+        const totalAmounts = [document.getElementById('total-amount'), document.getElementById('bottom-total')];
+        totalAmounts.forEach(el => {
+          if(el) {
+            el.classList.remove('pulse-total');
+            void el.offsetWidth; // trigger reflow
+            el.classList.add('pulse-total');
+          }
+        });
+      };
+
+      // Just for visual feedback on click in prototype
+      document.body.addEventListener('click', (e) => {
+        if(e.target.textContent === 'add' || e.target.textContent === 'remove') {
+           triggerPulse();
+        }
+      });
+    });
+
+    // Helper for :contains logic above in vanilla JS context
+    // This is a simplified interaction script for the prototype
+  </script>
+</body></html>

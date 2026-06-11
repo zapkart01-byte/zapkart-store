@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Web-specific scroll and layout fixes.
+ * NativeWind sometimes applies overflow:hidden to flex containers,
+ * which prevents scrolling on web. These overrides ensure proper
+ * scroll behavior across all registration and tab screens.
+ */
+
+/* Ensure html and body fill the full viewport */
+html, body, #root {
+  height: 100%;
+  overflow: auto;
+}
+
+/* ScrollView on web renders as a <div> — ensure it can scroll */
+[data-testid="scroll-view"],
+[role="scrollbar"] {
+  overflow: auto !important;
+  -webkit-overflow-scrolling: touch;
+}

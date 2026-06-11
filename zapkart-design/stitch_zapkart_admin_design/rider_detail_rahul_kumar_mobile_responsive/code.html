@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZapKart Super Admin - Rider Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-on-surface": "#f0f1f2",
+                      "on-error": "#ffffff",
+                      "tertiary-container": "#9299a8",
+                      "on-primary-fixed": "#351000",
+                      "surface-variant": "#e1e3e4",
+                      "inverse-primary": "#ffb693",
+                      "tertiary": "#585f6c",
+                      "secondary-container": "#e5e2e1",
+                      "primary-fixed-dim": "#ffb693",
+                      "secondary-fixed": "#e5e2e1",
+                      "surface-container-highest": "#e1e3e4",
+                      "secondary": "#5f5e5e",
+                      "primary-fixed": "#ffdbcc",
+                      "background": "#f8f9fa",
+                      "primary-container": "#ff6b00",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "error-container": "#ffdad6",
+                      "surface-container": "#edeeef",
+                      "surface-container-low": "#f3f4f5",
+                      "on-tertiary-fixed-variant": "#404754",
+                      "outline-variant": "#e2bfb0",
+                      "outline": "#8e7164",
+                      "on-background": "#191c1d",
+                      "on-secondary-container": "#656464",
+                      "error": "#ba1a1a",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed": "#dce2f3",
+                      "primary": "#a04100",
+                      "inverse-surface": "#2e3132",
+                      "on-primary-fixed-variant": "#7a3000",
+                      "secondary-fixed-dim": "#c9c6c5",
+                      "on-primary-container": "#572000",
+                      "surface-dim": "#d9dadb",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-high": "#e7e8e9",
+                      "on-secondary-fixed-variant": "#474646",
+                      "surface-tint": "#a04100",
+                      "tertiary-fixed-dim": "#c0c7d6",
+                      "on-surface-variant": "#5a4136",
+                      "on-tertiary-container": "#2a313d",
+                      "on-surface": "#191c1d",
+                      "on-error-container": "#93000a",
+                      "surface": "#f8f9fa",
+                      "on-tertiary-fixed": "#151c27",
+                      "on-primary": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "surface-bright": "#f8f9fa"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "8px",
+                      "base": "4px",
+                      "md": "16px",
+                      "xs": "4px",
+                      "xl": "32px",
+                      "margin-mobile": "16px",
+                      "lg": "24px",
+                      "gutter-mobile": "12px"
+              },
+              "fontFamily": {
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "10px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-lg": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .doc-card {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .doc-card.flipped {
+            transform: rotateY(180deg);
+        }
+        .doc-card-front, .doc-card-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .doc-card-back {
+            transform: rotateY(180deg);
+        }
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fade-in 0.5s ease-out forwards;
+        }
+      </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col w-64 border-r border-outline-variant bg-surface-container-lowest fixed left-0 top-0 h-full z-40">
+<div class="p-lg border-b border-outline-variant flex items-center gap-md">
+<div class="w-10 h-10 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container font-headline-md">Z</div>
+<div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">ZapKart</h1>
+<p class="font-body-sm text-body-sm text-secondary">Super Admin</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto py-md flex flex-col gap-sm px-sm">
+<a class="flex items-center gap-md text-secondary hover:text-primary px-md py-sm transition-colors rounded-lg hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm scale-[0.98] duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="delivery_dining" style="font-variation-settings: 'FILL' 1;">delivery_dining</span>
+<span class="font-label-lg text-label-lg">Riders</span>
+</a>
+<a class="flex items-center gap-md text-secondary hover:text-primary px-md py-sm transition-colors rounded-lg hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-label-lg text-label-lg">Stores</span>
+</a>
+<a class="flex items-center gap-md text-secondary hover:text-primary px-md py-sm transition-colors rounded-lg hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<a class="flex items-center gap-md text-secondary hover:text-primary px-md py-sm transition-colors rounded-lg hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-lg text-label-lg">Inventory</span>
+</a>
+<a class="flex items-center gap-md text-secondary hover:text-primary px-md py-sm transition-colors rounded-lg hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-lg text-label-lg">Payouts</span>
+</a>
+<a class="flex items-center gap-md text-secondary hover:text-primary px-md py-sm transition-colors rounded-lg hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+<span class="font-label-lg text-label-lg">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-0 md:ml-64 flex flex-col min-h-screen overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="sticky top-0 right-0 flex justify-between items-center py-sm z-30 h-16 w-full border-b border-outline-variant bg-surface-container-lowest shadow-sm px-margin-mobile">
+<div class="flex items-center">
+<!-- Search bar left placeholder -->
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-sm">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary text-sm w-64 font-body-md text-body-md text-on-surface" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="hover:bg-surface-container rounded-full p-2 transition-colors text-secondary">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-surface-container rounded-full p-2 transition-colors text-secondary">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="hover:bg-surface-container rounded-full p-2 transition-colors text-secondary">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-tertiary-container overflow-hidden ml-md">
+<img alt="Admin Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmZsJ_cwMGAYUPcKCAVMqODngPEEG5EhIdzuFnbQBmZDjXngzKCwaVjNBgMawuubs3ESf3Md-XUd8szInTSLX3dl2ZdFc_LSrHMr2-Sy1agzyhvZLRm8khxZR-1oeoCYXZ7cDr2Mer1WSpBTjxSTjMB6aj_eZ7kI0hiGXMO2tW-ADPBp_KpNGAc6HYxsokoPFfa95kAqI5XtDbq2wr2EmRXjx0cfgtS832pIaO2hQY72M6TYzSL2QZiFg3NdlRCzO4zrgPcI8b384"/>
+</div>
+</div>
+</header>
+<div class="p-lg flex-1 overflow-y-auto">
+<!-- Breadcrumb -->
+<div class="font-label-md text-[13px] text-tertiary mb-md">
+                Riders → <span class="text-on-background font-medium">Rahul Kumar</span>
+</div>
+<!-- Header Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant p-lg flex flex-col lg:flex-row justify-between items-start lg:items-center gap-lg mb-lg">
+<div class="flex items-center gap-lg"><div class="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-md sm:gap-lg w-full">
+<div class="w-20 h-20 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-headline-lg text-headline-lg font-bold shrink-0">
+        RK
+    </div>
+<div class="w-full">
+<div class="flex flex-col sm:flex-row items-center gap-sm mb-xs">
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-background">Rahul Kumar</h2>
+<span class="bg-[#dcfce7] text-[#166534] px-3 py-1 rounded-full font-label-md text-label-md flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-[#16a34a]"></span> Active
+            </span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-lg gap-y-sm font-body-md text-body-md text-secondary">
+<div class="flex items-center justify-center sm:justify-start gap-xs"><span class="material-symbols-outlined text-[16px]">phone</span> <a class="text-primary hover:underline" href="tel:+919876543210">+91 98765 43210</a></div>
+<div class="flex items-center justify-center sm:justify-start gap-xs"><span class="material-symbols-outlined text-[16px]">two_wheeler</span> KA-01-AB-1234</div>
+<div class="flex items-center justify-center sm:justify-start gap-xs"><span class="material-symbols-outlined text-[16px]">calendar_today</span> Joined: 12 Oct 2023</div>
+<div class="flex items-center justify-center sm:justify-start gap-xs"><span class="material-symbols-outlined text-[16px]">account_balance</span> **** **** 5678</div>
+<div class="flex items-center justify-center sm:justify-start gap-xs sm:col-span-2"><span class="material-symbols-outlined text-[16px]">location_on</span> Koramangala, Bangalore</div>
+</div>
+</div>
+</div></div>
+<div class="flex flex-col gap-md w-full lg:w-auto items-center">
+<div class="font-headline-sm text-headline-sm text-on-background flex items-center gap-xs">
+                        4.8 <span class="text-[#fbbf24]">★</span> <span class="font-body-md text-body-md text-secondary font-normal">(124 reviews)</span>
+</div>
+<div class="flex items-center gap-sm w-full lg:w-auto">
+<button class="flex-1 lg:flex-none border border-primary text-primary px-4 py-2 rounded-full font-label-md text-label-md hover:bg-primary-fixed transition-colors flex items-center justify-center gap-xs min-h-[44px]">
+<span class="material-symbols-outlined text-[18px]">my_location</span> View Live Location
+                        </button>
+<button class="flex-1 lg:flex-none bg-error text-on-error px-4 py-2 rounded-full font-label-md text-label-md hover:bg-[#991515] transition-colors min-h-[44px]">
+                            Suspend
+                        </button>
+</div>
+</div>
+</div>
+<!-- Quick Stats -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-md mb-lg overflow-x-auto hide-scrollbar">
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant p-md flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-secondary mb-xs">Today Earnings</p>
+<p class="font-headline-md text-headline-md font-semibold text-on-background stat-counter" data-target="850">₹0</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant p-md flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-secondary mb-xs">This Week Earnings</p>
+<p class="font-headline-md text-headline-md font-semibold text-on-background stat-counter" data-target="4200">₹0</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant p-md flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-secondary mb-xs">Total Deliveries</p>
+<p class="font-headline-md text-headline-md font-semibold text-on-background stat-counter" data-target="156">0</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant p-md flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-[#dcfce7] flex items-center justify-center text-[#16a34a] shrink-0">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-secondary mb-xs">Acceptance Rate</p>
+<p class="font-headline-md text-headline-md font-semibold text-on-background"><span class="stat-counter" data-target="98">0</span>%</p>
+</div>
+</div>
+</div>
+<!-- Tabs -->
+<div class="border-b border-surface-variant mb-lg flex overflow-x-auto hide-scrollbar px-margin-mobile md:px-0">
+<button class="px-md py-sm font-label-lg text-label-lg text-secondary hover:text-on-background whitespace-nowrap">Overview</button>
+<button class="px-md py-sm font-label-lg text-label-lg text-primary font-bold border-b-2 border-primary whitespace-nowrap">KYC Documents</button>
+<button class="px-md py-sm font-label-lg text-label-lg text-secondary hover:text-on-background whitespace-nowrap">Deliveries</button>
+<button class="px-md py-sm font-label-lg text-label-lg text-secondary hover:text-on-background whitespace-nowrap">Earnings</button>
+<button class="px-md py-sm font-label-lg text-label-lg text-secondary hover:text-on-background whitespace-nowrap">Reviews</button>
+</div>
+<!-- KYC Documents Content -->
+<div class="space-y-lg animate-fade-in">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg px-gutter-mobile md:px-0">
+<!-- Document Card: Aadhaar Front -->
+<div class="group relative perspective-1000">
+<div class="doc-card w-full h-full relative transition-transform duration-500 bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant overflow-hidden">
+<div class="p-md border-b border-surface-variant flex justify-between items-center bg-surface">
+<h3 class="font-headline-sm text-headline-sm font-medium">Aadhaar Front</h3>
+<span class="bg-[#dcfce7] text-[#166534] px-2 py-0.5 rounded-full font-label-sm text-label-sm status-pill">Verified</span>
+</div>
+<div class="relative aspect-[3/2] bg-surface-container-low p-sm flex items-center justify-center overflow-hidden">
+<!-- Placeholder Image generated based on alt text logic -->
+<img alt="Document" class="w-full h-full object-cover rounded-md" data-alt="A close-up, high-quality photograph of an official identification document resting on a clean, light grey surface. The lighting is bright and even, casting minimal shadows to maintain a modern, crisp aesthetic. The document features subtle geometric security patterns and a blurred photograph. The overall color palette is neutral with hints of official blue and green inks, perfectly suited for a clean, professional corporate dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCPi5Xl5hmfiJsOkmuXd-TNkCBgiJMJpA0glcrOQ7dsIBtX535lfmmWkW8fDzRwgSl-3jfXh6iRVTFKVliQ6rjrwKe5BNSp3B4Ivsf5NyElPTNoBCD4JpDRZK3ZaD-cJRioHBk0DfuaFPa7zvadvzaGGFfWMe4O6qoha5P-f2ulVK04hcKCOVYsrpimu3LX-R4xwtvAO5IV1ko6n3SZ4hmjDHrDG5jkEQtjO3OLfnj89HGZh7lmC7cTffHYequ7wX6_3zcoAnbt94"/>
+<button class="absolute top-2 right-2 bg-surface-container-lowest/80 backdrop-blur text-on-surface p-1.5 rounded-full shadow-sm hover:bg-surface-container-lowest opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">zoom_in</span>
+</button>
+</div>
+<div class="p-md flex gap-sm bg-surface">
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant text-on-surface px-3 py-1.5 rounded-full font-label-md text-label-md hover:bg-surface-container min-h-[44px] transition-colors verify-btn">Verify</button>
+<button class="flex-1 bg-surface-container-lowest border border-error text-error px-3 py-1.5 rounded-full font-label-md text-label-md hover:bg-error-container min-h-[44px] transition-colors reject-btn">Invalid</button>
+</div>
+</div>
+</div>
+<!-- Document Card: Aadhaar Back -->
+<div class="group relative perspective-1000" style="animation-delay: 0.1s;">
+<div class="doc-card w-full h-full relative transition-transform duration-500 bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant overflow-hidden animate-fade-in">
+<div class="p-md border-b border-surface-variant flex justify-between items-center bg-surface">
+<h3 class="font-headline-sm text-headline-sm font-medium">Aadhaar Back</h3>
+<span class="bg-[#dcfce7] text-[#166534] px-2 py-0.5 rounded-full font-label-sm text-label-sm status-pill">Verified</span>
+</div>
+<div class="relative aspect-[3/2] bg-surface-container-low p-sm flex items-center justify-center overflow-hidden">
+<img alt="Document" class="w-full h-full object-cover rounded-md" data-alt="A clean, well-lit photograph showing the reverse side of a plastic identification card lying flat on a pristine white desk. The card exhibits barcodes, official text blocks, and subtle watermarks. The environment is devoid of clutter, illuminated by soft, diffused daylight that eliminates harsh glare. The muted tones of the card contrast gently with the bright background, emphasizing a high-utility, modern interface style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoK3htmE3prLOaIM68-aqzljnW6kpJGz1ho0gSVwztZQanIvqSEoj8_-SRRUx5cUlM3G6BWyG3naMDMhE-BJ1pMKnW1OYrI44k7aF8dlxZK_oipUAntPj3gIhKPgTBigBbC8w4Gn89UGwVbH5Lzs5aIogiYV8WL2f0pms8zuiqoWtMPlniqCjrxhLMkpRfx8Wc2frV-gRO_wVV8_PcoHm31_C8TN7mtovy5CRN4ALPXxyKOFBqBTmzcmN37l1GxRnO9OzQHPtQcYw"/>
+<button class="absolute top-2 right-2 bg-surface-container-lowest/80 backdrop-blur text-on-surface p-1.5 rounded-full shadow-sm hover:bg-surface-container-lowest opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">zoom_in</span>
+</button>
+</div>
+<div class="p-md flex gap-sm bg-surface">
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant text-on-surface px-3 py-1.5 rounded-full font-label-md text-label-md hover:bg-surface-container min-h-[44px] transition-colors verify-btn">Verify</button>
+<button class="flex-1 bg-surface-container-lowest border border-error text-error px-3 py-1.5 rounded-full font-label-md text-label-md hover:bg-error-container min-h-[44px] transition-colors reject-btn">Invalid</button>
+</div>
+</div>
+</div>
+<!-- Document Card: Driving License -->
+<div class="group relative perspective-1000" style="animation-delay: 0.2s;">
+<div class="doc-card w-full h-full relative transition-transform duration-500 bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant overflow-hidden animate-fade-in">
+<div class="p-md border-b border-surface-variant flex justify-between items-center bg-surface">
+<h3 class="font-headline-sm text-headline-sm font-medium">Driving License</h3>
+<span class="bg-[#fef9c3] text-[#854d0e] px-2 py-0.5 rounded-full font-label-sm text-label-sm status-pill">Pending</span>
+</div>
+<div class="relative aspect-[3/2] bg-surface-container-low p-sm flex items-center justify-center overflow-hidden">
+<img alt="Document" class="w-full h-full object-cover rounded-md" data-alt="A top-down photograph of a stylized driver's license placed centrally on a smooth, matte gray surface. The card has a protective lamination reflecting a tiny amount of soft studio light. It features micro-printing details and an official emblem. The color grading is cool and neutral, strictly adhering to a professional, minimalist aesthetic suitable for a high-end corporate verification portal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwSG24E0t7-ccn5pSD2PVLqKeR4oaP4XrLjnbFcaMiDuaU6CJCA1uH1rK1x7hKvHH3m6o8N2H0aAk-Kg5-rQSSyA6sPfkJojqh2Keb5W_pxzvwPhHH33YXCyldEL22n-54p1P3Tiv1vOkQjYNGzeT-GI31pUjYMPYXxhgZcfO4QoDyROvS6XUg9vmtKebpOXKvyBD5go-AVR169w7ospsyJuHD_qS2ZDfIvR6faLqR_0qeraToEFQrUgqvNK2DphfkP_F1xzIRTAI"/>
+<button class="absolute top-2 right-2 bg-surface-container-lowest/80 backdrop-blur text-on-surface p-1.5 rounded-full shadow-sm hover:bg-surface-container-lowest opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">zoom_in</span>
+</button>
+</div>
+<div class="p-md flex gap-sm bg-surface">
+<button class="flex-1 bg-primary text-on-primary px-3 py-1.5 rounded-full font-label-md text-label-md hover:bg-[#803400] min-h-[44px] transition-colors verify-btn">Verify</button>
+<button class="flex-1 bg-surface-container-lowest border border-error text-error px-3 py-1.5 rounded-full font-label-md text-label-md hover:bg-error-container min-h-[44px] transition-colors reject-btn">Invalid</button>
+</div>
+</div>
+</div>
+<!-- Document Card: RC -->
+<div class="group relative perspective-1000" style="animation-delay: 0.3s;">
+<div class="doc-card w-full h-full relative transition-transform duration-500 bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant overflow-hidden animate-fade-in">
+<div class="p-md border-b border-surface-variant flex justify-between items-center bg-surface">
+<h3 class="font-headline-sm text-headline-sm font-medium">Vehicle RC</h3>
+<span class="bg-[#fef9c3] text-[#854d0e] px-2 py-0.5 rounded-full font-label-sm text-label-sm status-pill">Pending</span>
+</div>
+<div class="relative aspect-[3/2] bg-surface-container-low p-sm flex items-center justify-center overflow-hidden">
+<img alt="Document" class="w-full h-full object-cover rounded-md" data-alt="A close-up view of a folded, multi-colored vehicle registration document sitting on a clean, light-toned desk. The document features official stamps, vehicular data tables, and a complex background pattern typical of government forms. Soft, even lighting highlights the texture of the paper without creating harsh shadows. The composition is structured and tidy, reflecting a highly efficient, clean SaaS dashboard environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXrsUXmYg_Vvi2YTVX34KXxtyimLQ9rhhdP03sOToT_mPJl4JBb1txHMc5cc9mnqfcK-dckCYWe7DjE3_Xt08tucdeISzwR_dOL7PJCTvjJzAQE9V1pNtZW4aL16tUV3AiUfKvaIRSCGdHdSfnJp8vqen5o8hGGho_qSapPTEUMRvj0xpmbjds5DJ3Lq2H18TTXCogWHnYziM8g4pwaHyuFy02bWmklvhkd0oREMX8Dh_0OhqfrKJidgUpPHmUmtHK2sYp1ccucr0"/>
+<button class="absolute top-2 right-2 bg-surface-container-lowest/80 backdrop-blur text-on-surface p-1.5 rounded-full shadow-sm hover:bg-surface-container-lowest opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">zoom_in</span>
+</button>
+</div>
+<div class="p-md flex gap-sm bg-surface">
+<button class="flex-1 bg-primary text-on-primary px-3 py-1.5 rounded-full font-label-md text-label-md hover:bg-[#803400] min-h-[44px] transition-colors verify-btn">Verify</button>
+<button class="flex-1 bg-surface-container-lowest border border-error text-error px-3 py-1.5 rounded-full font-label-md text-label-md hover:bg-error-container min-h-[44px] transition-colors reject-btn">Invalid</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-surface-variant flex flex-col sm:flex-row justify-between items-center gap-md mt-lg">
+<div class="w-full sm:w-auto hidden transition-all" id="reject-reason-container">
+<input class="w-full sm:w-64 px-4 py-2 bg-surface-container rounded-full border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary text-sm font-body-md text-body-md text-on-surface outline-none" placeholder="Enter rejection reason..." type="text"/>
+</div>
+<div class="flex flex-col sm:flex-row gap-md w-full sm:w-auto ml-auto">
+<button class="w-full sm:w-auto bg-surface-container-lowest border border-error text-error px-6 py-2 rounded-full font-label-lg text-label-lg hover:bg-error-container min-h-[44px] transition-colors" id="main-reject-btn">
+                            Reject
+                        </button>
+<button class="w-full sm:w-auto bg-[#16a34a] text-white px-6 py-2 rounded-full font-label-lg text-label-lg hover:bg-[#15803d] min-h-[44px] transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">check_circle</span> Approve All &amp; Activate
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Number Counter Animation
+        const counters = document.querySelectorAll('.stat-counter');
+        const speed = 200;
+
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText.replace(/,/g, '').replace('₹', '');
+                const inc = target / speed;
+
+                if (count < target) {
+                    let nextVal = Math.ceil(count + inc);
+                    if(counter.innerText.includes('₹')) {
+                        counter.innerText = '₹' + nextVal.toLocaleString();
+                    } else {
+                        counter.innerText = nextVal;
+                    }
+                    setTimeout(updateCount, 1);
+                } else {
+                    if(counter.innerText.includes('₹')) {
+                        counter.innerText = '₹' + target.toLocaleString();
+                    } else {
+                        counter.innerText = target;
+                    }
+                }
+            };
+            updateCount();
+        });
+
+        // Document Verify/Reject Toggle logic (Simulated flip effect)
+        const verifyBtns = document.querySelectorAll('.verify-btn');
+        const rejectBtns = document.querySelectorAll('.reject-btn');
+
+        verifyBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const card = this.closest('.doc-card');
+                const pill = card.querySelector('.status-pill');
+                
+                // Visual feedback
+                card.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    card.style.transform = 'scale(1)';
+                    pill.className = 'bg-[#dcfce7] text-[#166534] px-2 py-0.5 rounded-full font-label-sm text-label-sm status-pill';
+                    pill.innerText = 'Verified';
+                    
+                    this.className = 'flex-1 bg-surface-container-lowest border border-outline-variant text-on-surface px-3 py-1.5 rounded-full font-label-md text-label-md hover:bg-surface-container min-h-[44px] transition-colors verify-btn';
+                    this.nextElementSibling.className = 'flex-1 bg-surface-container-lowest border border-error text-error px-3 py-1.5 rounded-full font-label-md text-label-md hover:bg-error-container min-h-[44px] transition-colors reject-btn';
+                }, 150);
+            });
+        });
+
+        rejectBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const card = this.closest('.doc-card');
+                const pill = card.querySelector('.status-pill');
+                
+                // Visual feedback
+                card.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    card.style.transform = 'scale(1)';
+                    pill.className = 'bg-error-container text-error px-2 py-0.5 rounded-full font-label-sm text-label-sm status-pill';
+                    pill.innerText = 'Invalid';
+                    
+                    this.className = 'flex-1 bg-error text-on-error px-3 py-1.5 rounded-full font-label-md text-label-md hover:bg-[#991515] min-h-[44px] transition-colors reject-btn';
+                    this.previousElementSibling.className = 'flex-1 bg-surface-container-lowest border border-outline-variant text-on-surface px-3 py-1.5 rounded-full font-label-md text-label-md hover:bg-surface-container min-h-[44px] transition-colors verify-btn';
+                }, 150);
+            });
+        });
+
+        // Sliding reason input
+        const mainRejectBtn = document.getElementById('main-reject-btn');
+        const reasonContainer = document.getElementById('reject-reason-container');
+
+        mainRejectBtn.addEventListener('click', function() {
+            if(reasonContainer.classList.contains('hidden')) {
+                reasonContainer.classList.remove('hidden');
+                reasonContainer.classList.add('block');
+                this.innerText = "Confirm Reject";
+                this.classList.replace('bg-surface-container-lowest', 'bg-error');
+                this.classList.replace('text-error', 'text-on-error');
+            } else {
+                // Submit logic would go here
+                alert('Rider Rejected');
+            }
+        });
+    </script>
+</body></html>

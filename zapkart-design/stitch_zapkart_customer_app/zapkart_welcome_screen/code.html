@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZapKart - Welcome</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#7ffc97",
+                    "on-surface-variant": "#5a4136",
+                    "primary": "#a04100",
+                    "outline-variant": "#e2bfb0",
+                    "on-primary-container": "#572000",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "background": "#fcf9f8",
+                    "on-tertiary-fixed-variant": "#930013",
+                    "secondary-fixed-dim": "#62df7d",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#005320",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-container": "#6a000b",
+                    "on-background": "#1c1b1b",
+                    "surface-tint": "#a04100",
+                    "tertiary-container": "#ff6762",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f6f3f2",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#ff6b00",
+                    "tertiary": "#b91a24",
+                    "surface-container-high": "#ebe7e7",
+                    "inverse-on-surface": "#f3f0ef",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-primary-fixed-variant": "#7a3000",
+                    "on-primary-fixed": "#351000",
+                    "surface-variant": "#e5e2e1",
+                    "on-secondary-container": "#007230",
+                    "primary-fixed-dim": "#ffb693",
+                    "tertiary-fixed-dim": "#ffb3ad",
+                    "secondary-container": "#7cf994",
+                    "outline": "#8e7164",
+                    "tertiary-fixed": "#ffdad7",
+                    "surface-bright": "#fcf9f8",
+                    "inverse-primary": "#ffb693",
+                    "inverse-surface": "#313030",
+                    "primary-fixed": "#ffdbcc",
+                    "on-surface": "#1c1b1b",
+                    "on-secondary-fixed": "#002109",
+                    "on-tertiary-fixed": "#410004",
+                    "surface-dim": "#dcd9d9",
+                    "surface-container": "#f0edec",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fcf9f8",
+                    "secondary": "#006e2d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "margin-mobile": "16px",
+                    "xs": "4px",
+                    "sm": "8px",
+                    "base": "4px",
+                    "md": "16px",
+                    "margin-desktop": "48px",
+                    "xl": "32px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "price-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                    "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                    "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                    "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                    "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                    "price-lg": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                    "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                    "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                    "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Custom Animations based on requirements */
+        @keyframes slideUpIllustration {
+            0% { transform: translateY(60px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes fadeInStaggered {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUpButton {
+            0% { transform: translateY(40px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .anim-illustration {
+            animation: slideUpIllustration 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .anim-heading {
+            opacity: 0;
+            animation: fadeInStaggered 600ms cubic-bezier(0.16, 1, 0.3, 1) 200ms forwards;
+        }
+
+        .anim-subtitle {
+            opacity: 0;
+            animation: fadeInStaggered 600ms cubic-bezier(0.16, 1, 0.3, 1) 400ms forwards;
+        }
+
+        .anim-button-area {
+            opacity: 0;
+            animation: slideUpButton 600ms cubic-bezier(0.16, 1, 0.3, 1) 300ms forwards;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest h-[100dvh] w-full flex flex-col font-sans overflow-hidden antialiased max-w-[390px] mx-auto relative shadow-2xl">
+<!-- Top 45% Area: Illustration -->
+<div class="h-[45%] w-full flex items-end justify-center pb-xl relative">
+<div class="anim-illustration relative z-10 w-full max-w-[280px]">
+<img alt="ZapKart Delivery Rider" class="w-full h-auto drop-shadow-[0_10px_20px_rgba(255,107,0,0.15)] object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZIF-lfpbMX1mJua9KeQbbkhnWQgDZUfdqD3_YHyPgBSQcEQGtHDVKEuqg2F3e6gyOZo8JLoVkGqNSP8s0fFIK2ZLbFOA97LArfb5T1C6LY3oVtSdOXX5Kg2u9QBU6Yj9wHUcUfOBGWHc2yGS6vP_HyOFbuJ63r0jKIPzbIqQD759Fz6UnUBhUXqRD_I-4W6Yg_FFgAwqOK9tKmAt1ZoI2d5RBfHzqp3UVLaLELySDjPRl7aK4uRAPT6WWW9XFA1YlVM9toErBoQ"/>
+</div>
+</div>
+<!-- Bottom 55% Area: Content -->
+<div class="h-[55%] w-full flex flex-col items-center justify-start px-margin-mobile pt-lg pb-margin-mobile text-center relative z-20">
+<!-- Heading -->
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface max-w-[320px] mx-auto anim-heading">
+            Your neighbourhood, delivered ⚡
+        </h1>
+<!-- Subtitle -->
+<p class="font-body-md text-body-md text-on-surface-variant mt-lg max-w-[300px] mx-auto anim-subtitle">
+            Order groceries from local stores and get them in 30 minutes or less.
+        </p>
+<!-- Bottom Action Area -->
+<div class="w-full mt-auto anim-button-area flex flex-col items-center pb-xl">
+<!-- Get Started Button -->
+<button class="w-full bg-primary-container text-white font-headline-sm text-body-md h-[52px] rounded-[14px] shadow-[0_4px_14px_rgba(255,107,0,0.25)] active:scale-[0.98] active:shadow-md transition-all duration-200 flex items-center justify-center">
+                Get Started
+            </button>
+<!-- Footer Text -->
+<p class="mt-md font-body-sm text-body-sm text-on-surface-variant tracking-wide">
+                Already have an account? 
+                <a class="text-primary-container font-semibold hover:opacity-80 transition-opacity ml-xs" href="#">Sign In</a>
+</p>
+</div>
+</div>
+</body></html>

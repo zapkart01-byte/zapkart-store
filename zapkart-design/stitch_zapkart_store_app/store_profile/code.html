@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>ZapKart Store Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in-down { animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-slide-in-right { animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+        .animate-fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+        
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        
+        /* Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #16a34a; /* Green */
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #16a34a;
+        }
+        
+        /* Custom scrollbar hiding */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#edeeef",
+                    "primary-fixed-dim": "#ffb693",
+                    "inverse-surface": "#2e3132",
+                    "on-error": "#ffffff",
+                    "outline": "#8e7164",
+                    "outline-variant": "#e2bfb0",
+                    "secondary": "#585f6c",
+                    "secondary-container": "#dce2f3",
+                    "tertiary-fixed": "#dce1ff",
+                    "surface": "#f8f9fa",
+                    "surface-variant": "#e1e3e4",
+                    "error-container": "#ffdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e7e8e9",
+                    "secondary-fixed-dim": "#c0c7d6",
+                    "on-primary-fixed-variant": "#7a3000",
+                    "inverse-primary": "#ffb693",
+                    "on-tertiary-fixed-variant": "#0039b5",
+                    "on-secondary-fixed": "#151c27",
+                    "on-primary-container": "#572000",
+                    "inverse-on-surface": "#f0f1f2",
+                    "secondary-fixed": "#dce2f3",
+                    "tertiary": "#2151da",
+                    "surface-bright": "#f8f9fa",
+                    "on-background": "#191c1d",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-secondary-container": "#5e6572",
+                    "on-secondary-fixed-variant": "#404754",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#002682",
+                    "tertiary-fixed-dim": "#b7c4ff",
+                    "on-primary-fixed": "#351000",
+                    "primary-fixed": "#ffdbcc",
+                    "primary-container": "#ff6b00",
+                    "on-secondary": "#ffffff",
+                    "background": "#f8f9fa",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#7692ff",
+                    "surface-container-low": "#f3f4f5",
+                    "on-surface-variant": "#5a4136",
+                    "surface-tint": "#a04100",
+                    "primary": "#a04100",
+                    "on-tertiary-fixed": "#001551",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-dim": "#d9dadb",
+                    "on-surface": "#191c1d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "margin": "20px",
+                    "gutter": "16px",
+                    "sm": "8px",
+                    "lg": "24px",
+                    "base": "4px",
+                    "xs": "4px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "600"}],
+                    "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased pb-24 relative overflow-x-hidden">
+<!-- Header & Hero Section -->
+<header class="relative w-full h-[220px] bg-gradient-to-b from-[#FF6B00] to-[#FF8533] flex flex-col items-center justify-center pt-4 pb-12 rounded-b-3xl animate-fade-in-down z-10 shadow-sm shadow-[#FF6B00]/20">
+<!-- Top App Bar Content mapped from JSON -->
+<div class="absolute top-0 w-full flex items-center justify-between px-margin h-14 z-20">
+<button class="w-11 h-11 flex items-center justify-center text-white active:scale-95 duration-100 rounded-full hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-white">Store Profile</h1>
+<button class="w-11 h-11 flex items-center justify-center text-white active:scale-95 duration-100 rounded-full hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+</button>
+</div>
+<!-- Store Info -->
+<div class="flex flex-col items-center mt-6">
+<div class="w-[72px] h-[72px] rounded-full border-[3px] border-white shadow-md overflow-hidden bg-white mb-3">
+<img class="w-full h-full object-cover" data-alt="A vibrant, well-lit photograph of a fresh produce aisle in a modern grocery store. The image showcases rows of bright green vegetables and colorful fruits under clean, high-key white lighting. The aesthetic is crisp, organized, and professional, reflecting a premium local mart environment. Subtle modern architectural details are visible in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa1tOEwWfP4hr8wKv_RW5gLMGyH0K9-3tQcbEKAymrFIaxn1QDiaQ1I6yIalb6WTyIh5M8SuwNtVmeZqabotiDp898115WQ7I2Ej3qmtt8v4WiB07fwL7DZAh4TCfdLN96lrs5EC_mVm8Oh824mzYDOe3o__orBMycx8Q4oIHgXkB7TnL7uq0_joPlF5gIsuQAs6iVCC2r5HwFp-MNyMDvdlwH4aeMLZ0ffJKG-vVPoIParHhNA4kNzH3ZCYSPL_VuwKcHjmMfoQ"/>
+</div>
+<h2 class="text-[20px] font-bold text-white leading-tight mb-1">Fresh Mart</h2>
+<div class="flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-[14px] text-white/70" style="font-variation-settings: 'FILL' 0;">location_on</span>
+<p class="text-[13px] text-white/70 font-medium">Koramangala, Bengaluru</p>
+</div>
+<div class="flex items-center gap-1 bg-black/10 px-2 py-0.5 rounded-full backdrop-blur-sm">
+<span class="text-[13px] font-semibold text-white">4.6</span>
+<span class="text-yellow-300 text-[12px]">★</span>
+<span class="text-[12px] text-white/80 ml-1">(342 reviews)</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-margin relative z-20 flex flex-col gap-6 -mt-[20px]">
+<!-- Store Status Card -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.07)] p-4 animate-fade-in-up stagger-1 border border-surface-variant flex items-center justify-between">
+<div class="flex flex-col gap-1">
+<h3 class="font-label-lg text-label-lg text-on-surface">Store Status</h3>
+<p class="text-[12px] text-green-600 font-medium flex items-center gap-1" id="status-text">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    Customers can order from your store
+                </p>
+</div>
+<!-- Custom Toggle -->
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer transition-all duration-300 z-10 top-[-2px] right-0 border-green-500" id="store-toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-green-500 cursor-pointer transition-all duration-300" for="store-toggle"></label>
+</div>
+</section>
+<!-- Stats Row -->
+<section class="grid grid-cols-3 gap-3 animate-fade-in-up stagger-2">
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.07)] p-3 border border-surface-variant flex flex-col items-start gap-2">
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+</div>
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface stat-counter" data-target="12450">0</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Total Orders</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.07)] p-3 border border-surface-variant flex flex-col items-start gap-2">
+<div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+<span class="material-symbols-outlined text-[18px]">account_balance_wallet</span>
+</div>
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface">₹<span class="stat-counter-float" data-target="8.2">0.0</span>L</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Total Revenue</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.07)] p-3 border border-surface-variant flex flex-col items-start gap-2">
+<div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface mt-1">Oct 2023</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Approval Date</p>
+</div>
+</div>
+</section>
+<!-- Menu Section: STORE -->
+<section class="animate-slide-in-right stagger-3">
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-2 pl-2">Store</h4>
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.07)] border border-surface-variant overflow-hidden">
+<button class="w-full flex items-center justify-between p-4 min-h-[56px] border-b border-surface-variant hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">storefront</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">Store Details</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 min-h-[56px] border-b border-surface-variant hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">add_a_photo</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">Update Photos</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 min-h-[56px] hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">schedule</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">Change Hours</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Menu Section: PRODUCTS -->
+<section class="animate-slide-in-right stagger-3" style="animation-delay: 0.4s;">
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-2 pl-2">Products</h4>
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.07)] border border-surface-variant overflow-hidden">
+<button class="w-full flex items-center justify-between p-4 min-h-[56px] hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">inventory_2</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">Manage Products</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="bg-surface-container px-2 py-0.5 rounded-full font-label-sm text-label-sm text-on-surface">48</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">chevron_right</span>
+</div>
+</button>
+</div>
+</section>
+<!-- Menu Section: SUPPORT -->
+<section class="animate-slide-in-right stagger-4" style="animation-delay: 0.5s;">
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-2 pl-2">Support</h4>
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.07)] border border-surface-variant overflow-hidden">
+<button class="w-full flex items-center justify-between p-4 min-h-[56px] border-b border-surface-variant hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">help</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">Help Center</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 min-h-[56px] border-b border-surface-variant hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">support_agent</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">Contact Support</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 min-h-[56px] hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">description</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">Partner Terms</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Danger Zone -->
+<section class="animate-fade-in-up mt-2 mb-6" style="animation-delay: 0.6s;">
+<button class="w-full bg-error-container/30 border border-error/20 rounded-xl p-4 min-h-[56px] flex items-center justify-center gap-2 hover:bg-error-container/50 transition-colors active:scale-[0.99]">
+<span class="material-symbols-outlined text-error text-[20px]">warning</span>
+<span class="font-label-lg text-label-lg text-error">Request Store Deactivation</span>
+</button>
+</section>
+</main>
+<!-- BottomNavBar generated from JSON -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface shadow-sm border-t-0 flex justify-around items-center h-16 px-4 md:hidden pb-safe">
+<!-- Home / Dashboard (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-surface-container-high active:scale-90 transition-transform w-16 h-full">
+<span class="material-symbols-outlined text-[24px] mb-0.5" style="font-variation-settings: 'FILL' 0;">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<!-- Orders (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-surface-container-high active:scale-90 transition-transform w-16 h-full relative">
+<span class="material-symbols-outlined text-[24px] mb-0.5" style="font-variation-settings: 'FILL' 0;">shopping_bag</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</button>
+<!-- Inventory (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-surface-container-high active:scale-90 transition-transform w-16 h-full">
+<span class="material-symbols-outlined text-[24px] mb-0.5" style="font-variation-settings: 'FILL' 0;">inventory_2</span>
+<span class="font-label-sm text-label-sm">Inventory</span>
+</button>
+<!-- Account / Profile (Active) -->
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 hover:bg-surface-container-high active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[24px] mb-0.5">person</span>
+<span class="font-label-sm text-label-sm">Account</span>
+</button>
+</nav>
+<!-- Interactive Scripts -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Toggle Logic
+            const toggle = document.getElementById('store-toggle');
+            const statusText = document.getElementById('status-text');
+
+            toggle.addEventListener('change', (e) => {
+                if(e.target.checked) {
+                    statusText.innerHTML = '<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>Customers can order from your store';
+                    statusText.className = 'text-[12px] text-green-600 font-medium flex items-center gap-1';
+                    // Update toggle styles
+                    e.target.style.borderColor = '#16a34a';
+                    e.target.nextElementSibling.style.backgroundColor = '#16a34a';
+                } else {
+                    statusText.innerHTML = '<span class="w-2 h-2 rounded-full bg-red-500"></span>Hidden from customers';
+                    statusText.className = 'text-[12px] text-red-600 font-medium flex items-center gap-1';
+                    // Update toggle styles
+                    e.target.style.borderColor = '#ef4444';
+                    e.target.nextElementSibling.style.backgroundColor = '#ef4444';
+                }
+            });
+
+            // Count up animation for stats
+            const animateValue = (obj, start, end, duration, isFloat = false) => {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    // easeOutQuart
+                    const easeProgress = 1 - Math.pow(1 - progress, 4);
+                    
+                    let currentVal = start + easeProgress * (end - start);
+                    
+                    if (isFloat) {
+                        obj.innerHTML = currentVal.toFixed(1);
+                    } else {
+                        // Add commas for thousands
+                        obj.innerHTML = Math.floor(currentVal).toLocaleString('en-US');
+                    }
+                    
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            // Start animations slightly delayed to let the cards fade in
+            setTimeout(() => {
+                const intCounters = document.querySelectorAll('.stat-counter');
+                intCounters.forEach(counter => {
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    animateValue(counter, 0, target, 2000);
+                });
+
+                const floatCounters = document.querySelectorAll('.stat-counter-float');
+                floatCounters.forEach(counter => {
+                    const target = parseFloat(counter.getAttribute('data-target'));
+                    animateValue(counter, 0, target, 2000, true);
+                });
+            }, 800);
+        });
+    </script>
+</body></html>

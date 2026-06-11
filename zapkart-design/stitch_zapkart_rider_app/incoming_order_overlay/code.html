@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZapKart Rider - Incoming Order</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#ebe7e7",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#c5c7c8",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-bright": "#fcf9f8",
+                        "on-tertiary-container": "#003357",
+                        "on-secondary-container": "#626566",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#ffb693",
+                        "secondary-container": "#e1e3e4",
+                        "primary-fixed-dim": "#ffb693",
+                        "outline": "#8e7164",
+                        "on-primary-fixed": "#351000",
+                        "surface": "#fcf9f8",
+                        "outline-variant": "#e2bfb0",
+                        "tertiary-fixed-dim": "#9ccaff",
+                        "surface-tint": "#a04100",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#059eff",
+                        "on-surface": "#1c1b1b",
+                        "primary-fixed": "#ffdbcc",
+                        "surface-container": "#f0edec",
+                        "primary-container": "#ff6b00",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e5e2e1",
+                        "on-secondary-fixed": "#191c1d",
+                        "surface-dim": "#dcd9d9",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#f3f0ef",
+                        "surface-container-low": "#f6f3f2",
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#5a4136",
+                        "on-secondary-fixed-variant": "#454748",
+                        "secondary-fixed": "#e1e3e4",
+                        "tertiary-fixed": "#d0e4ff",
+                        "primary": "#a04100",
+                        "on-tertiary-fixed": "#001d35",
+                        "on-tertiary-fixed-variant": "#00497b",
+                        "secondary": "#5c5f60",
+                        "background": "#fcf9f8",
+                        "on-primary-container": "#572000",
+                        "inverse-surface": "#313030",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#0062a1",
+                        "on-background": "#1c1b1b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "container-margin": "20px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "base": "4px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    },
+                    "keyframes": {
+                        "slide-up": {
+                            "0%": { transform: "translateY(100%)" },
+                            "100%": { transform: "translateY(0)" }
+                        },
+                        "pulse-red": {
+                            "0%, 100%": { color: "#EF4444", opacity: "1", transform: "scale(1)" },
+                            "50%": { color: "#991B1B", opacity: "0.7", transform: "scale(1.05)" }
+                        },
+                        "shimmer": {
+                            "0%": { transform: "translateX(-100%)" },
+                            "100%": { transform: "translateX(100%)" }
+                        },
+                        "bounce-in": {
+                            "0%": { transform: "scale(0.8)", opacity: "0" },
+                            "60%": { transform: "scale(1.1)", opacity: "1" },
+                            "100%": { transform: "scale(1)" }
+                        }
+                    },
+                    "animation": {
+                        "slide-up": "slide-up 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards",
+                        "pulse-red": "pulse-red 1.5s ease-in-out infinite",
+                        "shimmer": "shimmer 2s infinite",
+                        "bounce-in": "bounce-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .bg-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+        }
+        .shimmer-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            animation: shimmer 2s infinite;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .shimmer-effect::after {
+                display: none !important;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface h-screen w-screen relative">
+<!-- Blurred Background Context -->
+<div class="absolute inset-0 z-0">
+<img alt="Background map" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsZ3j8jn3L6mn66uRLxokrigSrBVkEDJtaF7uW8Nx1o35ONVnWHRxgcS51lvwrk4EJdzRyQr-DYX6aXJTP50mHhG8Nk401jtf2Ym6GU7Lodx2Dv9oMuGJYcTsEEpht3sWl5EhX628VwC6qPD-4c2MSCtWmMU14sQ-yjHRIgChZ8Uk88VBqgNq6sQZ-AQ-jdAgHN9BPrgRScBjIa6DK-0pR8r_mxRCdBAYMWodltWheFZUosdx7Dw2KMQkXYz9XoW_E4DMQkz-evLA"/>
+</div>
+<!-- Dimming Overlay -->
+<div class="absolute inset-0 bg-overlay z-10 flex flex-col justify-end">
+<!-- Bottom Sheet -->
+<div class="bg-surface w-full h-[72%] rounded-t-[20px] shadow-lg flex flex-col animate-slide-up z-20 overflow-hidden relative border-t border-outline-variant">
+<!-- Drag Handle -->
+<div class="w-full flex justify-center pt-4 pb-2">
+<div class="w-10 h-1 bg-[#FF6B00] rounded-full"></div>
+</div>
+<!-- Content Area -->
+<div class="flex-1 px-container-margin flex flex-col items-center pt-4 pb-6 overflow-y-auto">
+<!-- Badge -->
+<div class="bg-[#FFF0E6] text-[#FF6B00] font-bold text-[11px] uppercase tracking-wider px-3 py-1 rounded-full mb-4">
+                    NEW ORDER
+                </div>
+<!-- Order Value -->
+<div class="text-center mb-6">
+<h1 class="text-[48px] font-bold text-[#0D0D0D] leading-none mb-1 animate-bounce-in">₹280</h1>
+<p class="text-[14px] text-[#FF6B00]">Earn ₹55 for this delivery</p>
+</div>
+<!-- Info Grid -->
+<div class="grid grid-cols-2 gap-4 w-full max-w-md mb-8">
+<!-- Store -->
+<div class="bg-[#F8F9FA] rounded-xl p-4 border border-outline-variant">
+<div class="flex items-center mb-1">
+<span class="material-symbols-outlined text-secondary mr-2" style="font-size: 18px;">storefront</span>
+<span class="font-label-sm text-label-sm text-secondary">Pickup</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface truncate">Quick Mart, MG Road</p>
+<p class="font-body-sm text-body-sm text-secondary">0.8 km away</p>
+</div>
+<!-- Delivery -->
+<div class="bg-[#F8F9FA] rounded-xl p-4 border border-outline-variant">
+<div class="flex items-center mb-1">
+<span class="material-symbols-outlined text-secondary mr-2" style="font-size: 18px;">location_on</span>
+<span class="font-label-sm text-label-sm text-secondary">Drop</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface truncate">Koramangala 5th Block</p>
+<p class="font-body-sm text-body-sm text-secondary">2.3 km</p>
+</div>
+<!-- Items -->
+<div class="bg-[#F8F9FA] rounded-xl p-4 border border-outline-variant">
+<div class="flex items-center mb-1">
+<span class="material-symbols-outlined text-secondary mr-2" style="font-size: 18px;">shopping_bag</span>
+<span class="font-label-sm text-label-sm text-secondary">Items</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface">5 items</p>
+</div>
+<!-- Timer -->
+<div class="bg-[#F8F9FA] rounded-xl p-4 border border-outline-variant flex flex-col justify-center items-center">
+<span class="material-symbols-outlined text-[#EF4444] mb-1 animate-pulse-red" style="font-size: 24px;">timer</span>
+<p class="font-label-md text-label-md text-[#EF4444] animate-pulse-red" id="timer-text">28s remaining</p>
+</div>
+</div>
+<!-- Spacer -->
+<div class="flex-1"></div>
+<!-- Actions -->
+<div class="w-full max-w-md mt-auto">
+<button class="w-full h-[56px] bg-[#16A34A] text-white rounded-full font-label-md text-label-md flex items-center justify-center shimmer-effect hover:opacity-90 transition-opacity mb-4">
+<span class="material-symbols-outlined mr-2" style="font-weight: 700;">check</span>
+                        Accept Order
+                    </button>
+<button class="w-full text-center font-body-sm text-body-sm text-secondary hover:text-on-surface transition-colors">
+                        Decline
+                    </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+        // Simple timer logic for demonstration
+        let timeLeft = 28;
+        const timerElement = document.getElementById('timer-text');
+        
+        const interval = setInterval(() => {
+            timeLeft--;
+            if (timeLeft >= 0) {
+                timerElement.innerText = `${timeLeft}s remaining`;
+            } else {
+                clearInterval(interval);
+                timerElement.innerText = `0s remaining`;
+            }
+        }, 1000);
+    </script>
+</body></html>

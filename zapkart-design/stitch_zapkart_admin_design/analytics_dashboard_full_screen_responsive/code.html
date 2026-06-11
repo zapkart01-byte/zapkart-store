@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZapKart - Mobile Analytics</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#404754",
+                        "secondary-fixed-dim": "#c9c6c5",
+                        "primary-fixed-dim": "#ffb693",
+                        "surface": "#f8f9fa",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#5a4136",
+                        "tertiary-fixed-dim": "#c0c7d6",
+                        "surface-tint": "#a04100",
+                        "primary-container": "#ff6b00",
+                        "on-tertiary-fixed": "#151c27",
+                        "on-secondary-fixed-variant": "#474646",
+                        "surface-container-low": "#f3f4f5",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#ffdbcc",
+                        "on-primary-container": "#572000",
+                        "on-secondary-container": "#656464",
+                        "on-primary-fixed": "#351000",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#f8f9fa",
+                        "inverse-on-surface": "#f0f1f2",
+                        "secondary-fixed": "#e5e2e1",
+                        "background": "#f8f9fa",
+                        "surface-container-high": "#e7e8e9",
+                        "outline-variant": "#e2bfb0",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#2e3132",
+                        "on-surface": "#191c1d",
+                        "surface-container": "#edeeef",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d9dadb",
+                        "surface-variant": "#e1e3e4",
+                        "secondary-container": "#e5e2e1",
+                        "on-tertiary-container": "#2a313d",
+                        "secondary": "#5f5e5e",
+                        "surface-container-highest": "#e1e3e4",
+                        "outline": "#8e7164",
+                        "on-background": "#191c1d",
+                        "tertiary-fixed": "#dce2f3",
+                        "inverse-primary": "#ffb693",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "tertiary-container": "#9299a8",
+                        "tertiary": "#585f6c",
+                        "primary": "#a04100"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "margin-mobile": "16px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "gutter-mobile": "12px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "label-sm": ["10px", {"lineHeight": "14px", "fontWeight": "600"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { -webkit-tap-highlight-color: transparent; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden antialiased flex flex-col md:flex-row min-h-screen">
+<!-- Desktop Sidebar -->
+<aside class="hidden md:flex flex-col w-64 bg-surface-container-lowest border-r border-surface-container-high fixed h-full z-40 top-0 left-0 shadow-sm">
+<div class="h-16 flex items-center px-lg border-b border-surface-container-high shrink-0">
+<span class="material-symbols-outlined text-primary mr-2">shopping_cart</span>
+<span class="text-headline-md font-headline-md font-bold text-primary">ZapKart Admin</span>
+</div>
+<div class="flex flex-col flex-1 py-4 gap-2 px-4 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2.5 text-secondary rounded-lg hover:bg-surface-container transition-colors cursor-pointer" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-lg text-label-lg">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-secondary rounded-lg hover:bg-surface-container transition-colors cursor-pointer" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 bg-primary-fixed text-on-primary-fixed-variant rounded-lg cursor-pointer" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+<span class="font-label-lg text-label-lg">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-secondary rounded-lg hover:bg-surface-container transition-colors cursor-pointer" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-lg text-label-lg">Profile</span>
+</a>
+</div>
+</aside>
+<div class="flex-1 md:ml-64 flex flex-col min-h-screen w-full md:w-[calc(100%-16rem)]">
+<!-- TopAppBar Component -->
+<nav class="bg-surface dark:bg-inverse-surface border-b border-surface-container-high dark:border-outline-variant shadow-sm flex justify-between items-center w-full px-margin-mobile md:px-lg h-14 md:h-16 z-30 sticky top-0 shrink-0">
+<div class="flex items-center gap-sm md:hidden cursor-pointer active:scale-95 duration-150 group">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary group-hover:bg-surface-container-low dark:group-hover:bg-on-tertiary-fixed-variant transition-colors p-1 rounded-full">menu</span>
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary">ZapKart Admin</span>
+</div>
+<div class="hidden md:flex items-center">
+<!-- Optional page context here -->
+</div>
+<div class="flex items-center cursor-pointer active:scale-95 duration-150 hover:bg-surface-container-low dark:hover:bg-on-tertiary-fixed-variant transition-colors p-1 rounded-full">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-label-md text-label-md">
+                AP
+            </div>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-1 px-margin-mobile md:px-lg pt-md pb-[80px] md:pb-lg flex flex-col gap-lg w-full max-w-full">
+<!-- Page Header -->
+<header class="flex flex-col md:flex-row justify-between md:items-center gap-md">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Analytics</h1>
+<div class="flex gap-sm w-full md:w-auto">
+<!-- Date Range Picker -->
+<button class="flex-1 md:flex-none h-11 bg-surface-container-lowest border border-surface-container-high rounded-lg flex items-center justify-between px-md shadow-sm active:scale-95 transition-transform min-w-[200px]">
+<div class="flex items-center gap-sm text-secondary">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span class="font-body-md text-body-md">Last 30 Days</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[20px]">arrow_drop_down</span>
+</button>
+<button class="h-11 px-md rounded-lg bg-surface-container-lowest border border-outline flex items-center gap-xs text-primary font-label-md text-label-md shadow-sm active:scale-95 transition-transform shrink-0">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                    Export
+                </button>
+</div>
+</header>
+<!-- KPI Grid (2x2 on Mobile, 4x1 on Desktop) -->
+<section class="grid grid-cols-2 md:grid-cols-4 gap-sm md:gap-lg">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest p-gutter-mobile md:p-md rounded-lg border border-surface-container-high shadow-[0_2px_8px_rgba(0,0,0,0.07)] flex flex-col gap-sm">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[18px] md:text-[20px]">currency_rupee</span>
+</div>
+<span class="font-label-md text-label-md text-secondary">Revenue</span>
+</div>
+<div class="font-headline-md md:text-headline-lg text-headline-md text-primary">₹1.2M</div>
+<div class="font-label-sm md:text-label-md text-label-sm text-surface-tint flex items-center gap-xs">
+<span class="material-symbols-outlined text-[12px] md:text-[14px]">trending_up</span> +12.5%
+                </div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest p-gutter-mobile md:p-md rounded-lg border border-surface-container-high shadow-[0_2px_8px_rgba(0,0,0,0.07)] flex flex-col gap-sm">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface text-[18px] md:text-[20px]">shopping_bag</span>
+</div>
+<span class="font-label-md text-label-md text-secondary">Orders</span>
+</div>
+<div class="font-headline-md md:text-headline-lg text-headline-md text-on-surface">4,829</div>
+<div class="font-label-sm md:text-label-md text-label-sm text-surface-tint flex items-center gap-xs">
+<span class="material-symbols-outlined text-[12px] md:text-[14px]">trending_up</span> +8.2%
+                </div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest p-gutter-mobile md:p-md rounded-lg border border-surface-container-high shadow-[0_2px_8px_rgba(0,0,0,0.07)] flex flex-col gap-sm">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface text-[18px] md:text-[20px]">storefront</span>
+</div>
+<span class="font-label-md text-label-md text-secondary">Stores</span>
+</div>
+<div class="font-headline-md md:text-headline-lg text-headline-md text-on-surface">142</div>
+<div class="font-label-sm md:text-label-md text-label-sm text-secondary flex items-center gap-xs">
+<span class="material-symbols-outlined text-[12px] md:text-[14px]">horizontal_rule</span> 0%
+                </div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest p-gutter-mobile md:p-md rounded-lg border border-surface-container-high shadow-[0_2px_8px_rgba(0,0,0,0.07)] flex flex-col gap-sm">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-[18px] md:text-[20px]">speed</span>
+</div>
+<span class="font-label-md text-label-md text-secondary">Avg Time</span>
+</div>
+<div class="font-headline-md md:text-headline-lg text-headline-md text-on-surface">24m</div>
+<div class="font-label-sm md:text-label-md text-label-sm text-error flex items-center gap-xs">
+<span class="material-symbols-outlined text-[12px] md:text-[14px]">trending_up</span> +2m
+                </div>
+</div>
+</section>
+<!-- Charts Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Revenue Trend Chart -->
+<section class="lg:col-span-2 bg-surface-container-lowest rounded-lg border border-surface-container-high shadow-[0_2px_8px_rgba(0,0,0,0.07)] p-gutter-mobile md:p-lg flex flex-col gap-md h-full">
+<div class="flex justify-between items-center">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Revenue Trend</h2>
+<span class="material-symbols-outlined text-secondary text-[20px] cursor-pointer">more_vert</span>
+</div>
+<!-- CSS-based Chart Placeholder -->
+<div class="w-full flex-1 min-h-[160px] md:min-h-[300px] relative rounded-md overflow-hidden bg-surface-container-low flex items-end">
+<div class="absolute inset-0 bg-gradient-to-t from-primary-container/20 to-transparent"></div>
+<!-- Sparkline mock -->
+<svg class="w-full h-full absolute bottom-0" preserveaspectratio="none" viewbox="0 0 100 40">
+<path d="M0 40 L0 30 Q 10 25, 20 28 T 40 20 T 60 15 T 80 22 T 100 10 L100 40 Z" fill="rgba(255, 107, 0, 0.2)" stroke="none"></path>
+<path d="M0 30 Q 10 25, 20 28 T 40 20 T 60 15 T 80 22 T 100 10" fill="none" stroke="#FF6B00" stroke-width="2"></path>
+</svg>
+</div>
+</section>
+<!-- Orders by Category -->
+<section class="lg:col-span-1 bg-surface-container-lowest rounded-lg border border-surface-container-high shadow-[0_2px_8px_rgba(0,0,0,0.07)] p-gutter-mobile md:p-lg flex flex-col gap-md h-full">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Orders by Category</h2>
+<div class="flex flex-col items-center justify-center gap-lg flex-1">
+<!-- Donut Chart Mock -->
+<div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-[16px] md:border-[20px] border-surface-container-high relative flex items-center justify-center" style="border-top-color: #FF6B00; border-right-color: #FF6B00; border-bottom-color: #a04100; transform: rotate(-45deg);">
+<div class="text-center" style="transform: rotate(45deg);">
+<div class="font-headline-md md:text-headline-lg text-headline-md text-on-surface">100%</div>
+</div>
+</div>
+<!-- Legend Stacked -->
+<div class="w-full flex flex-col gap-sm">
+<div class="flex justify-between items-center text-body-sm md:text-body-md font-body-sm md:font-body-md">
+<div class="flex items-center gap-xs">
+<div class="w-3 h-3 rounded-full bg-primary-container"></div>
+<span class="text-secondary">Groceries</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">55%</span>
+</div>
+<div class="flex justify-between items-center text-body-sm md:text-body-md font-body-sm md:font-body-md">
+<div class="flex items-center gap-xs">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-secondary">Electronics</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">30%</span>
+</div>
+<div class="flex justify-between items-center text-body-sm md:text-body-md font-body-sm md:font-body-md">
+<div class="flex items-center gap-xs">
+<div class="w-3 h-3 rounded-full bg-surface-container-high"></div>
+<span class="text-secondary">Fashion</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">15%</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Top Performing Stores List -->
+<section class="bg-surface-container-lowest rounded-lg border border-surface-container-high shadow-[0_2px_8px_rgba(0,0,0,0.07)] flex flex-col">
+<div class="p-gutter-mobile md:p-lg border-b border-surface-container-high flex justify-between items-center">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Top Stores</h2>
+<span class="font-label-sm md:text-label-md text-label-sm text-primary cursor-pointer hover:underline">View All</span>
+</div>
+<div class="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-0 md:gap-md md:p-md">
+<!-- Store Item -->
+<div class="p-gutter-mobile md:p-4 flex items-center justify-between border-b md:border border-surface-container-high md:rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer active:bg-surface-container">
+<div class="flex items-center gap-sm md:gap-md">
+<div class="w-10 h-10 md:w-12 md:h-12 rounded bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary md:text-[24px]">storefront</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface line-clamp-1">FreshMart Superstore</span>
+<span class="font-body-sm md:text-body-md text-body-sm text-secondary">1,204 Orders</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-4">
+<span class="font-label-md md:text-label-lg text-label-md text-primary">₹3.4L</span>
+<span class="material-symbols-outlined text-secondary text-[16px] md:hidden">chevron_right</span>
+</div>
+</div>
+<!-- Store Item -->
+<div class="p-gutter-mobile md:p-4 flex items-center justify-between md:border border-surface-container-high md:rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer active:bg-surface-container">
+<div class="flex items-center gap-sm md:gap-md">
+<div class="w-10 h-10 md:w-12 md:h-12 rounded bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary md:text-[24px]">storefront</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface line-clamp-1">TechGadget Hub</span>
+<span class="font-body-sm md:text-body-md text-body-sm text-secondary">890 Orders</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-4">
+<span class="font-label-md md:text-label-lg text-label-md text-primary">₹2.8L</span>
+<span class="material-symbols-outlined text-secondary text-[16px] md:hidden">chevron_right</span>
+</div>
+</div>
+<!-- Add an extra placeholder for desktop to look balanced in a 3-col grid -->
+<div class="hidden lg:flex p-4 items-center justify-between border border-surface-container-high border-dashed rounded-lg bg-surface-container-lowest/50 text-secondary">
+<span class="font-body-sm text-center w-full">More stores...</span>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- BottomNavBar Component (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 h-14 md:hidden border-t border-surface-container-high dark:border-outline-variant bg-surface-container-lowest dark:bg-inverse-surface shadow-[0_-2px_10px_rgba(0,0,0,0.05)] rounded-t-xl pb-safe">
+<!-- Overview (Inactive) -->
+<div class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim px-4 py-1 hover:bg-surface-container dark:hover:bg-on-tertiary-fixed-variant active:scale-90 transition-transform duration-200 cursor-pointer min-h-[44px]">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-sm text-[10px]">Overview</span>
+</div>
+<!-- Orders (Inactive) -->
+<div class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim px-4 py-1 hover:bg-surface-container dark:hover:bg-on-tertiary-fixed-variant active:scale-90 transition-transform duration-200 cursor-pointer min-h-[44px]">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-sm text-[10px]">Orders</span>
+</div>
+<!-- Analytics (Active) -->
+<div class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim bg-primary-fixed dark:bg-on-primary-fixed-variant rounded-full px-4 py-1 active:scale-90 transition-transform duration-200 cursor-pointer min-h-[44px]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+<span class="font-label-sm text-[10px]">Analytics</span>
+</div>
+<!-- Profile (Inactive) -->
+<div class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim px-4 py-1 hover:bg-surface-container dark:hover:bg-on-tertiary-fixed-variant active:scale-90 transition-transform duration-200 cursor-pointer min-h-[44px]">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-[10px]">Profile</span>
+</div>
+</nav>
+<!-- Support for safe area in iOS -->
+<style>
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    </style>
+</body></html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>ZapKart - Verify OTP</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#8e7164",
+                    "on-secondary-container": "#007230",
+                    "primary": "#a04100",
+                    "tertiary-fixed": "#ffdad7",
+                    "on-secondary-fixed-variant": "#005320",
+                    "surface-container-low": "#f6f3f2",
+                    "on-primary-container": "#572000",
+                    "on-surface": "#1c1b1b",
+                    "on-secondary-fixed": "#002109",
+                    "tertiary-fixed-dim": "#ffb3ad",
+                    "surface": "#fcf9f8",
+                    "secondary": "#006e2d",
+                    "primary-fixed": "#ffdbcc",
+                    "surface-dim": "#dcd9d9",
+                    "surface-container": "#f0edec",
+                    "inverse-surface": "#313030",
+                    "inverse-on-surface": "#f3f0ef",
+                    "secondary-fixed": "#7ffc97",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#ffb693",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-tertiary-container": "#6a000b",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#ffb693",
+                    "surface-container-high": "#ebe7e7",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#5a4136",
+                    "on-primary-fixed-variant": "#7a3000",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed": "#351000",
+                    "surface-variant": "#e5e2e1",
+                    "surface-bright": "#fcf9f8",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#ff6762",
+                    "on-background": "#1c1b1b",
+                    "tertiary": "#b91a24",
+                    "secondary-fixed-dim": "#62df7d",
+                    "surface-tint": "#a04100",
+                    "primary-container": "#ff6b00",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#410004",
+                    "on-tertiary-fixed-variant": "#930013",
+                    "outline-variant": "#e2bfb0",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#7cf994",
+                    "on-secondary": "#ffffff",
+                    "background": "#fcf9f8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "margin-desktop": "48px",
+                    "xs": "4px",
+                    "sm": "8px",
+                    "margin-mobile": "16px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "body-sm": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "display-lg": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "price-lg": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "headline-lg": [
+                            "Inter"
+                    ],
+                    "headline-lg-mobile": [
+                            "Inter"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "label-lg": [
+                            "Inter"
+                    ],
+                    "headline-sm": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "40px",
+                            {
+                                    "lineHeight": "48px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "price-lg": [
+                            "22px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "36px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-md": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "label-lg": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-sm": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFFFFF; /* Forced white for ZapKart strictness */
+            color: #1c1b1b;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .mobile-container {
+            width: 100%;
+            max-width: 390px;
+            background-color: #FFFFFF;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05); /* Subtle shadow for desktop viewing */
+        }
+
+        /* TopAppBar Styles from JSON */
+        .top-app-bar {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 0 16px;
+            height: 64px;
+            background-color: #fcf9f8; /* bg-surface */
+        }
+
+        .top-app-bar-title {
+            font-size: 20px;
+            line-height: 28px;
+            font-weight: 600;
+            color: #a04100; /* text-primary */
+            margin-left: 16px;
+        }
+
+        .back-btn {
+            color: #a04100;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .back-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* OTP Specific Styles */
+        .otp-input {
+            width: 46px;
+            height: 54px;
+            border-radius: 10px;
+            border: 2px solid #E9ECEF;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: #0D0D0D;
+            background-color: #FFFFFF;
+            transition: all 0.2s ease;
+            outline: none;
+            -moz-appearance: textfield;
+        }
+
+        .otp-input::-webkit-outer-spin-button,
+        .otp-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .otp-input:focus {
+            border-color: #FF6B00; /* ZapKart Primary Container equivalent */
+            box-shadow: 0 0 0 2px rgba(255, 107, 0, 0.1);
+        }
+
+        .otp-input.filled {
+            background-color: #F8F9FA;
+            border-color: #E9ECEF;
+        }
+        
+        .otp-input.filled:focus {
+            border-color: #FF6B00;
+            background-color: #FFFFFF;
+        }
+
+        .otp-input.error {
+            border-color: #ba1a1a;
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        .otp-input.success {
+            border-color: #006e2d;
+            background-color: #e8f5e9;
+            color: #006e2d;
+        }
+
+        /* Animations */
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-stagger-in {
+            opacity: 0;
+            animation: slideInRight 0.4s ease forwards;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        /* Button Spinner */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .btn-loading .spinner {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .btn-loading .btn-text {
+            vertical-align: middle;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body>
+<main class="mobile-container flex flex-col">
+<!-- TopAppBar (from JSON specification) -->
+<header class="top-app-bar docked full-width top-0 flat no shadows bg-surface items-center">
+<button aria-label="Go back" class="back-btn flex items-center justify-center p-2 rounded-full hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+</button>
+<h1 class="top-app-bar-title">Verify OTP</h1>
+</header>
+<!-- Main Content -->
+<div class="flex-1 px-4 pt-6 pb-8 flex flex-col">
+<div class="mb-8">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-[#0D0D0D] mb-2">Enter OTP</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Sent to +91 98765 43210 <span class="mx-1">·</span>
+<button class="text-primary-container font-semibold hover:underline">Change</button>
+</p>
+</div>
+<!-- OTP Input Container -->
+<div class="flex justify-between gap-[8px] mb-8" id="otp-container">
+<input autocomplete="one-time-code" autofocus="" class="otp-input animate-stagger-in" maxlength="1" pattern="\d*" style="animation-delay: 0ms;" type="number"/>
+<input class="otp-input animate-stagger-in" maxlength="1" pattern="\d*" style="animation-delay: 50ms;" type="number"/>
+<input class="otp-input animate-stagger-in" maxlength="1" pattern="\d*" style="animation-delay: 100ms;" type="number"/>
+<input class="otp-input animate-stagger-in" maxlength="1" pattern="\d*" style="animation-delay: 150ms;" type="number"/>
+<input class="otp-input animate-stagger-in" maxlength="1" pattern="\d*" style="animation-delay: 200ms;" type="number"/>
+<input class="otp-input animate-stagger-in" maxlength="1" pattern="\d*" style="animation-delay: 250ms;" type="number"/>
+</div>
+<!-- Resend Timer -->
+<div class="mb-auto text-center">
+<p class="text-[13px] text-[#9CA3AF]" id="resend-text">Resend OTP in <span id="timer">28s</span></p>
+<button class="hidden text-[13px] text-primary-container font-semibold hover:underline mt-1" id="resend-btn">Resend OTP</button>
+</div>
+<!-- Primary Action -->
+<div class="mt-8">
+<button class="w-full bg-primary-container text-white h-[52px] rounded-[14px] font-headline-sm text-headline-sm flex items-center justify-center transition-transform active:scale-95 disabled:opacity-50 disabled:active:scale-100" id="verify-btn">
+<span class="btn-text">Verify</span>
+<span class="spinner"></span>
+</button>
+</div>
+</div>
+</main>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = document.querySelectorAll('.otp-input');
+            const verifyBtn = document.getElementById('verify-btn');
+            const timerSpan = document.getElementById('timer');
+            const resendText = document.getElementById('resend-text');
+            const resendBtn = document.getElementById('resend-btn');
+
+            // Handle Input Logic
+            inputs.forEach((input, index) => {
+                // Focus styling class toggle
+                input.addEventListener('input', (e) => {
+                    // Restrict to numbers and single digit
+                    if (e.target.value.length > 1) {
+                        e.target.value = e.target.value.slice(0, 1);
+                    }
+                    
+                    if (e.target.value) {
+                        input.classList.add('filled');
+                        // Auto-advance
+                        if (index < inputs.length - 1) {
+                            inputs[index + 1].focus();
+                        } else {
+                            // Automatically trigger verify or enable button if all filled
+                            checkAllFilled();
+                        }
+                    } else {
+                        input.classList.remove('filled');
+                    }
+                });
+
+                input.addEventListener('keydown', (e) => {
+                    // Handle backspace
+                    if (e.key === 'Backspace') {
+                        if (!e.target.value && index > 0) {
+                            inputs[index - 1].focus();
+                            inputs[index - 1].value = '';
+                            inputs[index - 1].classList.remove('filled');
+                            inputs[index - 1].classList.remove('error', 'success');
+                        } else {
+                            e.target.classList.remove('filled');
+                            e.target.classList.remove('error', 'success');
+                        }
+                    }
+                });
+
+                // Prevent non-numeric key presses
+                input.addEventListener('keypress', (e) => {
+                    if (e.key < '0' || e.key > '9') {
+                        e.preventDefault();
+                    }
+                });
+            });
+
+            function checkAllFilled() {
+                const isAllFilled = Array.from(inputs).every(input => input.value.length === 1);
+                if (isAllFilled) {
+                    verifyBtn.classList.remove('opacity-50');
+                } else {
+                    verifyBtn.classList.add('opacity-50');
+                }
+                return isAllFilled;
+            }
+
+            // Timer Logic
+            let timeLeft = 28;
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                timerSpan.textContent = `${timeLeft}s`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    resendText.classList.add('hidden');
+                    resendBtn.classList.remove('hidden');
+                }
+            }, 1000);
+
+            // Verification Simulation
+            verifyBtn.addEventListener('click', () => {
+                if (!checkAllFilled()) return;
+
+                verifyBtn.classList.add('btn-loading');
+                verifyBtn.disabled = true;
+
+                const otpValue = Array.from(inputs).map(input => input.value).join('');
+
+                // Simulate API Call
+                setTimeout(() => {
+                    verifyBtn.classList.remove('btn-loading');
+                    verifyBtn.disabled = false;
+
+                    // Hardcoded '123456' as correct for demonstration
+                    if (otpValue === '123456') {
+                        inputs.forEach(input => {
+                            input.classList.remove('error');
+                            input.classList.add('success');
+                        });
+                        verifyBtn.innerHTML = '<span class="material-symbols-outlined mr-2">check_circle</span> Verified';
+                        verifyBtn.classList.remove('bg-primary-container');
+                        verifyBtn.classList.add('bg-secondary'); // Green success state
+                        
+                        // Simulate redirect
+                        setTimeout(() => {
+                            // alert("Redirecting to Home...");
+                        }, 1000);
+
+                    } else {
+                        // Error State
+                        inputs.forEach(input => {
+                            input.classList.remove('success');
+                            input.classList.add('error');
+                            // Remove error class after animation completes so it can shake again
+                            setTimeout(() => {
+                                input.classList.remove('error');
+                            }, 500);
+                        });
+                        
+                        // Optional: clear inputs on error
+                        // inputs.forEach(input => { input.value = ''; input.classList.remove('filled'); });
+                        // inputs[0].focus();
+                    }
+                }, 1500);
+            });
+
+            // Resend action
+            resendBtn.addEventListener('click', () => {
+                // Reset inputs
+                inputs.forEach(input => {
+                    input.value = '';
+                    input.classList.remove('filled', 'error', 'success');
+                });
+                inputs[0].focus();
+                checkAllFilled();
+
+                // Reset timer visuals
+                resendBtn.classList.add('hidden');
+                resendText.classList.remove('hidden');
+                timeLeft = 28;
+                timerSpan.textContent = '28s';
+                
+                // Actual timer restart logic would go here
+            });
+        });
+    </script>
+</body></html>

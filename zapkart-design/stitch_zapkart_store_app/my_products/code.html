@@ -1,0 +1,410 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>My Products - ZapKart Store</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#5e6572",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-high": "#e7e8e9",
+                    "on-primary-container": "#572000",
+                    "on-secondary-fixed-variant": "#404754",
+                    "on-primary-fixed": "#351000",
+                    "primary-fixed": "#ffdbcc",
+                    "on-secondary-fixed": "#151c27",
+                    "inverse-primary": "#ffb693",
+                    "background": "#f8f9fa",
+                    "tertiary": "#2151da",
+                    "on-background": "#191c1d",
+                    "tertiary-fixed": "#dce1ff",
+                    "outline": "#8e7164",
+                    "secondary-fixed-dim": "#c0c7d6",
+                    "outline-variant": "#e2bfb0",
+                    "on-surface-variant": "#5a4136",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#191c1d",
+                    "surface-variant": "#e1e3e4",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#7692ff",
+                    "primary-fixed-dim": "#ffb693",
+                    "surface-tint": "#a04100",
+                    "surface-container": "#edeeef",
+                    "secondary": "#585f6c",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#ff6b00",
+                    "surface-container-highest": "#e1e3e4",
+                    "primary": "#a04100",
+                    "inverse-on-surface": "#f0f1f2",
+                    "inverse-surface": "#2e3132",
+                    "tertiary-fixed-dim": "#b7c4ff",
+                    "secondary-fixed": "#dce2f3",
+                    "surface-dim": "#d9dadb",
+                    "surface": "#f8f9fa",
+                    "on-tertiary-container": "#002682",
+                    "on-tertiary-fixed-variant": "#0039b5",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f8f9fa",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#7a3000",
+                    "on-tertiary-fixed": "#001551",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#dce2f3",
+                    
+                    "success-soft": "#DCFCE7",
+                    "success-text": "#16A34A",
+                    "warning-soft": "#FEF3C7",
+                    "warning-text": "#D97706",
+                    "neutral-soft": "#F3F4F6",
+                    "neutral-text": "#6B7280"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "base": "4px",
+                    "xs": "4px",
+                    "xl": "32px",
+                    "margin": "20px",
+                    "md": "16px",
+                    "gutter": "16px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "label-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "600"}],
+                    "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            },
+            "boxShadow": {
+                'ambient': '0 2px 8px rgba(0,0,0,0.07)',
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #F8F9FA;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #FF6B00;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #FF6B00;
+        }
+        
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeUp 0.4s ease-out forwards;
+        }
+        
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .swipe-reveal {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #ba1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 20px;
+            border-radius: 12px;
+            z-index: 0;
+        }
+
+        .swipe-card {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.2s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen w-full max-w-[390px] mx-auto relative pb-24">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest border-b border-outline-variant shadow-sm flex items-center justify-between px-margin h-14 w-full sticky top-0 z-40">
+<button class="flex items-center justify-center w-11 h-11 active:scale-95 duration-150 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">My Products</h1>
+<button class="flex items-center justify-center w-11 h-11 active:scale-95 duration-150 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary">account_circle</span>
+</button>
+</header>
+<main class="px-margin pt-md">
+<!-- Header & Stats -->
+<div class="mb-md">
+<div class="flex items-baseline justify-between mb-sm">
+<h2 class="text-[24px] font-bold leading-tight text-on-surface">My Products</h2>
+<span class="font-body-sm text-body-sm text-neutral-text">48 products</span>
+</div>
+<div class="flex space-x-sm overflow-x-auto no-scrollbar py-1">
+<div class="bg-success-soft text-success-text px-3 py-1.5 rounded-full font-label-sm text-label-sm whitespace-nowrap flex items-center">
+<span class="w-2 h-2 bg-success-text rounded-full mr-1.5"></span> 40 Active
+                </div>
+<div class="bg-warning-soft text-warning-text px-3 py-1.5 rounded-full font-label-sm text-label-sm whitespace-nowrap flex items-center">
+<span class="w-2 h-2 bg-warning-text rounded-full mr-1.5"></span> 5 Low Stock
+                </div>
+<div class="bg-neutral-soft text-neutral-text px-3 py-1.5 rounded-full font-label-sm text-label-sm whitespace-nowrap flex items-center">
+<span class="w-2 h-2 bg-neutral-text rounded-full mr-1.5"></span> 3 Inactive
+                </div>
+</div>
+</div>
+<!-- Search & Filter -->
+<div class="mb-md sticky top-14 bg-background z-30 pt-xs pb-sm mb-lg">
+<div class="relative w-full mb-sm">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-secondary-container">search</span>
+</div>
+<input class="w-full bg-surface-container-lowest border border-surface-container-high text-on-surface font-body-md text-body-md rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container h-12" placeholder="Search products..." type="text">
+</div>
+<div class="flex space-x-sm overflow-x-auto no-scrollbar py-1">
+<button class="bg-primary-container text-on-primary px-4 py-1.5 rounded-full font-label-sm text-label-sm whitespace-nowrap border border-primary-container transition-colors active:scale-95">All</button>
+<button class="bg-surface-container-lowest text-on-secondary-container px-4 py-1.5 rounded-full font-label-sm text-label-sm whitespace-nowrap border border-surface-container-high transition-colors active:scale-95 hover:bg-surface-container-low">In Stock</button>
+<button class="bg-surface-container-lowest text-on-secondary-container px-4 py-1.5 rounded-full font-label-sm text-label-sm whitespace-nowrap border border-surface-container-high transition-colors active:scale-95 hover:bg-surface-container-low">Low Stock</button>
+<button class="bg-surface-container-lowest text-on-secondary-container px-4 py-1.5 rounded-full font-label-sm text-label-sm whitespace-nowrap border border-surface-container-high transition-colors active:scale-95 hover:bg-surface-container-low">Out of Stock</button>
+<button class="bg-surface-container-lowest text-on-secondary-container px-4 py-1.5 rounded-full font-label-sm text-label-sm whitespace-nowrap border border-surface-container-high transition-colors active:scale-95 hover:bg-surface-container-low">Inactive</button>
+</div>
+</div>
+<!-- Product List -->
+<div class="space-y-sm">
+<!-- Product 1: Active, Normal Stock -->
+<div class="relative rounded-[12px] bg-background stagger-item" style="animation-delay: 0ms;">
+<div class="swipe-reveal">
+<span class="material-symbols-outlined text-on-error">delete</span>
+</div>
+<div class="swipe-card bg-surface-container-lowest rounded-[12px] shadow-ambient p-[14px] flex items-center justify-between border border-transparent gap-md">
+<div class="flex items-center flex-1">
+<div class="w-[60px] h-[60px] bg-background rounded-lg flex items-center justify-center flex-shrink-0 text-2xl border border-surface-container-high">
+                            🍎
+                        </div>
+<div class="flex-1">
+<h3 class="font-label-lg text-label-lg text-on-surface mb-1.5 leading-tight">Kashmiri Apples</h3>
+<div class="flex items-center space-x-xs mb-1 mb-2">
+<span class="bg-surface-container-low text-on-secondary-container px-2 py-0.5 rounded text-[11px] font-medium">Fruits</span>
+<span class="text-[12px] text-on-secondary-container font-body-sm">• 1 kg</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-primary-container">₹180</span>
+<span class="text-[12px] text-on-secondary-container line-through">₹220</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end justify-between min-h-[70px] space-y-2">
+<div class="flex items-center space-x-3">
+<span class="text-[12px] text-success-text font-medium">48 units</span>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out border-surface-container-high translate-x-5" id="toggle1" name="toggle" type="checkbox">
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-primary-container cursor-pointer transition-colors duration-200 ease-in-out" for="toggle1"></label>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-lowest border border-surface-container-high text-on-secondary-container active:scale-90 transition-transform mt-1">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product 2: Active, Low Stock -->
+<div class="relative rounded-[12px] bg-background stagger-item" style="animation-delay: 50ms;">
+<div class="swipe-reveal">
+<span class="material-symbols-outlined text-on-error">delete</span>
+</div>
+<div class="swipe-card bg-surface-container-lowest rounded-[12px] shadow-ambient p-[14px] flex items-center justify-between border border-transparent gap-md">
+<div class="flex items-center flex-1">
+<div class="w-[60px] h-[60px] bg-background rounded-lg flex items-center justify-center flex-shrink-0 text-2xl border border-surface-container-high">
+                            🍞
+                        </div>
+<div class="flex-1">
+<h3 class="font-label-lg text-label-lg text-on-surface mb-1.5 leading-tight">Whole Wheat Bread</h3>
+<div class="flex items-center space-x-xs mb-1 mb-2">
+<span class="bg-surface-container-low text-on-secondary-container px-2 py-0.5 rounded text-[11px] font-medium">Bakery</span>
+<span class="text-[12px] text-on-secondary-container font-body-sm">• 400g</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-primary-container">₹45</span>
+<span class="text-[12px] text-on-secondary-container line-through">₹50</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end justify-between min-h-[70px] space-y-2">
+<div class="flex items-center space-x-3">
+<span class="text-[12px] text-warning-text font-medium flex items-center"><span class="material-symbols-outlined text-[14px] mr-0.5">warning</span> 5 units</span>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out border-surface-container-high translate-x-5" id="toggle2" name="toggle" type="checkbox">
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-primary-container cursor-pointer transition-colors duration-200 ease-in-out" for="toggle2"></label>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-lowest border border-surface-container-high text-on-secondary-container active:scale-90 transition-transform mt-1">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product 3: Inactive, Out of Stock -->
+<div class="relative rounded-[12px] bg-background stagger-item" style="animation-delay: 100ms;">
+<div class="swipe-reveal">
+<span class="material-symbols-outlined text-on-error">delete</span>
+</div>
+<div class="swipe-card bg-surface-container-lowest rounded-[12px] shadow-ambient p-[14px] flex items-center justify-between border border-transparent opacity-75 gap-md">
+<div class="flex items-center flex-1">
+<div class="w-[60px] h-[60px] bg-surface-container-high rounded-lg flex items-center justify-center flex-shrink-0 text-2xl border border-surface-container-high grayscale opacity-60">
+                            🥛
+                        </div>
+<div class="flex-1">
+<h3 class="font-label-lg text-label-lg text-on-surface mb-1.5 leading-tight">Toned Milk</h3>
+<div class="flex items-center space-x-xs mb-1 mb-2">
+<span class="bg-surface-container-low text-on-secondary-container px-2 py-0.5 rounded text-[11px] font-medium">Dairy</span>
+<span class="text-[12px] text-on-secondary-container font-body-sm">• 500ml</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-secondary-container">₹28</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end justify-between min-h-[70px] space-y-2">
+<div class="flex items-center space-x-3">
+<span class="text-[12px] text-error font-medium">Out of Stock</span>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-surface-container-high appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out translate-x-0" id="toggle3" name="toggle" type="checkbox">
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-container-high cursor-pointer transition-colors duration-200 ease-in-out" for="toggle3"></label>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-lowest border border-surface-container-high text-on-secondary-container active:scale-90 transition-transform mt-1">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-20 right-margin w-14 h-14 bg-primary-container text-on-primary rounded-full shadow-lg flex items-center justify-center active:scale-95 duration-150 z-40 transition-transform hover:bg-[#E66000]">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container-lowest border-t border-outline-variant shadow-lg rounded-t-xl h-[72px]">
+<button class="flex flex-col items-center justify-center text-on-surface-variant w-16 h-full active:scale-90 duration-200 hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-fixed text-on-primary-fixed rounded-full px-4 py-1 w-20 h-14 active:scale-90 duration-200 shadow-sm transition-colors">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-sm text-label-sm">Products</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant w-16 h-full active:scale-90 duration-200 hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined mb-1">shopping_bag</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant w-16 h-full active:scale-90 duration-200 hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined mb-1">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</button>
+</nav>
+<script>
+        // Simple swipe-to-delete interaction preview
+        const cards = document.querySelectorAll('.swipe-card');
+        
+        cards.forEach(card => {
+            let startX = 0;
+            let currentX = 0;
+            
+            card.addEventListener('touchstart', e => {
+                startX = e.touches[0].clientX;
+            }, {passive: true});
+            
+            card.addEventListener('touchmove', e => {
+                const x = e.touches[0].clientX;
+                currentX = startX - x;
+                
+                if (currentX > 0 && currentX < 80) {
+                    card.style.transform = `translateX(-${currentX}px)`;
+                }
+            }, {passive: true});
+            
+            card.addEventListener('touchend', () => {
+                if (currentX > 40) {
+                    card.style.transform = `translateX(-80px)`;
+                    setTimeout(() => {
+                        card.style.transform = `translateX(0)`;
+                    }, 2000);
+                } else {
+                    card.style.transform = `translateX(0)`;
+                }
+                currentX = 0;
+            });
+        });
+        
+        // Handle toggle switch state mapping for custom UI
+        const toggles = document.querySelectorAll('input[type="checkbox"]');
+        toggles.forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                if(this.checked) {
+                    this.classList.add('translate-x-5');
+                    this.classList.remove('translate-x-0');
+                    this.classList.add('border-primary-container');
+                    this.classList.remove('border-surface-container-high');
+                    this.nextElementSibling.classList.add('bg-primary-container');
+                    this.nextElementSibling.classList.remove('bg-surface-container-high');
+                } else {
+                    this.classList.remove('translate-x-5');
+                    this.classList.add('translate-x-0');
+                    this.classList.remove('border-primary-container');
+                    this.classList.add('border-surface-container-high');
+                    this.nextElementSibling.classList.remove('bg-primary-container');
+                    this.nextElementSibling.classList.add('bg-surface-container-high');
+                }
+            });
+        });
+    </script>
+
+
+</body></html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZapKart - Register Store</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#5e6572",
+                        "primary-fixed": "#ffdbcc",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#dce2f3",
+                        "on-secondary-fixed-variant": "#404754",
+                        "on-secondary-fixed": "#151c27",
+                        "tertiary": "#2151da",
+                        "tertiary-container": "#7692ff",
+                        "on-tertiary-fixed-variant": "#0039b5",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-primary-fixed": "#351000",
+                        "outline-variant": "#e2bfb0",
+                        "outline": "#8e7164",
+                        "on-surface-variant": "#5a4136",
+                        "inverse-surface": "#2e3132",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-primary-container": "#572000",
+                        "secondary-fixed-dim": "#c0c7d6",
+                        "surface-tint": "#a04100",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f3f4f5",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "surface-bright": "#f8f9fa",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface": "#f8f9fa",
+                        "surface-dim": "#d9dadb",
+                        "surface-variant": "#e1e3e4",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#ffb693",
+                        "primary": "#a04100",
+                        "tertiary-fixed": "#dce1ff",
+                        "primary-fixed-dim": "#ffb693",
+                        "on-surface": "#191c1d",
+                        "secondary-container": "#dce2f3",
+                        "tertiary-fixed-dim": "#b7c4ff",
+                        "error": "#ba1a1a",
+                        "secondary": "#585f6c",
+                        "on-tertiary-container": "#002682",
+                        "surface-container": "#edeeef",
+                        "background": "#f8f9fa",
+                        "primary-container": "#ff6b00",
+                        "on-background": "#191c1d",
+                        "on-tertiary-fixed": "#001551"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "base": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "margin": "20px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .stagger-enter {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUpFade 0.5s ease-out forwards;
+        }
+        @keyframes slideUpFade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes progressFill {
+            from { width: 0; }
+            to { width: 33.33%; }
+        }
+        .progress-animate {
+            animation: progressFill 0.6s ease-out forwards;
+        }
+        .footer-enter {
+            opacity: 0;
+            transform: translateY(100%);
+            animation: slideUpFade 0.5s ease-out 0.6s forwards;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-lg min-h-screen flex flex-col antialiased">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest sticky w-full top-0 border-b border-surface-variant shadow-sm flex justify-between items-center px-margin py-md z-50">
+<button aria-label="Go back" class="text-primary active:scale-95 duration-150 p-2 -ml-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm text-on-surface absolute left-1/2 transform -translate-x-1/2">Register Store</h1>
+<div class="w-10"></div> <!-- Spacer for centering -->
+</header>
+<main class="flex-grow pb-32">
+<!-- Progress Bar Section -->
+<div class="px-margin pt-lg pb-md bg-surface-container-lowest shadow-[0_2px_8px_rgba(0,0,0,0.07)] relative z-10">
+<div class="relative w-full mb-6 mt-2">
+<div class="absolute top-1/2 left-0 w-full h-[4px] bg-surface-variant -translate-y-1/2 rounded-full z-0"></div>
+<div class="absolute top-1/2 left-0 h-[4px] bg-primary-container -translate-y-1/2 rounded-full z-0 progress-animate w-0"></div>
+<div class="relative z-10 flex justify-between items-center w-full px-2">
+<div class="flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-label-lg text-label-lg shadow-sm">1</div>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest border-2 border-surface-variant text-on-surface-variant flex items-center justify-center font-label-lg text-label-lg">2</div>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest border-2 border-surface-variant text-on-surface-variant flex items-center justify-center font-label-lg text-label-lg">3</div>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-start px-2 mt-2">
+<span class="font-label-sm text-label-sm text-primary-container text-center w-1/3 -ml-4">Store Details</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-center w-1/3">Bank Details</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-center w-1/3 -mr-4">Documents</span>
+</div>
+</div>
+<div class="px-margin py-lg max-w-2xl mx-auto w-full space-y-lg">
+<div class="stagger-enter" style="animation-delay: 0ms;">
+<h2 class="font-headline-md text-headline-md text-on-background">Tell us about your store</h2>
+<p class="font-body-md text-body-md text-secondary mt-1">Step 1 of 3 — Store Information</p>
+</div>
+<form class="space-y-md">
+<div class="stagger-enter" style="animation-delay: 80ms;">
+<label class="block font-label-md text-label-md text-on-surface mb-sm">Store Name</label>
+<input class="w-full h-12 px-4 rounded-lg bg-surface-bright border border-surface-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors font-body-md text-body-md text-on-surface shadow-[0_2px_8px_rgba(0,0,0,0.02)]" placeholder="e.g. Sharma General Store" type="text"/>
+</div>
+<div class="stagger-enter" style="animation-delay: 160ms;">
+<label class="block font-label-md text-label-md text-on-surface mb-sm">Owner Full Name</label>
+<input class="w-full h-12 px-4 rounded-lg bg-surface-bright border border-surface-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors font-body-md text-body-md text-on-surface shadow-[0_2px_8px_rgba(0,0,0,0.02)]" placeholder="e.g. Rahul Sharma" type="text"/>
+</div>
+<div class="stagger-enter" style="animation-delay: 240ms;">
+<label class="block font-label-md text-label-md text-on-surface mb-sm">Phone Number</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-4 flex items-center text-on-surface-variant pointer-events-none">
+<span class="material-symbols-outlined text-lg" data-icon="lock">lock</span>
+</span>
+<input class="w-full h-12 pl-10 pr-4 rounded-lg bg-surface border border-surface-variant text-secondary outline-none font-body-md text-body-md cursor-not-allowed" readonly="" type="tel" value="+91 98765 43210"/>
+</div>
+</div>
+<div class="stagger-enter" style="animation-delay: 320ms;">
+<label class="block font-label-md text-label-md text-on-surface mb-sm">Store Type</label>
+<div class="relative">
+<select class="w-full h-12 pl-4 pr-10 rounded-lg bg-surface-bright border border-surface-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors font-body-md text-body-md text-on-surface appearance-none shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+<option disabled="" selected="" value="">Select category</option>
+<option value="general">General Store</option>
+<option value="grocery">Grocery &amp; Staples</option>
+<option value="pharmacy">Pharmacy</option>
+<option value="electronics">Electronics</option>
+<option value="clothing">Clothing &amp; Apparel</option>
+</select>
+<span class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant pointer-events-none">
+<span class="material-symbols-outlined" data-icon="arrow_drop_down">arrow_drop_down</span>
+</span>
+</div>
+</div>
+<div class="stagger-enter" style="animation-delay: 400ms;">
+<label class="block font-label-md text-label-md text-on-surface mb-sm">Full Address</label>
+<textarea class="w-full h-20 p-4 rounded-lg bg-surface-bright border border-surface-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors font-body-md text-body-md text-on-surface resize-none shadow-[0_2px_8px_rgba(0,0,0,0.02)]" placeholder="Shop No, Building, Street, Area..."></textarea>
+</div>
+<div class="stagger-enter" style="animation-delay: 480ms;">
+<button class="w-full h-12 flex items-center justify-center gap-2 rounded-lg bg-surface-container-lowest border-2 border-primary-container text-primary-container font-label-lg text-label-lg hover:bg-surface-bright transition-colors active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined" data-icon="pin_drop">pin_drop</span>
+                        Pin Your Store on Map
+                    </button>
+<div class="mt-sm w-full h-[120px] rounded-[10px] overflow-hidden border border-surface-variant shadow-[0_2px_8px_rgba(0,0,0,0.07)] relative">
+<img alt="Map Preview" class="w-full h-full object-cover" data-alt="A detailed aerial view of a dense urban neighborhood map in Mumbai. The map shows tightly packed buildings, intricate street networks, and a prominent red location pin marking a specific spot in the center. The style is modern, digital mapping interface with clear, bright lighting and distinct geometric shapes. The color palette features light grays, whites, and subtle greens, with the bright orange/red pin acting as a strong focal point." data-location="Mumbai" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS4miYRp9FtC3X0Viig0nlrgK5wrYOk4hFxsu9_D8JmZr_n5pI1YXxMDlYlZjMiDlXVLmHr4v2leugFmWzy2ZpTabIYPHhxqcgN4bC5GOBn1VRtG2758WXaKSjyYVEEaRahDJ6BSNsQ5-oGMDbqN0hllTrkvgoUNmZlQzWEJnXpVej2D4XSMvwcJfwMptfcs21l6lHA3xjtfryKeK1uTIGYPJJnhRSDcni6OgVYuWFTtYjV90DYcXv7v6jWFN-21x9K5yQ8hw3pw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent flex items-end justify-center pb-2">
+<span class="text-[10px] text-white font-medium bg-black/40 px-2 py-1 rounded backdrop-blur-sm">Location Pinned</span>
+</div>
+</div>
+</div>
+<div class="stagger-enter flex gap-md" style="animation-delay: 560ms;">
+<div class="w-1/2">
+<label class="block font-label-md text-label-md text-on-surface mb-sm">Opening Time</label>
+<input class="w-full h-12 px-4 rounded-lg bg-surface-bright border border-surface-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors font-body-md text-body-md text-on-surface shadow-[0_2px_8px_rgba(0,0,0,0.02)]" type="time" value="09:00"/>
+</div>
+<div class="w-1/2">
+<label class="block font-label-md text-label-md text-on-surface mb-sm">Closing Time</label>
+<input class="w-full h-12 px-4 rounded-lg bg-surface-bright border border-surface-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors font-body-md text-body-md text-on-surface shadow-[0_2px_8px_rgba(0,0,0,0.02)]" type="time" value="21:00"/>
+</div>
+</div>
+<div class="stagger-enter" style="animation-delay: 640ms;">
+<label class="block font-label-md text-label-md text-on-surface mb-sm">Delivery Radius</label>
+<div class="flex gap-sm">
+<button class="flex-1 h-12 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg transition-colors active:scale-95 shadow-[0_2px_8px_rgba(0,0,0,0.07)]" type="button">1 km</button>
+<button class="flex-1 h-12 rounded-full bg-surface-bright border border-surface-variant text-on-surface font-label-lg text-label-lg hover:bg-surface-container-high transition-colors active:scale-95 shadow-[0_2px_8px_rgba(0,0,0,0.02)]" type="button">2 km</button>
+<button class="flex-1 h-12 rounded-full bg-surface-bright border border-surface-variant text-on-surface font-label-lg text-label-lg hover:bg-surface-container-high transition-colors active:scale-95 shadow-[0_2px_8px_rgba(0,0,0,0.02)]" type="button">3 km</button>
+</div>
+</div>
+</form>
+</div>
+</main>
+<!-- Footer -->
+<footer class="fixed bottom-0 w-full bg-surface-container-lowest border-t border-surface-variant p-margin shadow-[0_-4px_16px_rgba(0,0,0,0.05)] z-50 footer-enter">
+<div class="max-w-2xl mx-auto">
+<button class="w-full h-[52px] bg-primary-container text-on-primary rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-2 active:scale-[0.98] transition-transform shadow-[0_2px_8px_rgba(0,0,0,0.1)]">
+                Next: Bank Details
+                <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<div class="mt-sm flex items-center justify-center gap-1 text-secondary font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[14px]" data-icon="shield">shield</span>
+<span>Your information is secure and encrypted</span>
+</div>
+</div>
+</footer>
+</body></html>

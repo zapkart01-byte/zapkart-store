@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZapKart - Store Registration Step 3</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        background: "#f8f9fa",
+                        "surface-container-high": "#e7e8e9",
+                        "inverse-on-surface": "#f0f1f2",
+                        "secondary-fixed": "#dce2f3",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#2e3132",
+                        "on-surface": "#191c1d",
+                        "outline-variant": "#e2bfb0",
+                        secondary: "#585f6c",
+                        "surface-container-highest": "#e1e3e4",
+                        outline: "#8e7164",
+                        "surface-container": "#edeeef",
+                        "on-error": "#ffffff",
+                        error: "#ba1a1a",
+                        "surface-dim": "#d9dadb",
+                        "surface-variant": "#e1e3e4",
+                        "secondary-container": "#dce2f3",
+                        "on-tertiary-container": "#002682",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "tertiary-container": "#7692ff",
+                        tertiary: "#2151da",
+                        primary: "#a04100",
+                        "on-background": "#191c1d",
+                        "tertiary-fixed": "#dce1ff",
+                        "inverse-primary": "#ffb693",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#151c27",
+                        "on-tertiary-fixed-variant": "#0039b5",
+                        "secondary-fixed-dim": "#c0c7d6",
+                        "primary-fixed-dim": "#ffb693",
+                        surface: "#f8f9fa",
+                        "surface-container-low": "#f3f4f5",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#5a4136",
+                        "tertiary-fixed-dim": "#b7c4ff",
+                        "surface-tint": "#a04100",
+                        "primary-container": "#ff6b00",
+                        "on-tertiary-fixed": "#001551",
+                        "on-secondary-fixed-variant": "#404754",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#ffdbcc",
+                        "on-secondary-container": "#5e6572",
+                        "on-primary-fixed": "#351000",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#f8f9fa",
+                        "on-primary-container": "#572000"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        xs: "4px",
+                        xl: "32px",
+                        sm: "8px",
+                        gutter: "16px",
+                        md: "16px",
+                        base: "4px",
+                        margin: "20px",
+                        lg: "24px"
+                    },
+                    fontFamily: {
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    fontSize: {
+                        "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }],
+                        "headline-md": ["22px", { lineHeight: "28px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }],
+                        "label-sm": ["11px", { lineHeight: "14px", fontWeight: "600" }],
+                        "label-lg": ["14px", { lineHeight: "20px", fontWeight: "600" }],
+                        "headline-lg": ["28px", { lineHeight: "34px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500" }]
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+        .progress-bar-anim {
+            animation: fillProgress 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes fillProgress {
+            0% { width: 66%; }
+            80% { width: 105%; }
+            100% { width: 100%; }
+        }
+        .dot-anim {
+            animation: bounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s forwards;
+            transform: scale(0);
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        .upload-card-flip {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .upload-card.uploaded .upload-card-flip {
+            transform: rotateY(180deg);
+        }
+        .upload-front, .upload-back {
+            backface-visibility: hidden;
+        }
+        .upload-back {
+            transform: rotateY(180deg);
+        }
+        .btn-bounce {
+            animation: unlockBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes unlockBounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-lg min-h-screen flex flex-col w-[390px] mx-auto border-x border-surface-container relative overflow-hidden">
+<!-- Top App Bar Component -->
+<header class="bg-surface-container-lowest border-b border-surface-container flex items-center justify-between px-margin py-md w-full z-50 sticky top-0">
+<button class="p-2 -ml-2 text-primary hover:bg-surface-container active:scale-95 transition-all duration-200 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Store Registration</h1>
+<span class="font-label-lg text-label-lg text-primary">Step 3 of 3</span>
+</header>
+<main class="flex-1 overflow-y-auto pb-32">
+<!-- Progress Bar -->
+<div class="px-margin pt-md pb-xs">
+<div class="relative h-2 bg-surface-container rounded-full overflow-visible">
+<div class="absolute top-0 left-0 h-full bg-primary-container rounded-full progress-bar-anim w-[66%]"></div>
+<div class="absolute top-1/2 left-0 -translate-y-1/2 w-4 h-4 bg-primary-container rounded-full shadow-[0_0_0_2px_#ffffff]"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-primary-container rounded-full shadow-[0_0_0_2px_#ffffff]"></div>
+<div class="absolute top-1/2 right-0 -translate-y-1/2 w-4 h-4 bg-primary-container rounded-full shadow-[0_0_0_2px_#ffffff] dot-anim"></div>
+</div>
+</div>
+<div class="px-margin py-md">
+<h2 class="font-headline-md text-[22px] font-bold text-on-surface mb-1">Almost done! 📸</h2>
+<p class="font-body-sm text-[13px] text-secondary mb-lg">Upload photos to verify your store.</p>
+<!-- Required Uploads -->
+<div class="space-y-md mb-lg">
+<h3 class="font-label-lg text-label-lg text-on-surface">Required Uploads</h3>
+<!-- Store Front Photo -->
+<div class="upload-card relative h-[140px] perspective-1000 cursor-pointer" onclick="toggleUpload(this, 'front')">
+<div class="upload-card-flip w-full h-full relative">
+<!-- Front (Empty State) -->
+<div class="upload-front absolute inset-0 bg-[#F8F9FA] border-2 border-dashed border-[#E9ECEF] rounded-xl flex flex-col items-center justify-center text-center p-md">
+<div class="w-12 h-12 bg-primary-fixed rounded-full flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined text-primary">add_a_photo</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">Store Front Photo</span>
+<span class="font-body-sm text-body-sm text-secondary mt-1">Clearly showing store board</span>
+</div>
+<!-- Back (Uploaded State) -->
+<div class="upload-back absolute inset-0 bg-surface rounded-xl overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.07)] border border-surface-container">
+<img alt="Store Front" class="w-full h-full object-cover" data-alt="A well-lit, modern grocery store exterior in an Indian urban setting. The storefront is clean and brightly lit with high-key lighting, fitting a modern SaaS dashboard context. The dominant colors are crisp whites and subtle brand accents. The mood is professional and inviting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsbATS3MR_08H9wroxD9Y02nw9FpWOObVVsb6cDesHLZ_wjepcwY3Sz7Wb0tHLTuT8tS7tLMGiJtfMraS72uUowwURuuGFUVXlQtSOV2MAt3g-8d8O7Ci4VEg-7NF2Gk-4xFgLTUhFGJrjOBvb8luXEec876W99jABXVdMGv1bcG7K3BGSCChQ3vofCNnWUMWDl3bPsm86_qTklWKEx3Y5xxDs76xpVU70ubMDy6HIs-wL5uy2YjlyHi-OsDvr7e69nxVEfHIpVw"/>
+<div class="absolute top-sm right-sm bg-surface-container-lowest text-[#118B50] font-label-sm text-label-sm px-2 py-1 rounded-full flex items-center shadow-sm">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 1;">check_circle</span> Uploaded
+                            </div>
+</div>
+</div>
+</div>
+<!-- Store Inside Photo -->
+<div class="upload-card relative h-[140px] perspective-1000 cursor-pointer" onclick="toggleUpload(this, 'inside')">
+<div class="upload-card-flip w-full h-full relative">
+<div class="upload-front absolute inset-0 bg-[#F8F9FA] border-2 border-dashed border-[#E9ECEF] rounded-xl flex flex-col items-center justify-center text-center p-md">
+<div class="w-12 h-12 bg-primary-fixed rounded-full flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined text-primary">storefront</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">Store Inside Photo</span>
+<span class="font-body-sm text-body-sm text-secondary mt-1">Showing inventory/racks</span>
+</div>
+<div class="upload-back absolute inset-0 bg-surface rounded-xl overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.07)] border border-surface-container">
+<img alt="Store Interior" class="w-full h-full object-cover" data-alt="A clean, organized interior of an Indian grocery store. Racks are neatly stocked with colorful products. The lighting is bright and even, creating a clinical, precise look suitable for a modern business application. The overall aesthetic is minimal and functional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCubnuqL6pigj72-MyNgmtwH1yjxQdoYySzgA0R0enFEHYbvKqY6nYorSDniQRXgKZlybJK2kkf8TOwOLD8r4VeR69q42YWK5mQgtROnzuahfPFOkk7AaF5KIgRzjGQq9YcEn9lgNenVkEt8KoYT41jqbLeoYKntgP5mKYveyy4W7EbBOmrwUsCy8ZspTHJ64jT5wFUVi-LMLhHVxIV4ftluPB1LF0oGLIh8tGnsH9FyjwOsfsNOT74QUjUr0AYc2rO8PKv5K4FxQ"/>
+<div class="absolute top-sm right-sm bg-surface-container-lowest text-[#118B50] font-label-sm text-label-sm px-2 py-1 rounded-full flex items-center shadow-sm">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 1;">check_circle</span> Uploaded
+                            </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Optional Uploads -->
+<div class="space-y-sm mb-lg">
+<h3 class="font-label-lg text-label-lg text-on-surface mb-sm">Optional Uploads</h3>
+<div class="flex gap-gutter">
+<!-- Trade Licence -->
+<div class="flex-1 bg-[#F8F9FA] border border-[#E9ECEF] border-dashed rounded-xl h-[100px] flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-secondary mb-1">description</span>
+<span class="font-label-sm text-label-sm text-on-surface">Trade Licence</span>
+<span class="font-body-sm text-[10px] text-secondary">Optional</span>
+</div>
+<!-- FSSAI -->
+<div class="flex-1 bg-[#F8F9FA] border border-[#E9ECEF] border-dashed rounded-xl h-[100px] flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-secondary mb-1">verified</span>
+<span class="font-label-sm text-label-sm text-on-surface">FSSAI Cert.</span>
+<span class="font-body-sm text-[10px] text-secondary">Optional</span>
+</div>
+</div>
+</div>
+<!-- Note Box -->
+<div class="bg-[#FFF0E6] border-l-4 border-[#FF6B00] rounded-r-lg p-md mb-xl flex items-start">
+<span class="material-symbols-outlined text-[#FF6B00] mr-sm mt-0.5" style="font-variation-settings: 'FILL' 1;">info</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Store verification typically takes 24-48 hours. Ensure photos are clear and text is readable to avoid delays.
+                </p>
+</div>
+</div>
+</main>
+<!-- Bottom Action Area -->
+<div class="fixed bottom-0 w-[390px] bg-surface-container-lowest border-t border-surface-container px-margin py-md z-50">
+<button class="w-full h-[52px] bg-surface-dim text-secondary font-label-lg text-label-lg rounded-xl flex items-center justify-center transition-all duration-300" disabled="" id="submitBtn">
+            Submit Application
+        </button>
+<p class="text-center font-body-sm text-[11px] text-secondary mt-sm">
+            By submitting you agree to ZapKart Partner Terms.
+        </p>
+</div>
+<script>
+        let uploads = { front: false, inside: false };
+
+        function toggleUpload(element, type) {
+            element.classList.toggle('uploaded');
+            uploads[type] = !uploads[type];
+            checkSubmitStatus();
+        }
+
+        function checkSubmitStatus() {
+            const btn = document.getElementById('submitBtn');
+            if (uploads.front && uploads.inside) {
+                btn.disabled = false;
+                btn.classList.remove('bg-surface-dim', 'text-secondary');
+                btn.classList.add('bg-[#FF6B00]', 'text-on-primary', 'btn-bounce', 'shadow-[0_4px_14px_rgba(255,107,0,0.39)]');
+                // Remove animation class after it plays to allow re-triggering if needed
+                setTimeout(() => btn.classList.remove('btn-bounce'), 500);
+            } else {
+                btn.disabled = true;
+                btn.classList.add('bg-surface-dim', 'text-secondary');
+                btn.classList.remove('bg-[#FF6B00]', 'text-on-primary', 'shadow-[0_4px_14px_rgba(255,107,0,0.39)]');
+            }
+        }
+    </script>
+</body></html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>ZapKart - My Orders</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#6a000b",
+                    "inverse-surface": "#313030",
+                    "tertiary-container": "#ff6762",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#dcd9d9",
+                    "tertiary": "#b91a24",
+                    "on-surface-variant": "#5a4136",
+                    "on-secondary-container": "#007230",
+                    "on-primary-container": "#572000",
+                    "primary-fixed-dim": "#ffb693",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#a04100",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#ffdad7",
+                    "on-secondary-fixed": "#002109",
+                    "surface-container": "#f0edec",
+                    "on-primary-fixed": "#351000",
+                    "surface-bright": "#fcf9f8",
+                    "tertiary-fixed-dim": "#ffb3ad",
+                    "inverse-on-surface": "#f3f0ef",
+                    "surface-container-highest": "#e5e2e1",
+                    "background": "#fcf9f8",
+                    "surface-container-high": "#ebe7e7",
+                    "on-surface": "#1c1b1b",
+                    "on-tertiary-fixed": "#410004",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#ffb693",
+                    "primary-container": "#ff6b00",
+                    "on-primary-fixed-variant": "#7a3000",
+                    "surface-container-low": "#f6f3f2",
+                    "secondary-fixed-dim": "#62df7d",
+                    "secondary": "#006e2d",
+                    "primary-fixed": "#ffdbcc",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-variant": "#e5e2e1",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#7cf994",
+                    "surface": "#fcf9f8",
+                    "outline-variant": "#e2bfb0",
+                    "on-secondary-fixed-variant": "#005320",
+                    "outline": "#8e7164",
+                    "on-tertiary-fixed-variant": "#930013",
+                    "on-background": "#1c1b1b",
+                    "primary": "#a04100",
+                    "secondary-fixed": "#7ffc97"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "xl": "32px",
+                    "margin-mobile": "16px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "sm": "8px",
+                    "gutter": "16px",
+                    "base": "4px",
+                    "margin-desktop": "48px"
+            },
+            "fontFamily": {
+                    "label-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "price-lg": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "price-lg": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #FFFFFF; /* Enforced white bg as requested, though theme background is off-white */
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        @keyframes pulse-scooter {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.15); }
+        }
+        .animate-pulse-scooter {
+            animation: pulse-scooter 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-item:nth-child(1) { animation-delay: 60ms; }
+        .stagger-item:nth-child(2) { animation-delay: 120ms; }
+        .stagger-item:nth-child(3) { animation-delay: 180ms; }
+        .stagger-item:nth-child(4) { animation-delay: 240ms; }
+        
+        .btn-active {
+            transform: scale(0.95);
+            transition: transform 0.1s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .stagger-item {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+            .animate-pulse-scooter {
+                animation: none;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="w-full max-w-[390px] mx-auto min-h-screen relative pb-[80px]">
+<!-- Header -->
+<header class="pt-[48px] pb-sm px-margin-mobile flex items-center justify-between sticky top-0 bg-white z-40">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">My Orders</h1>
+<button class="w-10 h-10 rounded-full flex items-center justify-center bg-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+</button>
+</header>
+<!-- Filter Tabs -->
+<nav class="w-full overflow-x-auto scroll-smooth hide-scrollbar border-b border-surface-container-highest px-margin-mobile mb-md sticky top-[96px] bg-white z-30">
+<div class="flex space-x-lg min-w-max">
+<button class="pb-sm border-b-2 border-primary-container text-primary-container font-label-lg text-label-lg relative whitespace-nowrap transition-colors duration-300">
+                All
+            </button>
+<button class="pb-sm border-b-2 border-transparent text-on-surface-variant font-label-lg text-label-lg relative whitespace-nowrap hover:text-on-surface transition-colors duration-300">
+                Active
+            </button>
+<button class="pb-sm border-b-2 border-transparent text-on-surface-variant font-label-lg text-label-lg relative whitespace-nowrap hover:text-on-surface transition-colors duration-300">
+                Delivered
+            </button>
+<button class="pb-sm border-b-2 border-transparent text-on-surface-variant font-label-lg text-label-lg relative whitespace-nowrap hover:text-on-surface transition-colors duration-300">
+                Cancelled
+            </button>
+</div>
+</nav>
+<!-- Order Cards List -->
+<main class="px-margin-mobile flex flex-col gap-[12px]">
+<!-- Active Order -->
+<div class="stagger-item bg-surface-container-lowest border border-surface-container-high rounded-xl p-md flex flex-col gap-sm relative overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.07)] transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-sm">
+<div class="w-12 h-12 rounded-lg bg-[#FFF0E6] flex items-center justify-center flex-shrink-0 animate-pulse-scooter">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">two_wheeler</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">2 items · ₹145</h3>
+<p class="font-body-sm text-body-sm text-primary-container font-bold">Out for Delivery · ~8 min</p>
+</div>
+</div>
+<button class="bg-primary-container text-white px-md py-sm rounded-full font-label-lg text-label-lg flex items-center gap-xs active:scale-95 transition-transform" onclick="this.classList.add('btn-active'); setTimeout(() =&gt; this.classList.remove('btn-active'), 150)">
+                    Track <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Delivered Order -->
+<div class="stagger-item bg-surface-container-lowest border border-surface-container-high rounded-xl p-md flex flex-col gap-sm shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.07)] transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-sm">
+<div class="w-12 h-12 rounded-lg bg-[#DCFCE7] flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[#16A34A]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">4 items · ₹312</h3>
+<p class="font-body-sm text-body-sm text-[#16A34A]">Delivered · Today, 2:30 PM</p>
+<p class="font-body-sm text-body-sm text-outline text-[12px] mt-1">Fresh Mart, Koramangala</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-sm">
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+<button class="border border-primary-container text-primary-container px-md py-sm rounded-full font-label-lg text-label-lg active:scale-95 transition-transform" onclick="this.classList.add('btn-active'); setTimeout(() =&gt; this.classList.remove('btn-active'), 150)">
+                        Reorder
+                    </button>
+</div>
+</div>
+</div>
+<!-- Cancelled Order -->
+<div class="stagger-item bg-surface-container-lowest border border-surface-container-high rounded-xl p-md flex flex-col gap-sm shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.07)] transition-shadow opacity-75">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<div class="w-12 h-12 rounded-lg bg-[#FEE2E2] flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[#EF4444]">close</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-outline">3 items · ₹280</h3>
+<p class="font-body-sm text-body-sm text-[#EF4444]">Cancelled · Yesterday</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center py-sm pb-safe px-md bg-surface shadow-[0_-2px_8px_rgba(0,0,0,0.07)] z-50 rounded-t-xl md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary-container active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-md text-label-md mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary-container active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span class="font-label-md text-label-md mt-1">Categories</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long" data-weight="fill" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-label-md text-label-md mt-1">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary-container active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md mt-1">Account</span>
+</a>
+</nav>
+</body></html>

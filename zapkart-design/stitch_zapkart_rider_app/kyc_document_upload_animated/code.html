@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Identity Verification - Document Upload</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#191c1d",
+                        "on-tertiary-fixed": "#001d35",
+                        "on-background": "#1c1b1b",
+                        "primary-container": "#ff6b00",
+                        "outline-variant": "#e2bfb0",
+                        "on-secondary-fixed-variant": "#454748",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#ffb693",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#9ccaff",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "secondary": "#5c5f60",
+                        "secondary-fixed": "#e1e3e4",
+                        "surface-bright": "#fcf9f8",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "inverse-surface": "#313030",
+                        "tertiary-fixed": "#d0e4ff",
+                        "surface-variant": "#e5e2e1",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#a04100",
+                        "on-primary-container": "#572000",
+                        "on-surface-variant": "#5a4136",
+                        "on-surface": "#1c1b1b",
+                        "on-secondary-container": "#626566",
+                        "surface-dim": "#dcd9d9",
+                        "background": "#fcf9f8",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-tertiary-fixed-variant": "#00497b",
+                        "inverse-on-surface": "#f3f0ef",
+                        "outline": "#8e7164",
+                        "tertiary-container": "#059eff",
+                        "surface-container-high": "#ebe7e7",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#ffdbcc",
+                        "on-tertiary-container": "#003357",
+                        "tertiary": "#0062a1",
+                        "primary-fixed-dim": "#ffb693",
+                        "secondary-fixed-dim": "#c5c7c8",
+                        "secondary-container": "#e1e3e4",
+                        "surface-container-low": "#f6f3f2",
+                        "on-primary-fixed": "#351000",
+                        "surface-container": "#f0edec",
+                        "primary": "#a04100"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "container-margin": "20px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "base": "4px",
+                        "xl": "32px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "display-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Card Flip Animation Styles */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        .transition-transform-duration-700 {
+            transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        /* Custom border for dashed state */
+        .border-dashed-custom {
+            border-style: dashed;
+            border-width: 2px;
+            border-color: #E9ECEF; /* Hardcoded from prompt requirements, normally use theme colors */
+        }
+
+        /* Progress bar animation */
+        @keyframes fillProgress {
+            from { width: 0; }
+            to { width: 33%; }
+        }
+        .animate-progress {
+            animation: fillProgress 0.8s ease-out forwards;
+        }
+        
+        /* Badge pop animation */
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            70% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-pop-in {
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation-delay: 0.3s; /* Delay to match card flip */
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        /* Subtle pulse for icons */
+        @keyframes subtlePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .animate-pulse-subtle {
+            animation: subtlePulse 2s infinite ease-in-out;
+        }
+
+        body {
+            /* Fallback font family if Inter fails */
+            font-family: 'Inter', sans-serif;
+            background-color: #fcf9f8; /* background color from config */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background flex justify-center min-h-screen">
+<!-- Main Mobile Container (390x844px) -->
+<main class="w-full max-w-[390px] h-screen max-h-[844px] bg-surface-container-lowest relative flex flex-col overflow-hidden shadow-2xl mx-auto my-auto md:my-8 md:h-[844px] md:rounded-[32px] md:border md:border-outline-variant">
+<!-- TopAppBar (From JSON) -->
+<header class="bg-surface dark:bg-surface text-primary dark:text-primary-fixed border-b border-outline-variant dark:border-outline-variant shadow-sm w-full z-50 flex items-center px-container-margin h-16 shrink-0">
+<button class="flex items-center justify-center w-10 h-10 -ml-2 rounded-full hover:bg-surface-container-high transition-colors text-secondary dark:text-secondary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed ml-2">Identity Verification</h1>
+</header>
+<!-- Scrollable Content Area -->
+<div class="flex-1 overflow-y-auto pb-24 scroll-smooth">
+<!-- Progress & Headers Section -->
+<section class="px-container-margin pt-6 pb-4">
+<!-- Progress Bar -->
+<div class="mb-6">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-2">Step 2 of 3 — Documents</p>
+<div class="w-full h-[4px] bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full animate-progress" style="width: 33%;"></div>
+</div>
+</div>
+<!-- Titles -->
+<div>
+<h2 class="font-display-lg-mobile text-display-lg-mobile font-bold text-on-surface mb-2">Upload Your Documents</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Required for verification. Takes 24-48 hours.</p>
+</div>
+</section>
+<!-- Document Grid Section -->
+<section class="px-container-margin py-4">
+<div class="grid grid-cols-2 gap-[12px]">
+<!-- Card 1: Aadhaar Front (UPLOADED STATE with flip animation structure) -->
+<div class="relative h-[160px] perspective-1000 cursor-pointer group active:scale-[0.98] transition-transform duration-200" onclick="toggleCard(this)">
+<div class="flipper w-full h-full relative transform-style-3d transition-transform-duration-700 rotate-y-180">
+<!-- Front Side (Empty State - hidden by rotation initially) -->
+<div class="absolute w-full h-full backface-hidden bg-surface-container-lowest rounded-[10px] border-dashed-custom flex flex-col items-center justify-center p-4 hover:bg-surface-container-low transition-colors">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center mb-3 group-hover:scale-110 transition-transform animate-pulse-subtle">
+<span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 0;">photo_camera</span>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface text-center mb-1">Aadhaar Front</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant text-center">Tap to Upload</p>
+</div>
+<!-- Back Side (Uploaded State) -->
+<div class="absolute w-full h-full backface-hidden rotate-y-180 bg-surface-container-lowest rounded-[10px] border border-outline-variant shadow-[0_2px_8px_rgba(0,0,0,0.07)] overflow-hidden">
+<!-- Image Preview Placeholder -->
+<img alt="placeholder document image" class="w-full h-full object-cover" data-alt="A macro photograph of an official identification document resting on a pristine white surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiHbPvRYuGWdKNIMvewSCaZnDrcZa39XfiGJm4UQcYY4bifTtaEgm8ytaEWCEHibkP3Zqqm2V9KT3s4CxS4yzeAq0rYgA6x9G_vHx08cpWtRUX0w58F_rsggG9Uq6_-pfVuDVAJjQRs0x2iDQVMMBy5koNpxsYZT1HMe9dFBzSkvXLHOcgW8UzS38vd4HvrbgqiAUuQCITbizExP2Osd94nS3ZoyW_VNEm4FxGeBDAYBvgi_f6ZfOGVhEX_gTTjKrGI2eweso6Ofo"/>
+<!-- Dark Overlay for interaction -->
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="font-label-md text-label-md text-white drop-shadow-md">Tap to change</span>
+</div>
+<!-- Green Checkmark Badge -->
+<div class="absolute top-2 right-2 w-6 h-6 bg-[#10B981] rounded-full flex items-center justify-center shadow-sm animate-pop-in border-2 border-white z-10">
+<span class="material-symbols-outlined text-white text-[16px] font-bold" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<!-- Label Pill -->
+<div class="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-[4px] shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface">Aadhaar Front</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: Aadhaar Back -->
+<div class="relative h-[160px] perspective-1000 cursor-pointer group active:scale-[0.98] transition-transform duration-200" onclick="toggleCard(this)">
+<div class="flipper w-full h-full relative transform-style-3d transition-transform-duration-700">
+<div class="absolute w-full h-full backface-hidden bg-surface-container-lowest rounded-[10px] border-dashed-custom flex flex-col items-center justify-center p-4 hover:bg-surface-container-low transition-colors">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center mb-3 group-hover:scale-110 transition-transform animate-pulse-subtle">
+<span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 0;">photo_camera</span>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface text-center mb-1">Aadhaar Back</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant text-center">Tap to Upload</p>
+</div>
+<div class="absolute w-full h-full backface-hidden rotate-y-180 bg-surface-container-lowest rounded-[10px] border border-outline-variant shadow-[0_2px_8px_rgba(0,0,0,0.07)] overflow-hidden">
+<img alt="placeholder document image" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiHbPvRYuGWdKNIMvewSCaZnDrcZa39XfiGJm4UQcYY4bifTtaEgm8ytaEWCEHibkP3Zqqm2V9KT3s4CxS4yzeAq0rYgA6x9G_vHx08cpWtRUX0w58F_rsggG9Uq6_-pfVuDVAJjQRs0x2iDQVMMBy5koNpxsYZT1HMe9dFBzSkvXLHOcgW8UzS38vd4HvrbgqiAUuQCITbizExP2Osd94nS3ZoyW_VNEm4FxGeBDAYBvgi_f6ZfOGVhEX_gTTjKrGI2eweso6Ofo"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="font-label-md text-label-md text-white drop-shadow-md">Tap to change</span>
+</div>
+<div class="absolute top-2 right-2 w-6 h-6 bg-[#10B981] rounded-full flex items-center justify-center shadow-sm border-2 border-white z-10 hidden pop-in-target">
+<span class="material-symbols-outlined text-white text-[16px] font-bold" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-[4px] shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface">Aadhaar Back</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3: Driving Licence -->
+<div class="relative h-[160px] perspective-1000 cursor-pointer group active:scale-[0.98] transition-transform duration-200" onclick="toggleCard(this)">
+<div class="flipper w-full h-full relative transform-style-3d transition-transform-duration-700">
+<div class="absolute w-full h-full backface-hidden bg-surface-container-lowest rounded-[10px] border-dashed-custom flex flex-col items-center justify-center p-4 hover:bg-surface-container-low transition-colors">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center mb-3 group-hover:scale-110 transition-transform animate-pulse-subtle">
+<span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 0;">badge</span>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface text-center mb-1">Driving Licence</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant text-center">Tap to Upload</p>
+</div>
+<div class="absolute w-full h-full backface-hidden rotate-y-180 bg-surface-container-lowest rounded-[10px] border border-outline-variant shadow-[0_2px_8px_rgba(0,0,0,0.07)] overflow-hidden">
+<img alt="placeholder document image" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiHbPvRYuGWdKNIMvewSCaZnDrcZa39XfiGJm4UQcYY4bifTtaEgm8ytaEWCEHibkP3Zqqm2V9KT3s4CxS4yzeAq0rYgA6x9G_vHx08cpWtRUX0w58F_rsggG9Uq6_-pfVuDVAJjQRs0x2iDQVMMBy5koNpxsYZT1HMe9dFBzSkvXLHOcgW8UzS38vd4HvrbgqiAUuQCITbizExP2Osd94nS3ZoyW_VNEm4FxGeBDAYBvgi_f6ZfOGVhEX_gTTjKrGI2eweso6Ofo"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="font-label-md text-label-md text-white drop-shadow-md">Tap to change</span>
+</div>
+<div class="absolute top-2 right-2 w-6 h-6 bg-[#10B981] rounded-full flex items-center justify-center shadow-sm border-2 border-white z-10 hidden pop-in-target">
+<span class="material-symbols-outlined text-white text-[16px] font-bold" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-[4px] shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface">Driving Licence</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 4: Selfie with Aadhaar -->
+<div class="relative h-[160px] perspective-1000 cursor-pointer group active:scale-[0.98] transition-transform duration-200" onclick="toggleCard(this)">
+<div class="flipper w-full h-full relative transform-style-3d transition-transform-duration-700">
+<div class="absolute w-full h-full backface-hidden bg-surface-container-lowest rounded-[10px] border-dashed-custom flex flex-col items-center justify-center p-4 hover:bg-surface-container-low transition-colors">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center mb-3 group-hover:scale-110 transition-transform animate-pulse-subtle">
+<span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 0;">face</span>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface text-center mb-1">Selfie w/ Aadhaar</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant text-center">Tap to Upload</p>
+</div>
+<div class="absolute w-full h-full backface-hidden rotate-y-180 bg-surface-container-lowest rounded-[10px] border border-outline-variant shadow-[0_2px_8px_rgba(0,0,0,0.07)] overflow-hidden">
+<img alt="placeholder document image" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiHbPvRYuGWdKNIMvewSCaZnDrcZa39XfiGJm4UQcYY4bifTtaEgm8ytaEWCEHibkP3Zqqm2V9KT3s4CxS4yzeAq0rYgA6x9G_vHx08cpWtRUX0w58F_rsggG9Uq6_-pfVuDVAJjQRs0x2iDQVMMBy5koNpxsYZT1HMe9dFBzSkvXLHOcgW8UzS38vd4HvrbgqiAUuQCITbizExP2Osd94nS3ZoyW_VNEm4FxGeBDAYBvgi_f6ZfOGVhEX_gTTjKrGI2eweso6Ofo"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="font-label-md text-label-md text-white drop-shadow-md">Tap to change</span>
+</div>
+<div class="absolute top-2 right-2 w-6 h-6 bg-[#10B981] rounded-full flex items-center justify-center shadow-sm border-2 border-white z-10 hidden pop-in-target">
+<span class="material-symbols-outlined text-white text-[16px] font-bold" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-[4px] shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface">Selfie w/ Aadhaar</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Bottom Fixed Action Section -->
+<footer class="absolute bottom-0 left-0 w-full bg-surface-container-lowest pt-4 pb-8 px-container-margin border-t border-outline-variant shadow-[0_-4px_16px_rgba(0,0,0,0.05)] z-40 shrink-0">
+<!-- Button State -->
+<button class="w-full h-12 bg-surface-container-highest text-on-surface-variant font-label-md text-label-md rounded-full mb-3 cursor-not-allowed opacity-70 flex items-center justify-center transition-all duration-300" disabled="" id="submit-btn">
+                Submit for Verification
+            </button>
+<div class="flex items-center justify-center gap-1.5 opacity-80">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant" style="font-variation-settings: 'FILL' 1;">lock</span>
+<p class="font-label-sm text-[11px] leading-[14px] font-semibold tracking-[0.02em] text-on-surface-variant text-center">
+                    All documents are encrypted and stored securely
+                </p>
+</div>
+</footer>
+</main>
+<script>
+        let uploadedCount = 1; // Card 1 is already uploaded
+
+        function toggleCard(cardElement) {
+            const flipper = cardElement.querySelector('.flipper');
+            const isUploaded = flipper.classList.contains('rotate-y-180');
+            const popInBadge = cardElement.querySelector('.pop-in-target');
+            
+            if (!isUploaded) {
+                flipper.classList.add('rotate-y-180');
+                if (popInBadge) {
+                    popInBadge.classList.remove('hidden');
+                    // Retrigger animation
+                    popInBadge.classList.remove('animate-pop-in');
+                    void popInBadge.offsetWidth;
+                    popInBadge.classList.add('animate-pop-in');
+                }
+                uploadedCount++;
+            } else {
+                flipper.classList.remove('rotate-y-180');
+                if (popInBadge) {
+                    popInBadge.classList.add('hidden');
+                }
+                uploadedCount--;
+            }
+            
+            checkSubmitState();
+        }
+
+        function checkSubmitState() {
+            const submitBtn = document.getElementById('submit-btn');
+            if (uploadedCount === 4) {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('bg-surface-container-highest', 'text-on-surface-variant', 'cursor-not-allowed', 'opacity-70');
+                submitBtn.classList.add('bg-primary-container', 'text-on-primary-container', 'cursor-pointer', 'opacity-100', 'hover:bg-primary-container/90', 'shadow-md');
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.classList.add('bg-surface-container-highest', 'text-on-surface-variant', 'cursor-not-allowed', 'opacity-70');
+                submitBtn.classList.remove('bg-primary-container', 'text-on-primary-container', 'cursor-pointer', 'opacity-100', 'hover:bg-primary-container/90', 'shadow-md');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Re-trigger progress bar animation to ensure it plays on load
+            const progressBar = document.querySelector('.animate-progress');
+            if(progressBar) {
+                progressBar.style.animation = 'none';
+                progressBar.offsetHeight; /* trigger reflow */
+                progressBar.style.animation = null; 
+            }
+        });
+    </script>
+</body></html>

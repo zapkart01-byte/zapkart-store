@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZapKart Super Admin - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#e5e2e1",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2e3132",
+                        "on-tertiary-fixed": "#151c27",
+                        "background": "#f8f9fa",
+                        "on-primary": "#ffffff",
+                        "secondary": "#5f5e5e",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-surface": "#191c1d",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-bright": "#f8f9fa",
+                        "inverse-primary": "#ffb693",
+                        "primary-container": "#ff6b00",
+                        "outline-variant": "#e2bfb0",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#5a4136",
+                        "surface-dim": "#d9dadb",
+                        "secondary-container": "#e5e2e1",
+                        "primary": "#a04100",
+                        "on-tertiary-fixed-variant": "#404754",
+                        "surface-container": "#edeeef",
+                        "tertiary": "#585f6c",
+                        "on-secondary-fixed-variant": "#474646",
+                        "on-primary-fixed": "#351000",
+                        "surface": "#f8f9fa",
+                        "surface-variant": "#e1e3e4",
+                        "primary-fixed-dim": "#ffb693",
+                        "primary-fixed": "#ffdbcc",
+                        "on-secondary-container": "#656464",
+                        "tertiary-fixed-dim": "#c0c7d6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "tertiary-container": "#9299a8",
+                        "surface-tint": "#a04100",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#dce2f3",
+                        "secondary-fixed-dim": "#c9c6c5",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "on-background": "#191c1d",
+                        "outline": "#8e7164",
+                        "surface-container-low": "#f3f4f5",
+                        "on-primary-container": "#572000",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#2a313d",
+                        "inverse-on-surface": "#f0f1f2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "gutter-mobile": "12px",
+                        "margin-mobile": "16px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["10px", { "lineHeight": "14px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row w-full overflow-x-hidden">
+<!-- Brand Panel (Left on Desktop, Top on Mobile) -->
+<div class="bg-primary-container text-on-primary w-full md:w-[45%] flex flex-col justify-between p-lg md:p-xl relative overflow-hidden min-h-[40vh] md:min-h-screen shrink-0">
+<!-- Abstract geometric pattern for visual interest -->
+<div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 20%), radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 20%);"></div>
+<!-- Logo -->
+<div class="flex items-center gap-sm mb-lg md:mb-0 z-10">
+<span class="material-symbols-outlined text-4xl" data-weight="fill" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-headline-lg text-headline-lg text-on-primary">ZapKart</span>
+</div>
+<!-- Headline & Features -->
+<div class="z-10 md:mt-auto md:mb-auto flex-1 flex flex-col justify-center">
+<h1 class="font-headline-lg text-headline-lg md:text-4xl md:leading-tight font-bold mb-lg text-on-primary">Complete Platform Control.</h1>
+<div class="space-y-md">
+<div class="flex items-start gap-sm">
+<div class="bg-primary text-on-primary p-sm rounded-full flex items-center justify-center shrink-0 mt-xs">
+<span class="material-symbols-outlined text-sm" data-icon="storefront">storefront</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-primary">Multi-Store Management</h3>
+<p class="font-body-md text-body-md opacity-80 text-on-primary">Oversee inventory and operations across all locations instantly.</p>
+</div>
+</div>
+<div class="flex items-start gap-sm">
+<div class="bg-primary text-on-primary p-sm rounded-full flex items-center justify-center shrink-0 mt-xs">
+<span class="material-symbols-outlined text-sm" data-icon="monitoring">monitoring</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-primary">Real-Time Analytics</h3>
+<p class="font-body-md text-body-md opacity-80 text-on-primary">Live data feeds on sales, traffic, and platform performance.</p>
+</div>
+</div>
+<div class="flex items-start gap-sm">
+<div class="bg-primary text-on-primary p-sm rounded-full flex items-center justify-center shrink-0 mt-xs">
+<span class="material-symbols-outlined text-sm" data-icon="shield_person">shield_person</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-primary">Advanced Security</h3>
+<p class="font-body-md text-body-md opacity-80 text-on-primary">Enterprise-grade access controls and audit logging.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="z-10 mt-lg md:mt-0 font-body-sm text-body-sm opacity-70">
+            © 2024 ZapKart Inc. All rights reserved.
+        </div>
+</div>
+<!-- Login Form Area (Right on Desktop, Bottom on Mobile) -->
+<div class="bg-surface flex-1 flex flex-col items-center justify-center p-margin-mobile md:p-xl relative w-full min-h-[60vh] md:min-h-screen">
+<!-- Subtle grid background -->
+<div class="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none" style="background-image: linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px); background-size: 20px 20px;"></div>
+<div class="w-full max-w-md bg-surface-container-lowest p-lg rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.07)] border border-surface-variant relative z-10 mx-auto">
+<div class="mb-lg text-center md:text-left">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Welcome back</h2>
+<p class="font-body-md text-body-md text-secondary">Sign in to the Super Admin console.</p>
+</div>
+<form action="#" class="space-y-lg" method="POST">
+<div class="space-y-sm">
+<label class="block font-label-md text-label-md text-on-surface-variant" for="email">Email Address</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-sm flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-secondary" data-icon="mail">mail</span>
+</div>
+<input class="block w-full pl-xl pr-sm py-sm font-body-md text-body-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary-container focus:border-primary-container transition-colors" id="email" name="email" placeholder="admin@zapkart.com" required="" type="email" value="superadmin@zapkart.com"/>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center justify-between">
+<label class="block font-label-md text-label-md text-on-surface-variant" for="password">Password</label>
+<a class="font-label-sm text-label-sm text-primary hover:text-primary-container transition-colors" href="#">Forgot password?</a>
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-sm flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-secondary" data-icon="lock">lock</span>
+</div>
+<input class="block w-full pl-xl pr-sm py-sm font-body-md text-body-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary-container focus:border-primary-container transition-colors" id="password" name="password" placeholder="••••••••" required="" type="password" value="password123"/>
+</div>
+</div>
+<div class="pt-sm">
+<button class="w-full flex justify-center py-md px-lg border border-transparent rounded-full shadow-sm font-label-lg text-label-lg text-on-primary bg-primary-container hover:bg-primary hover:shadow-md transition-all active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" type="submit">
+                        Sign In
+                    </button>
+</div>
+<div class="mt-lg flex items-center justify-center gap-xs font-body-sm text-body-sm text-secondary">
+<span class="material-symbols-outlined text-sm" data-icon="security">security</span>
+<span>Secure encrypted connection</span>
+</div>
+</form>
+</div>
+</div>
+</body></html>

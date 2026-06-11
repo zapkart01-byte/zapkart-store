@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZapKart Super Admin - Finance &amp; Payouts</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Tab Transition */
+        .tab-content-container {
+            transition: opacity 0.2s ease-in-out;
+        }
+        .fade-out {
+            opacity: 0;
+        }
+
+        /* Progress Bar */
+        .progress-bar-container {
+            height: 4px;
+            width: 100%;
+            background-color: var(--surface-variant, #e1e3e4);
+            overflow: hidden;
+            display: none;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary, #a04100);
+            transition: width 0.1s linear;
+        }
+        .progress-bar-container.active {
+            display: block;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#585f6c",
+                        "on-tertiary-fixed": "#151c27",
+                        "surface-container-high": "#e7e8e9",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#c9c6c5",
+                        "outline": "#8e7164",
+                        "surface-container-low": "#f3f4f5",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#c0c7d6",
+                        "on-primary-fixed": "#351000",
+                        "surface-bright": "#f8f9fa",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#ffb693",
+                        "tertiary-fixed": "#dce2f3",
+                        "outline-variant": "#e2bfb0",
+                        "on-surface-variant": "#5a4136",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#474646",
+                        "on-secondary-container": "#656464",
+                        "on-surface": "#191c1d",
+                        "surface-dim": "#d9dadb",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-primary-container": "#572000",
+                        "surface-variant": "#e1e3e4",
+                        "primary-fixed": "#ffdbcc",
+                        "secondary": "#5f5e5e",
+                        "primary-container": "#ff6b00",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#e5e2e1",
+                        "surface-tint": "#a04100",
+                        "background": "#f8f9fa",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-background": "#191c1d",
+                        "primary": "#a04100",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#404754",
+                        "on-tertiary-container": "#2a313d",
+                        "tertiary-container": "#9299a8",
+                        "inverse-surface": "#2e3132",
+                        "surface": "#f8f9fa",
+                        "surface-container": "#edeeef",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#ffb693",
+                        "success-bg": "#d4edda",
+                        "success-text": "#155724",
+                        "warning-bg": "#fff3cd",
+                        "warning-text": "#856404",
+                        "info-bg": "#d1ecf1",
+                        "info-text": "#0c5460"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter-mobile": "12px",
+                        "base": "4px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "label-sm": ["10px", { "lineHeight": "14px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row antialiased">
+<!-- TopNavBar (Mobile only) -->
+<nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-margin-mobile h-16 w-full bg-surface-container-lowest shadow-sm md:hidden">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">menu</span>
+<span class="font-headline-sm text-headline-sm font-bold text-primary">SuperAdmin</span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined">search</span>
+<span class="material-symbols-outlined">notifications</span>
+<img alt="Super Admin Profile" class="w-8 h-8 rounded-full ml-xs object-cover" data-alt="A close up portrait of a confident male executive wearing a dark suit against a pure white background. The lighting is soft and professional, highlighting a modern corporate aesthetic. The overall mood is authoritative and efficient. Deep blacks and bright whites emphasize the premium feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRccw0xUGWigepKm8g8vaYIYYsIi96fKxKnU_SAGPfxPoJPx3wMAKC_Lxdzo8_0ZZoqFRTOCxFlayNUKZI0r2oX2OyyiFazqpt1LkAcP4FRg9f2Y-uGEbbyVpBu9g5-O4qMnEX5CianULmZxsMew5mWLpWEJuNkrMJ50NqMMlo1mhFO5OKc3AtgQnTsHPL2rDU5ZWUrNt3B9XXHn_ZqPch1D8TCAgeZODSZpmX-Y-5Jn_GiXjeQrNtk3nNk-flInknhtTtyC47tsw"/>
+</div>
+</nav>
+<!-- SideNavBar (Web) -->
+<aside class="hidden md:flex flex-col h-screen pt-16 pb-lg px-md w-64 fixed left-0 bg-surface-container-low shadow-md z-40">
+<div class="mb-lg px-xs">
+<div class="flex items-center gap-sm mb-xs">
+<span class="material-symbols-outlined text-primary text-3xl">electric_bolt</span>
+<span class="font-headline-md text-headline-md text-primary">SuperAdmin</span>
+</div>
+<div class="font-label-lg text-label-lg text-on-surface mt-sm">Fleet Manager</div>
+<div class="font-body-md text-body-md text-secondary">Admin Workspace</div>
+</div>
+<nav class="flex-1 space-y-sm">
+<a class="flex items-center gap-sm px-sm py-sm rounded-xl text-secondary hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-sm rounded-xl text-secondary hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined">motorcycle</span>
+<span class="font-label-lg text-label-lg">Riders</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-sm rounded-xl text-secondary hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-lg text-label-lg">Stores</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-sm rounded-xl text-secondary hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-sm rounded-xl text-secondary hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-lg text-label-lg">Inventory</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-sm rounded-xl bg-primary-container text-on-primary-container transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-lg text-label-lg">Payouts</span>
+</a>
+</nav>
+<div class="mt-auto pt-lg border-t border-surface-variant">
+<button class="w-full mb-md py-sm bg-primary text-on-primary font-label-lg text-label-lg rounded-full hover:bg-surface-tint transition-colors">
+                Generate Report
+            </button>
+<a class="flex items-center gap-sm px-sm py-sm rounded-xl text-secondary hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-lg text-label-lg">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 md:ml-64 pt-16 md:pt-0 p-margin-mobile md:p-xl flex flex-col gap-lg min-h-screen">
+<!-- Page Header -->
+<header class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-sm pt-md md:pt-xl">
+<h1 class="font-headline-lg text-headline-lg text-on-background">Finance &amp; Payouts</h1>
+<div class="flex items-center bg-surface-container-low border border-surface-variant rounded-full px-md py-sm cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="font-label-md text-label-md text-on-surface mr-xs">This Week</span>
+<span class="material-symbols-outlined text-secondary" style="font-size: 16px;">expand_more</span>
+</div>
+</header>
+<!-- Summary Cards Row -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Card 1 -->
+<div class="bg-surface-bright border border-surface-variant rounded-xl p-md shadow-sm flex flex-col justify-between min-h-[120px]">
+<div class="flex items-center gap-sm mb-xs">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" style="font-size: 18px;">account_balance_wallet</span>
+</div>
+<span class="font-label-md text-label-md text-secondary">Platform Commission</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-primary counter" data-target="184200">₹0</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-warning-bg bg-opacity-20 border border-warning-bg rounded-xl p-md shadow-sm flex flex-col justify-between min-h-[120px]">
+<div class="flex items-center gap-sm mb-xs">
+<div class="w-8 h-8 rounded-full bg-warning-bg flex items-center justify-center">
+<span class="material-symbols-outlined text-warning-text" style="font-size: 18px;">storefront</span>
+</div>
+<span class="font-label-md text-label-md text-warning-text">Store Payouts Due</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-warning-text counter" data-target="920000">₹0</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-info-bg bg-opacity-20 border border-info-bg rounded-xl p-md shadow-sm flex flex-col justify-between min-h-[120px]">
+<div class="flex items-center gap-sm mb-xs">
+<div class="w-8 h-8 rounded-full bg-info-bg flex items-center justify-center">
+<span class="material-symbols-outlined text-info-text" style="font-size: 18px;">motorcycle</span>
+</div>
+<span class="font-label-md text-label-md text-info-text">Rider Earnings Due</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-info-text counter" data-target="48200">₹0</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-success-bg bg-opacity-20 border border-success-bg rounded-xl p-md shadow-sm flex flex-col justify-between min-h-[120px]">
+<div class="flex items-center gap-sm mb-xs">
+<div class="w-8 h-8 rounded-full bg-success-bg flex items-center justify-center">
+<span class="material-symbols-outlined text-success-text" style="font-size: 18px;">trending_up</span>
+</div>
+<span class="font-label-md text-label-md text-success-text">Net Platform Profit</span>
+</div>
+<div class="font-headline-lg text-[28px] leading-[36px] font-bold text-success-text counter" data-target="135800">₹0</div>
+</div>
+</section>
+<!-- Main Content Area -->
+<section class="flex flex-col gap-md bg-surface-bright border border-surface-variant rounded-xl shadow-sm overflow-hidden flex-1">
+<!-- Tabs -->
+<div class="flex border-b border-surface-variant px-md overflow-x-auto hide-scrollbar" id="tab-buttons">
+<button class="px-md py-md font-label-lg text-label-lg text-primary border-b-2 border-primary whitespace-nowrap active-tab">
+                    Store Payouts
+                </button>
+<button class="px-md py-md font-label-lg text-label-lg text-secondary hover:text-on-surface whitespace-nowrap transition-colors tab-btn">
+                    Rider Payouts
+                </button>
+<button class="px-md py-md font-label-lg text-label-lg text-secondary hover:text-on-surface whitespace-nowrap transition-colors tab-btn">
+                    Transaction History
+                </button>
+</div>
+<!-- Store Payouts Tab Content -->
+<div class="p-md flex flex-col gap-md flex-1 tab-content-container" id="tab-content">
+<div class="flex justify-between items-center">
+<h2 class="font-headline-sm text-headline-sm text-on-background">Pending Store Settlements</h2>
+<button class="bg-primary hover:bg-surface-tint text-on-primary font-label-md text-label-md px-md py-sm rounded-full transition-colors flex items-center gap-xs h-[44px]" id="pay-all-btn">
+<span class="material-symbols-outlined" style="font-size: 18px;">payments</span>
+                        Pay All Pending ₹9,20,000
+                    </button>
+</div>
+<div class="progress-bar-container" id="batch-progress-container">
+<div class="progress-bar" id="batch-progress"></div>
+</div>
+<div class="overflow-x-auto rounded-lg border border-surface-variant">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low font-label-sm text-label-sm text-secondary uppercase border-b border-surface-variant">
+<th class="p-sm font-medium">Store</th>
+<th class="p-sm font-medium">Orders</th>
+<th class="p-sm font-medium">Gross ₹</th>
+<th class="p-sm font-medium">Commission ₹</th>
+<th class="p-sm font-medium">Store Gets ₹</th>
+<th class="p-sm font-medium">Last Payout</th>
+<th class="p-sm font-medium">Status</th>
+<th class="p-sm font-medium text-right">Action</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-surface">
+<!-- Row 1: Pending -->
+<tr class="border-b border-surface-variant bg-warning-bg bg-opacity-10 hover:bg-surface-variant transition-colors" id="row-1">
+<td class="p-sm flex items-center gap-sm min-w-[200px]">
+<img alt="FreshMart Grocery" class="w-10 h-10 rounded-lg object-cover" data-alt="A brightly lit aisle in a modern grocery store showcasing fresh produce. The lighting is crisp white, reflecting off polished floors. Vibrant greens and reds of fruits and vegetables contrast with clean white shelving. The atmosphere feels fresh, clean, and highly organized." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh9brVX7yF3d2BXfDJ35le6LxI0j1lhYdGpg5arS_R94ItgsF0O7sIg5-LgsYRSnKSnwK74UBF5AjH5MsIbsYwWi6IIzzV9UbvoHz7Q7TO7tl7f3WRDLlD0yFxM7Y8sjz5VwVbEYdKdi_cHzyicSa1-4ArWIgo0RlIQ9T7ticDeUe-aT8Z6sxenZC_DFMG5MUuAsOTnOXCSZv-YWz9fYyQ7UXG9D4Rx6BNV4ZoYCKBadn0qXcKHM-aQU9nnciDlPGzn4bF7Styv8M"/>
+<span class="font-label-md text-label-md font-semibold">FreshMart Grocery</span>
+</td>
+<td class="p-sm">342</td>
+<td class="p-sm">₹1,45,000</td>
+<td class="p-sm text-error">₹29,000</td>
+<td class="p-sm font-label-md text-label-md text-success-text">₹1,16,000</td>
+<td class="p-sm text-secondary">Oct 24, 2023</td>
+<td class="p-sm">
+<span class="status-badge inline-flex items-center px-xs py-[2px] rounded-full bg-warning-bg text-warning-text font-label-sm text-label-sm transition-colors duration-300">Pending</span>
+</td>
+<td class="p-sm text-right">
+<button class="pay-btn bg-primary text-on-primary font-label-md text-label-md px-sm py-xs rounded-full h-[32px] w-[90px] flex justify-center items-center hover:bg-surface-tint transition-all duration-300 ml-auto">Pay Now</button>
+</td>
+</tr>
+<!-- Row 2: Pending -->
+<tr class="border-b border-surface-variant bg-warning-bg bg-opacity-10 hover:bg-surface-variant transition-colors" id="row-2">
+<td class="p-sm flex items-center gap-sm min-w-[200px]">
+<img alt="Daily Needs Supermarket" class="w-10 h-10 rounded-lg object-cover" data-alt="A wide shot of a modern supermarket interior with neatly arranged shelves. Soft, even lighting illuminates rows of packaged goods. The color palette is neutral with pops of bright colors from the product packaging. The scene conveys efficiency and abundance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0Bs2HL_qJODj9fMxvWLIdIq1NQNp-iw1wLWbZOfFBd7fXA2X5vBAxko3KilueEPuCmslEin8zfnbrMf_2ujF3D8cko6vZio5qsKq_uVTbNZ3OPb4gyAsoouXjtetvv0Uqmph36izHKrX04awc8tCGgS2D_1AFt5KG7CVKR7S-rmoMsWzDvnCsGICtmWhVJ169_H5Kj-iTL-7WnR_fYhm3z39bFPsLwbOLIwkxKusnnkgrq9XVKOjcSBSqrCbR-Qk62591y26QY7I"/>
+<span class="font-label-md text-label-md font-semibold">Daily Needs Supermarket</span>
+</td>
+<td class="p-sm">128</td>
+<td class="p-sm">₹62,000</td>
+<td class="p-sm text-error">₹12,400</td>
+<td class="p-sm font-label-md text-label-md text-success-text">₹49,600</td>
+<td class="p-sm text-secondary">Oct 22, 2023</td>
+<td class="p-sm">
+<span class="status-badge inline-flex items-center px-xs py-[2px] rounded-full bg-warning-bg text-warning-text font-label-sm text-label-sm transition-colors duration-300">Pending</span>
+</td>
+<td class="p-sm text-right">
+<button class="pay-btn bg-primary text-on-primary font-label-md text-label-md px-sm py-xs rounded-full h-[32px] w-[90px] flex justify-center items-center hover:bg-surface-tint transition-all duration-300 ml-auto">Pay Now</button>
+</td>
+</tr>
+<!-- Row 3: Paid -->
+<tr class="border-b border-surface-variant hover:bg-surface-container-low transition-colors">
+<td class="p-sm flex items-center gap-sm min-w-[200px]">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">storefront</span>
+</div>
+<span class="font-label-md text-label-md font-semibold text-secondary">City Bakery</span>
+</td>
+<td class="p-sm text-secondary">85</td>
+<td class="p-sm text-secondary">₹24,500</td>
+<td class="p-sm text-secondary">₹4,900</td>
+<td class="p-sm font-label-md text-label-md text-secondary">₹19,600</td>
+<td class="p-sm text-secondary">Oct 26, 2023</td>
+<td class="p-sm">
+<span class="inline-flex items-center px-xs py-[2px] rounded-full bg-success-bg text-success-text font-label-sm text-label-sm">Paid</span>
+</td>
+<td class="p-sm text-right">
+<button class="text-primary font-label-md text-label-md px-sm py-xs border border-primary rounded-full h-[32px] w-[90px] ml-auto hover:bg-primary hover:text-on-primary transition-colors opacity-50 cursor-not-allowed" disabled="">Settled</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+<script>
+        // 1. Count-up animation
+        const counters = document.querySelectorAll('.counter');
+        const speed = 30;
+
+        counters.forEach(counter => {
+            const animate = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText.replace(/₹|,/g, '');
+                const inc = target / speed;
+
+                if (count < target) {
+                    counter.innerText = '₹' + Math.ceil(count + inc).toLocaleString('en-IN');
+                    setTimeout(animate, 20);
+                } else {
+                    counter.innerText = '₹' + target.toLocaleString('en-IN');
+                }
+            };
+            animate();
+        });
+
+        // 2. Individual Pay Now Button logic
+        const payBtns = document.querySelectorAll('.pay-btn');
+        payBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const row = this.closest('tr');
+                const statusBadge = row.querySelector('.status-badge');
+                
+                // Show spinner
+                this.innerHTML = `<span class="material-symbols-outlined animate-spin" style="font-size: 16px;">progress_activity</span>`;
+                this.disabled = true;
+
+                setTimeout(() => {
+                    // Flash 'Processing'
+                    statusBadge.innerText = 'Processing';
+                    statusBadge.classList.remove('bg-warning-bg', 'text-warning-text');
+                    statusBadge.classList.add('bg-success-bg', 'text-success-text');
+                    
+                    this.innerText = 'Processing';
+                    this.classList.remove('bg-primary');
+                    this.classList.add('bg-success-text');
+
+                    setTimeout(() => {
+                        // Update to 'Paid'
+                        statusBadge.innerText = 'Paid';
+                        row.classList.remove('bg-warning-bg', 'bg-opacity-10');
+                        
+                        this.innerText = 'Settled';
+                        this.classList.remove('bg-success-text', 'text-on-primary', 'hover:bg-surface-tint');
+                        this.classList.add('text-primary', 'border', 'border-primary', 'bg-transparent', 'opacity-50', 'cursor-not-allowed', 'hover:bg-primary', 'hover:text-on-primary');
+                    }, 500);
+                }, 1500);
+            });
+        });
+
+        // 3. Pay All Pending logic
+        const payAllBtn = document.getElementById('pay-all-btn');
+        const progressContainer = document.getElementById('batch-progress-container');
+        const progressBar = document.getElementById('batch-progress');
+
+        payAllBtn.addEventListener('click', () => {
+            progressContainer.classList.add('active');
+            let width = 0;
+            payAllBtn.disabled = true;
+            payAllBtn.innerHTML = `<span class="material-symbols-outlined animate-spin" style="font-size: 18px;">progress_activity</span> Processing...`;
+
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    payAllBtn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 18px;">check_circle</span> All Paid`;
+                    payAllBtn.classList.remove('bg-primary', 'hover:bg-surface-tint');
+                    payAllBtn.classList.add('bg-success-bg', 'text-success-text', 'border', 'border-success-text');
+                    
+                    // Trigger all pending rows
+                    document.querySelectorAll('.pay-btn:not(:disabled)').forEach(btn => btn.click());
+                    
+                    setTimeout(() => {
+                        progressContainer.classList.remove('active');
+                    }, 1000);
+                } else {
+                    width += 2;
+                    progressBar.style.width = width + '%';
+                }
+            }, 30);
+        });
+
+        // 4. Tab switching logic
+        const tabBtns = document.querySelectorAll('#tab-buttons button');
+        const tabContent = document.getElementById('tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Update tab styles
+                tabBtns.forEach(b => {
+                    b.classList.remove('text-primary', 'border-b-2', 'border-primary');
+                    b.classList.add('text-secondary');
+                });
+                const clickedBtn = e.target;
+                clickedBtn.classList.remove('text-secondary');
+                clickedBtn.classList.add('text-primary', 'border-b-2', 'border-primary');
+
+                // Cross-fade effect
+                tabContent.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    // Simulating content change
+                    tabContent.classList.remove('fade-out');
+                }, 200);
+            });
+        });
+
+    </script>
+</body></html>
