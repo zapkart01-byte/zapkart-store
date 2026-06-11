@@ -15,7 +15,6 @@ import {
   View,
 } from 'react-native';
 import { supabase } from '../../src/services/supabase';
-import { deleteProduct } from '../../src/services/productService';
 import { useAuthStore } from '../../src/stores/useAuthStore';
 import { formatCurrency } from '../../src/utils/formatters';
 
@@ -96,7 +95,7 @@ export default function ProductsScreen() {
   const handleDeleteProduct = (productId, productName) => {
     Alert.alert(
       'Delete Product',
-      `Are you sure you want to delete "${productName}"? This action cannot be undone.`,
+      `Delete "${productName}"?\n\nThis cannot be undone.`,
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -104,13 +103,38 @@ export default function ProductsScreen() {
           style: 'destructive',
           onPress: async () => {
             try {
-              console.log('Deleting product:', productId);
-              await deleteProduct(productId);
+              // Attempt hard delete
+              const { error } = await supabase
+                .from('products')
+                .delete()
+                .eq('id', productId);
+
+              if (error) {
+                // Hard delete blocked (likely RLS) — try soft delete instead
+                const { error: softErr } = await supabase
+                  .from('products')
+                  .update({ is_active: false, stock: 0 })
+                  .eq('id', productId);
+
+                if (softErr) {
+                  Alert.alert(
+                    'Delete Failed',
+                    `Supabase error: ${error.message}\n\nPlease add a DELETE policy for authenticated store owners in your Supabase products table RLS settings.`
+                  );
+                  return;
+                }
+
+                // Soft delete worked — hide from list
+                setProducts((prev) => prev.filter((p) => p.id !== productId));
+                Alert.alert('Hidden', `"${productName}" has been deactivated and hidden from customers.`);
+                return;
+              }
+
+              // Hard delete succeeded
               setProducts((prev) => prev.filter((p) => p.id !== productId));
-              Alert.alert('Success', `${productName} deleted successfully`);
+              Alert.alert('Deleted', `"${productName}" permanently deleted.`);
             } catch (err) {
-              console.error('Delete error:', err);
-              Alert.alert('Error', err.message || 'Failed to delete product. Check Supabase RLS policies.');
+              Alert.alert('Error', err.message || 'Unexpected error. Please try again.');
             }
           },
         },

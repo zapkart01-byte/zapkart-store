@@ -97,7 +97,7 @@ export default function PendingScreen() {
 
   // Set up a 10-second polling interval as a fallback for the status check
   useEffect(() => {
-    const phone = storeProfile?.owner_phone || user?.phoneNumber;
+    const phone = storeProfile?.owner_phone || user?.phone;
     if (!phone) return;
 
     const interval = setInterval(() => {
@@ -116,13 +116,13 @@ export default function PendingScreen() {
     }, 10000);
 
     return () => clearInterval(interval);
-  }, [storeProfile?.owner_phone, user?.phoneNumber]);
+  }, [storeProfile?.owner_phone, user?.phone]);
 
   /**
    * Checks the store status manually from Supabase and redirects if active.
    */
   const handleCheckStatus = async () => {
-    const phone = storeProfile?.owner_phone || user?.phoneNumber;
+    const phone = storeProfile?.owner_phone || user?.phone;
     if (!phone) return;
     setIsChecking(true);
     try {

@@ -12,58 +12,53 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { confirmOTP, sendOTP } from '../../src/services/authService';
-import { getStoreByOwnerPhone } from '../../src/services/storeService';
+import { sendOTP, verifyOTP } from '../../src/services/authService';
 import { useAuthStore } from '../../src/stores/useAuthStore';
 
-// OTP Code Verification Screen
+/**
+ * OTP verification screen — 6-digit code entry with auto-submit.
+ * Verifies via backend (2Factor.in) and stores JWT token in Zustand + AsyncStorage.
+ * Routes to: (tabs) → active store | /register → new store | /register/pending → pending
+ */
 export default function OTPScreen() {
-  const router = useRouter();
-  const { phone, verificationId: initialVerificationId } = useLocalSearchParams();
+  const router   = useRouter();
+  const { phone, isSandbox } = useLocalSearchParams();
 
-  const [verificationId, setVerificationId] = useState(initialVerificationId || '');
-  const [code, setCode] = useState(['', '', '', '', '', '']);
+  const [code, setCode]       = useState(['', '', '', '', '', '']);
   const [loading, setLoading] = useState(false);
-  const [timer, setTimer] = useState(60);
-  const [error, setError] = useState(null);
+  const [timer, setTimer]     = useState(60);
+  const [error, setError]     = useState(null);
 
   const inputRefs = useRef([]);
-  const { setUser, setStoreProfile } = useAuthStore();
+  const { setToken, setUser, setStoreProfile } = useAuthStore();
 
-  // Resend OTP countdown timer logic
+  // ── Resend countdown ────────────────────────────────────────────────────
   useEffect(() => {
     if (timer === 0) return;
-    const interval = setInterval(() => {
-      setTimer((prev) => prev - 1);
-    }, 1000);
+    const interval = setInterval(() => setTimer((prev) => prev - 1), 1000);
     return () => clearInterval(interval);
   }, [timer]);
 
-  // Automatically submits code when all 6 digits are filled
+  // ── Auto-submit when all 6 digits filled ────────────────────────────────
   useEffect(() => {
-    if (code.every((digit) => digit !== '')) {
+    if (code.every((d) => d !== '')) {
       handleVerify();
     }
   }, [code]);
 
-  // Formats phone number for display
-  const displayPhone = phone ? `+91 ${phone.slice(0, 5)} ${phone.slice(5)}` : '';
+  const displayPhone = phone
+    ? `+91 ${phone.slice(0, 5)} ${phone.slice(5)}`
+    : '';
 
-  // Handles character entry in the individual code blocks
+  // ── Digit input handlers ────────────────────────────────────────────────
   const handleCodeChange = (text, index) => {
     setError(null);
     const newCode = [...code];
-    // Take only the last typed character
     newCode[index] = text.slice(-1);
     setCode(newCode);
-
-    // Auto-focus next input block
-    if (text && index < 5) {
-      inputRefs.current[index + 1]?.focus();
-    }
+    if (text && index < 5) inputRefs.current[index + 1]?.focus();
   };
 
-  // Handles backspace key navigation
   const handleKeyPress = (e, index) => {
     if (e.nativeEvent.key === 'Backspace' && !code[index] && index > 0) {
       const newCode = [...code];
@@ -73,33 +68,29 @@ export default function OTPScreen() {
     }
   };
 
-  // Requests a new OTP SMS code
+  // ── Resend OTP ──────────────────────────────────────────────────────────
   const handleResendOTP = async () => {
-    if (timer > 0) return;
+    if (timer > 0 || loading) return;
     setLoading(true);
     setError(null);
     setCode(['', '', '', '', '', '']);
     inputRefs.current[0]?.focus();
 
-    const fullPhone = `+91${phone}`;
-    const verifier = Platform.OS === 'web' ? window.recaptchaVerifier : null;
-
     try {
-      const res = await sendOTP(fullPhone, verifier);
+      const res = await sendOTP(phone || '');
       if (res.success) {
-        setVerificationId(res.verificationId || '');
         setTimer(60);
       } else {
-        setError(res.error || 'Failed to resend code. Please try again.');
+        setError(res.error || 'Failed to resend. Please try again.');
       }
-    } catch (err) {
-      setError(err.message || 'An unexpected error occurred.');
+    } catch {
+      setError('Network error. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
-  // Verifies the code and checks user registration status
+  // ── Verify OTP and route ────────────────────────────────────────────────
   const handleVerify = async () => {
     const fullCode = code.join('');
     if (fullCode.length !== 6 || loading) return;
@@ -109,33 +100,37 @@ export default function OTPScreen() {
     Keyboard.dismiss();
 
     try {
-      const res = await confirmOTP(verificationId, fullCode, phone || '');
-      if (res.success && res.user) {
-        setUser(res.user);
+      const res = await verifyOTP(phone || '', fullCode);
 
-        // Fetch store profile by owner phone from Supabase
-        const storeProfile = await getStoreByOwnerPhone(res.user.phoneNumber || `+91${phone}`);
+      if (res.success && res.token) {
+        // Persist to Zustand
+        setToken(res.token);
+        setUser(res.user ?? { id: 'unknown', phone: `+91${phone}` });
 
-        if (storeProfile) {
-          setStoreProfile(storeProfile);
-          if (storeProfile.status === 'active') {
-            router.replace('/(tabs)');
-          } else if (storeProfile.status === 'pending') {
-            router.replace('/register/pending');
-          } else if (storeProfile.status === 'suspended') {
-            setError('This store account has been suspended. Please contact support.');
-          } else {
-            router.replace('/register/pending');
-          }
-        } else {
-          // Store doesn't exist, route to step 1 of registration
+        const profile = res.storeProfile;
+        setStoreProfile(profile);
+
+        // Route based on store status
+        if (!profile) {
+          // No store registered yet → start registration
           router.replace('/register/store-details');
+        } else if (profile.status === 'active') {
+          router.replace('/(tabs)');
+        } else if (profile.status === 'suspended') {
+          setError('This store has been suspended. Please contact ZapKart support.');
+          setCode(['', '', '', '', '', '']);
+        } else {
+          // pending or any other status → pending screen
+          router.replace('/register/pending');
         }
       } else {
         setError(res.error || 'Invalid verification code. Please check and try again.');
+        setCode(['', '', '', '', '', '']);
+        inputRefs.current[0]?.focus();
       }
-    } catch (err) {
-      setError(err.message || 'Verification failed. Please try again.');
+    } catch {
+      setError('Verification failed. Please try again.');
+      setCode(['', '', '', '', '', '']);
     } finally {
       setLoading(false);
     }
@@ -149,45 +144,60 @@ export default function OTPScreen() {
       >
         <ScrollView
           contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 24, justifyContent: 'center' }}
-          className="bg-white"
+          keyboardShouldPersistTaps="handled"
         >
           {/* Header */}
           <View className="items-center mb-8">
+            <View className="w-16 h-16 bg-brand-soft rounded-full items-center justify-center mb-4">
+              <Text className="text-3xl">📱</Text>
+            </View>
             <Text className="text-2xl font-bold text-text-primary">Verify Number</Text>
-            <Text className="text-sm text-text-secondary text-center mt-2">
-              We have sent a 6-digit verification code to{'\n'}
+            <Text className="text-sm text-text-secondary text-center mt-2 leading-5">
+              We sent a 6-digit code to{'\n'}
               <Text className="font-semibold text-text-primary">{displayPhone}</Text>
             </Text>
+            {isSandbox === '1' && (
+              <View className="mt-3 bg-warning-soft border border-yellow-200 rounded-xl px-4 py-2">
+                <Text className="text-xs text-warning text-center font-medium">
+                  🧪 Sandbox mode — use OTP <Text className="font-bold">123456</Text>
+                </Text>
+              </View>
+            )}
           </View>
 
-          {/* OTP Digit Blocks */}
-          <View className="flex-row justify-between mb-8 px-2">
+          {/* 6-digit OTP Input */}
+          <View className="flex-row justify-between mb-8 px-1">
             {code.map((digit, index) => (
               <TextInput
                 key={index}
                 ref={(ref) => (inputRefs.current[index] = ref)}
-                className="w-12 h-14 border border-border bg-surface text-center text-text-primary text-xl font-bold rounded-xl"
+                className={`w-[48px] h-[56px] border rounded-xl text-center text-text-primary text-2xl font-bold bg-surface ${
+                  digit ? 'border-brand' : error ? 'border-error' : 'border-border'
+                }`}
                 keyboardType="number-pad"
                 maxLength={1}
                 value={digit}
                 onChangeText={(text) => handleCodeChange(text, index)}
                 onKeyPress={(e) => handleKeyPress(e, index)}
                 editable={!loading}
+                selectTextOnFocus
               />
             ))}
           </View>
 
-          {/* Error Message Section */}
+          {/* Error Message */}
           {error ? (
-            <View className="bg-error-soft border border-red-100 rounded-xl p-3 mb-6">
+            <View className="bg-error-soft border border-red-100 rounded-xl p-3 mb-5">
               <Text className="text-error text-sm text-center font-medium">{error}</Text>
             </View>
           ) : null}
 
-          {/* Verify CTA Button */}
+          {/* Verify Button */}
           <TouchableOpacity
             className={`w-full h-[52px] rounded-xl items-center justify-center ${
-              code.join('').length === 6 && !loading ? 'bg-brand active:bg-brand-dark' : 'bg-gray-300'
+              code.join('').length === 6 && !loading
+                ? 'bg-brand active:bg-brand-dark'
+                : 'bg-gray-300'
             }`}
             disabled={code.join('').length !== 6 || loading}
             onPress={handleVerify}
@@ -199,11 +209,12 @@ export default function OTPScreen() {
             )}
           </TouchableOpacity>
 
-          {/* Resend Link and Countdown */}
+          {/* Resend */}
           <View className="flex-row justify-center mt-6">
             {timer > 0 ? (
               <Text className="text-text-secondary text-sm">
-                Resend code in <Text className="font-semibold text-text-primary">{timer}s</Text>
+                Resend code in{' '}
+                <Text className="font-semibold text-text-primary">{timer}s</Text>
               </Text>
             ) : (
               <TouchableOpacity onPress={handleResendOTP} disabled={loading}>
@@ -211,6 +222,17 @@ export default function OTPScreen() {
               </TouchableOpacity>
             )}
           </View>
+
+          {/* Change number */}
+          <TouchableOpacity
+            className="items-center mt-4"
+            onPress={() => router.back()}
+          >
+            <Text className="text-text-secondary text-sm">
+              Wrong number?{' '}
+              <Text className="text-brand font-semibold">Change</Text>
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

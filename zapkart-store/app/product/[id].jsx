@@ -23,6 +23,7 @@ import {
 } from '../../src/services/productService';
 import { useAuthStore } from '../../src/stores/useAuthStore';
 import { formatCurrency } from '../../src/utils/formatters';
+import EarningsPreview from '../../components/product/EarningsPreview';
 
 /**
  * Screen component for adding a new product or editing an existing product.
@@ -34,16 +35,19 @@ export default function ProductDetailFormScreen() {
 
   const isNewProduct = id === 'new';
 
-  // State variables for form fields
-  const [name, setName] = useState('');
+  const [name, setName]             = useState('');
   const [categoryId, setCategoryId] = useState('');
-  const [unit, setUnit] = useState('1 pc');
-  const [mrp, setMrp] = useState('');
+  const [unit, setUnit]             = useState('1 pc');
+  const [variantLabel, setVariantLabel] = useState(''); // e.g. 500ml / 1L / 2L
+  const [mrp, setMrp]               = useState('');
   const [storePrice, setStorePrice] = useState('');
-  const [stock, setStock] = useState('10');
-  const [imageUrls, setImageUrls] = useState([]);
-  const [costPrice, setCostPrice] = useState('');
-  const [isActive, setIsActive] = useState(true);
+  const [stock, setStock]           = useState('10');
+  const [imageUrls, setImageUrls]   = useState([]);
+  const [costPrice, setCostPrice]   = useState('');
+  const [isActive, setIsActive]     = useState(true);
+
+  // Common variant label suggestions
+  const VARIANT_PILLS = ['250g', '500g', '1kg', '250ml', '500ml', '1L', '2L', '1 pc', '6 pcs'];
 
   // Status and data states
   const [categories, setCategories] = useState([]);
@@ -78,6 +82,7 @@ export default function ProductDetailFormScreen() {
             setName(product.name || '');
             setCategoryId(product.category_id || '');
             setUnit(product.unit || '1 pc');
+            setVariantLabel(product.variant_label || '');
             setMrp(String(product.platform_mrp || ''));
             setStorePrice(String(product.store_price || ''));
             setStock(String(product.stock || '0'));
@@ -196,17 +201,19 @@ export default function ProductDetailFormScreen() {
       if (!storeProfile?.id) throw new Error('Store ID is missing');
 
       const productPayload = {
-        store_id: storeProfile.id,
-        name: name.trim(),
-        category_id: categoryId || null,
-        unit: unit.trim(),
+        store_id:     storeProfile.id,
+        name:         name.trim(),
+        category_id:  categoryId || null,
+        unit:         unit.trim(),
+        variant_label: variantLabel.trim() || null,
         platform_mrp: Number(mrp),
-        store_price: Number(storePrice),
-        stock: Math.round(Number(stock)),
-        image_url: imageUrls[0] || null,
-        image_urls: imageUrls,
-        cost_price: Number(costPrice) || 0,
-        is_active: isActive,
+        store_price:  Number(storePrice),
+        customer_price: Math.min(Number(storePrice) + 1, Number(mrp)),
+        stock:        Math.round(Number(stock)),
+        image_url:    imageUrls[0] || null,
+        image_urls:   imageUrls,
+        cost_price:   Number(costPrice) || 0,
+        is_active:    isActive,
       };
 
       if (!isNewProduct) {
@@ -224,18 +231,19 @@ export default function ProductDetailFormScreen() {
   };
 
   // Helper calculations
-  const parsedMrp = Number(mrp) || 0;
+  const parsedMrp   = Number(mrp)   || 0;
   const parsedPrice = Number(storePrice) || 0;
-  const parsedCost = Number(costPrice) || 0;
-  const payoutAmount = parsedPrice * 0.82; // 18% commission
-  const profitAmount = parsedCost > 0 ? payoutAmount - parsedCost : null;
-  const discountPercent = parsedMrp > 0 && parsedPrice < parsedMrp
+  const parsedCost  = Number(costPrice)  || 0;
+  const selectedCategory = categories.find((c) => c.id === categoryId) || null;
+  const commissionRate   = Number(selectedCategory?.commission_rate) || 0.18;
+  const customerWillSee  = parsedPrice > 0 ? Math.min(parsedPrice + 1, parsedMrp || parsedPrice + 1) : 0;
+  const priceExceedsMrp  = parsedMrp > 0 && parsedPrice > parsedMrp;
+  const discountPercent  = parsedMrp > 0 && parsedPrice < parsedMrp
     ? Math.round(((parsedMrp - parsedPrice) / parsedMrp) * 100)
     : 0;
 
-  const getCategoryLabel = () => {
-    return categories.find((c) => c.id === categoryId)?.name || 'Select Category';
-  };
+  const getCategoryLabel = () =>
+    categories.find((c) => c.id === categoryId)?.name || 'Select Category';
 
   if (loading) {
     return (
@@ -349,10 +357,7 @@ export default function ProductDetailFormScreen() {
               <View className="bg-white border border-border rounded-xl mt-1 overflow-hidden shadow-sm">
                 <TouchableOpacity
                   className="px-4 py-3 border-b border-border bg-gray-50"
-                  onPress={() => {
-                    setCategoryId('');
-                    setShowCategoryDropdown(false);
-                  }}
+                  onPress={() => { setCategoryId(''); setShowCategoryDropdown(false); }}
                 >
                   <Text className="text-text-secondary text-base">No Category</Text>
                 </TouchableOpacity>
@@ -362,22 +367,56 @@ export default function ProductDetailFormScreen() {
                     className={`px-4 py-3 border-b border-border ${
                       categoryId === cat.id ? 'bg-brand-soft' : ''
                     }`}
-                    onPress={() => {
-                      setCategoryId(cat.id);
-                      setShowCategoryDropdown(false);
-                    }}
+                    onPress={() => { setCategoryId(cat.id); setShowCategoryDropdown(false); }}
                   >
-                    <Text
-                      className={`text-base ${
-                        categoryId === cat.id ? 'text-brand font-semibold' : 'text-text-primary'
-                      }`}
-                    >
-                      {cat.name}
-                    </Text>
+                    <View className="flex-row items-center justify-between">
+                      <Text className={`text-base ${categoryId === cat.id ? 'text-brand font-semibold' : 'text-text-primary'}`}>
+                        {cat.name}
+                      </Text>
+                      {/* Show commission rate — PRD Task 46 */}
+                      {cat.commission_rate && (
+                        <Text className="text-xs text-text-secondary">
+                          {Math.round(Number(cat.commission_rate) * 100)}% commission
+                        </Text>
+                      )}
+                    </View>
                   </TouchableOpacity>
                 ))}
               </View>
             )}
+          </View>
+
+          {/* Variant Label — PRD Task 48: optional pill selector */}
+          <View className="mb-4">
+            <Text className="text-sm font-medium text-text-primary mb-2">
+              Variant Label{' '}
+              <Text className="text-text-secondary font-normal">(Optional — e.g. 500ml / 1L / 2L)</Text>
+            </Text>
+            <View className="flex-row flex-wrap gap-2 mb-2">
+              {VARIANT_PILLS.map((pill) => (
+                <TouchableOpacity
+                  key={pill}
+                  className={`px-3 py-1.5 rounded-full border ${
+                    variantLabel === pill ? 'bg-brand border-brand' : 'bg-surface border-border'
+                  }`}
+                  onPress={() => setVariantLabel(variantLabel === pill ? '' : pill)}
+                >
+                  <Text className={`text-xs font-semibold ${
+                    variantLabel === pill ? 'text-white' : 'text-text-secondary'
+                  }`}>
+                    {pill}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            <TextInput
+              className="h-[44px] bg-surface border border-border rounded-xl px-4 text-text-primary text-sm"
+              placeholder="Or type custom variant (e.g. 750ml)"
+              placeholderTextColor="#9CA3AF"
+              value={variantLabel}
+              onChangeText={setVariantLabel}
+              maxLength={30}
+            />
           </View>
 
           {/* Unit & Stock Row */}
@@ -453,11 +492,11 @@ export default function ProductDetailFormScreen() {
             {/* Store Price */}
             <View className="flex-1">
               <Text className="text-sm font-medium text-text-primary mb-2">
-                Store Price <Text className="text-error">*</Text>
+                Store Selling Price <Text className="text-error">*</Text>
               </Text>
               <TextInput
                 className={`h-[50px] bg-surface border rounded-xl px-4 text-text-primary text-base ${
-                  errors.storePrice ? 'border-error' : 'border-border'
+                  errors.storePrice || priceExceedsMrp ? 'border-error' : 'border-border'
                 }`}
                 placeholder="e.g. 120"
                 placeholderTextColor="#9CA3AF"
@@ -469,9 +508,26 @@ export default function ProductDetailFormScreen() {
                 }}
                 maxLength={6}
               />
-              {errors.storePrice ? <Text className="text-error text-xs mt-1">{errors.storePrice}</Text> : null}
+              {(errors.storePrice || priceExceedsMrp) ? (
+                <Text className="text-error text-xs mt-1">
+                  {errors.storePrice || 'Store price cannot exceed Platform MRP'}
+                </Text>
+              ) : null}
             </View>
           </View>
+
+          {/* Customer Will See — PRD Task 54: read-only display field */}
+          {customerWillSee > 0 && (
+            <View className="mb-4">
+              <Text className="text-sm font-medium text-text-primary mb-2">Customer Will See</Text>
+              <View className="h-[50px] bg-gray-50 border border-dashed border-border rounded-xl px-4 flex-row items-center justify-between">
+                <Text style={{ color: '#FF6B00' }} className="text-base font-bold">
+                  ₹{customerWillSee.toFixed(2)}
+                </Text>
+                <Text className="text-xs text-text-secondary">= store price + ₹1 platform markup</Text>
+              </View>
+            </View>
+          )}
 
           {/* Cost Price Field */}
           <View className="mb-4">
@@ -491,38 +547,14 @@ export default function ProductDetailFormScreen() {
             />
           </View>
 
-          {/* Payout & Discount Badges */}
-          {parsedPrice > 0 && (
-            <View className="bg-success-soft border border-green-200 rounded-2xl p-4 mb-5 shadow-sm">
-              <View className="flex-row justify-between items-center mb-2">
-                <Text className="text-success font-semibold text-sm">Your payout settlement (₹)</Text>
-                <Text className="text-success font-bold text-lg">{formatCurrency(payoutAmount)}</Text>
-              </View>
-              <Text className="text-text-secondary text-xs">
-                Reflects order value minus 18% ZapKart platform commission
-              </Text>
-
-              {parsedCost > 0 && (
-                <View className="border-t border-green-200 mt-3 pt-3 flex-row justify-between items-center">
-                  <View className="flex-1 pr-2">
-                    <Text className="text-text-primary font-semibold text-sm">Estimated Net Profit (₹)</Text>
-                    <Text className="text-text-secondary text-xs mt-0.5">
-                      Payout (₹{payoutAmount.toFixed(2)}) - Cost Price (₹{parsedCost.toFixed(2)})
-                    </Text>
-                  </View>
-                  <Text className={`font-bold text-lg ${profitAmount >= 0 ? 'text-emerald-700' : 'text-red-600'}`}>
-                    {profitAmount >= 0 ? '+' : ''}{formatCurrency(profitAmount)}
-                  </Text>
-                </View>
-              )}
-
-              {discountPercent > 0 ? (
-                <View className="bg-success px-2.5 py-1 rounded-full mt-3 self-start">
-                  <Text className="text-white text-xs font-bold">{discountPercent}% OFF Platform MRP</Text>
-                </View>
-              ) : null}
-            </View>
-          )}
+          {/* EarningsPreview — replaces old static payout card (PRD Tasks 55–56) */}
+          <EarningsPreview
+            storePrice={storePrice}
+            costPrice={costPrice}
+            category={selectedCategory}
+            settings={null}
+            onSetRecommended={(recommended) => setStorePrice(String(recommended))}
+          />
 
           {/* Active Switch Toggle */}
           <View className="flex-row items-center justify-between border border-border bg-surface rounded-2xl p-4 mb-6">
@@ -542,16 +574,18 @@ export default function ProductDetailFormScreen() {
             </TouchableOpacity>
           </View>
 
-          {/* Save Button */}
+          {/* Save Button — disabled if store_price > platform_mrp (PRD Task 57) */}
           <TouchableOpacity
-            className={`w-full h-14 bg-brand rounded-xl justify-center items-center active:bg-brand-dark shadow-sm ${
-              saving ? 'opacity-85' : ''
+            className={`w-full h-14 rounded-xl justify-center items-center shadow-sm ${
+              saving || priceExceedsMrp ? 'bg-gray-300' : 'bg-brand active:bg-brand-dark'
             }`}
             onPress={handleSave}
-            disabled={saving}
+            disabled={saving || priceExceedsMrp}
           >
             {saving ? (
               <ActivityIndicator color="#FFFFFF" />
+            ) : priceExceedsMrp ? (
+              <Text className="text-white font-bold text-base">Price exceeds MRP — cannot save</Text>
             ) : (
               <View className="flex-row items-center">
                 <Ionicons name="checkmark" size={20} color="#FFFFFF" style={{ marginRight: 6 }} />

@@ -6,12 +6,13 @@ import { supabase } from '../../src/services/supabase';
 import { useAuthStore } from '../../src/stores/useAuthStore';
 import { useOrderStore } from '../../src/stores/useOrderStore';
 import IncomingOrderOverlay from '../../components/order/IncomingOrderOverlay';
+// Note: no Firebase auth import — auth is handled by JWT token in authStore
 
 /**
  * Protected tab layout component that redirects unauthenticated or pending users.
  */
 export default function TabsLayout() {
-  const { user, storeProfile, loading, initialized, setStoreProfile } = useAuthStore();
+  const { token, storeProfile, loading, initialized, setStoreProfile } = useAuthStore();
   const { pendingOrders, setOrders } = useOrderStore();
 
   // Subscribe to realtime order updates when tabs mount
@@ -69,15 +70,18 @@ export default function TabsLayout() {
   };
 
   /**
-   * Handles confirming an incoming order and transitioning its status to preparing.
+   * Handles confirming an incoming order.
+   * @param orderId - The order ID
+   * @param unavailableItemIds - Array of item IDs marked unavailable by store
    */
-  const handleConfirmOrder = async (orderId) => {
+  const handleConfirmOrder = async (orderId, unavailableItemIds = []) => {
     try {
       const { error } = await supabase
         .from('orders')
         .update({
-          status: 'preparing',
+          status: 'confirmed',
           store_confirmed_at: new Date().toISOString(),
+          unavailable_item_ids: unavailableItemIds,
         })
         .eq('id', orderId);
 
@@ -89,15 +93,18 @@ export default function TabsLayout() {
   };
 
   /**
-   * Handles declining an incoming order and transitioning its status to cancelled.
+   * Handles declining an incoming order.
+   * @param orderId - The order ID
+   * @param reason - Decline reason string or 'timeout'
    */
-  const handleDeclineOrder = async (orderId) => {
+  const handleDeclineOrder = async (orderId, reason = 'No reason given') => {
     try {
       const { error: orderError } = await supabase
         .from('orders')
         .update({
           status: 'cancelled',
           cancelled_at: new Date().toISOString(),
+          decline_reason: reason,
         })
         .eq('id', orderId);
 
@@ -123,7 +130,7 @@ export default function TabsLayout() {
     }
   };
 
-  // Show loading spinner until auth state is resolved
+  // Show loading spinner until session is resolved
   if (!initialized || loading) {
     return (
       <View className="flex-1 bg-white items-center justify-center">
@@ -133,12 +140,12 @@ export default function TabsLayout() {
     );
   }
 
-  // Guard: redirect to login if not authenticated
-  if (!user) {
+  // Guard: redirect to login if no JWT token (not authenticated)
+  if (!token) {
     return <Redirect href="/(auth)/login" />;
   }
 
-  // Guard: redirect to registration if no store profile exists
+  // Guard: redirect to registration if no store profile exists yet
   if (!storeProfile) {
     return <Redirect href="/register/store-details" />;
   }

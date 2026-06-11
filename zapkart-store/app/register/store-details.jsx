@@ -148,7 +148,7 @@ export default function StoreDetailsScreen() {
         address: address.trim(),
         storeType,
         deliveryRadius: String(deliveryRadius),
-        phone: user?.phoneNumber || '',
+        phone: user?.phone || '',
         lat: latitude.trim(),
         lng: longitude.trim(),
       },

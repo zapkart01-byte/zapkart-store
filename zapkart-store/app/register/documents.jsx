@@ -113,7 +113,7 @@ export default function DocumentsScreen() {
     try {
       const fileExtension = asset.uri.split('.').pop() || 'jpg';
       const fileName = `${Date.now()}_${docKey}.${fileExtension}`;
-      const filePath = `store-documents/${user?.uid || 'unknown'}/${fileName}`;
+      const filePath = `store-documents/${user?.id || 'unknown'}/${fileName}`;
 
       // Read the image file as a blob for upload
       const response = await fetch(asset.uri);
@@ -177,7 +177,7 @@ export default function DocumentsScreen() {
       const storePayload = {
         store_name: params.storeName,
         owner_name: params.ownerName,
-        owner_phone: params.phone || user?.phoneNumber || '',
+        owner_phone: params.phone || user?.phone || '',
         address: params.address,
         store_type: params.storeType || 'grocery',
         delivery_radius_km: Number(params.deliveryRadius) || 2,
@@ -192,7 +192,7 @@ export default function DocumentsScreen() {
         rating: 5.0,
         total_orders: 0,
         cancellation_count: 0,
-        firebase_uid: user?.uid || '',
+        firebase_uid: user?.id || '',
         documents: REQUIRED_DOCUMENTS.map((doc) => ({
           type: doc.key,
           url: documents[doc.key]?.publicUrl || '',

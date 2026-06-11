@@ -1,130 +1,78 @@
 import { Stack } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { AppState, SafeAreaView, ScrollView, Text, View } from 'react-native';
-import { auth } from '../src/services/firebase';
-import { supabase } from '../src/services/supabase';
+import { useEffect } from 'react';
+import { ActivityIndicator, AppState, Text, View } from 'react-native';
+import { getStoredSession } from '../src/services/authService';
 import { getStoreByOwnerPhone } from '../src/services/storeService';
 import { useAuthStore } from '../src/stores/useAuthStore';
 import '../global.css';
 
-const REQUIRED_ENV_VARS = [
-  'EXPO_PUBLIC_SUPABASE_URL',
-  'EXPO_PUBLIC_SUPABASE_ANON_KEY',
-  'EXPO_PUBLIC_FIREBASE_API_KEY',
-  'EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN',
-  'EXPO_PUBLIC_FIREBASE_PROJECT_ID',
-  'EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET',
-  'EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID',
-  'EXPO_PUBLIC_FIREBASE_APP_ID',
-  'EXPO_PUBLIC_API_URL',
-  'EXPO_PUBLIC_MAPTILER_KEY',
-];
-
-// Entry layout wrapper for the ZapKart Store app
+/**
+ * Root layout for the ZapKart Store app.
+ * Bootstraps auth session from AsyncStorage on app start.
+ * Uses JWT-based auth (2Factor.in via backend) — no Firebase auth here.
+ * Firebase is imported only in services that need FCM push notifications.
+ */
 export default function RootLayout() {
-  const [missingVars, setMissingVars] = useState([]);
-  const { setUser, setStoreProfile, setLoading, setInitialized } = useAuthStore();
+  const { setToken, setUser, setStoreProfile, setLoading, setInitialized } = useAuthStore();
 
-  // Validate env variables on boot
+  // ── Session Bootstrap ──────────────────────────────────────────────────────
+  // On app start, check AsyncStorage for a persisted JWT token.
+  // If found, restore the auth state and fetch the store profile.
   useEffect(() => {
-    const missing = REQUIRED_ENV_VARS.filter((key) => !process.env[key]);
-    setMissingVars(missing);
-  }, []);
-
-  // Listen to Firebase authentication state changes
-  useEffect(() => {
-    if (missingVars.length > 0) return;
-
-    const unsubscribe = auth.onAuthStateChanged(async (firebaseUser) => {
+    const bootstrapSession = async () => {
       setLoading(true);
-      setUser(firebaseUser);
+      try {
+        const session = await getStoredSession();
 
-      if (firebaseUser?.phoneNumber) {
-        try {
-          const profile = await getStoreByOwnerPhone(firebaseUser.phoneNumber);
+        if (session) {
+          // Restore minimal user object from stored phone
+          setToken(session.token);
+          setUser({ id: 'restored', phone: session.phone });
+
+          // Fetch full store profile from Supabase
+          const profile = await getStoreByOwnerPhone(session.phone).catch(() => null);
           setStoreProfile(profile);
-        } catch (err) {
-          // Profile check error handled gracefully
-          setStoreProfile(null);
         }
-      } else {
-        setStoreProfile(null);
+      } catch (err) {
+        // Session bootstrap failure — user will land on login screen
+      } finally {
+        setLoading(false);
+        setInitialized(true);
       }
-
-      setLoading(false);
-      setInitialized(true);
-    });
-
-    return unsubscribe;
-  }, [missingVars]);
-
-  // Listen to AppState transitions (foreground/background) to sync store profile status
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', async (nextAppState) => {
-      if (nextAppState === 'active') {
-        const firebaseUser = auth.currentUser;
-        if (firebaseUser?.phoneNumber) {
-          try {
-            const profile = await getStoreByOwnerPhone(firebaseUser.phoneNumber);
-            setStoreProfile(profile);
-          } catch (err) {
-            // Profile re-fetch error handled gracefully
-          }
-        }
-      }
-    });
-
-    return () => {
-      subscription.remove();
     };
+
+    bootstrapSession();
   }, []);
 
-  // Render error screen if any environment variables are missing
-  if (missingVars.length > 0) {
-    return (
-      <SafeAreaView className="flex-1 bg-white">
-        <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', padding: 24 }}>
-          <View className="items-center border border-red-200 bg-red-50 p-6 rounded-xl shadow-sm">
-            <Text className="text-xl font-bold text-red-600 mb-2">
-              Configuration Error
-            </Text>
-            <Text className="text-gray-600 text-center mb-6">
-              The application cannot start because the following environment variables are missing from your .env file:
-            </Text>
-            <View className="w-full bg-white border border-red-100 rounded-lg p-4">
-              {missingVars.map((v) => (
-                <Text key={v} className="font-mono text-sm text-red-500 my-1">
-                  • {v}
-                </Text>
-              ))}
-            </View>
-            <Text className="text-xs text-gray-500 mt-6 text-center">
-              Please create a .env file based on .env.example and rebuild.
-            </Text>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    );
-  }
+  // ── AppState listener ──────────────────────────────────────────────────────
+  // When app comes back to foreground, re-sync the store profile
+  // (e.g. admin may have approved/suspended the store while app was backgrounded)
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', async (nextState) => {
+      if (nextState === 'active') {
+        const session = await getStoredSession().catch(() => null);
+        if (session?.phone) {
+          const profile = await getStoreByOwnerPhone(session.phone).catch(() => null);
+          setStoreProfile(profile);
+        }
+      }
+    });
+
+    return () => subscription.remove();
+  }, []);
 
   return (
     <Stack
       screenOptions={{
-        headerStyle: {
-          backgroundColor: '#FFFFFF',
-        },
+        headerStyle: { backgroundColor: '#FFFFFF' },
         headerTintColor: '#0D0D0D',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-        contentStyle: {
-          backgroundColor: '#FFFFFF',
-        },
+        headerTitleStyle: { fontWeight: 'bold' },
+        contentStyle: { backgroundColor: '#FFFFFF' },
       }}
     >
-      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      <Stack.Screen name="register" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)"     options={{ headerShown: false }} />
+      <Stack.Screen name="register"   options={{ headerShown: false }} />
+      <Stack.Screen name="(tabs)"     options={{ headerShown: false }} />
       <Stack.Screen name="product/[id]" options={{ title: 'Product Details' }} />
     </Stack>
   );
